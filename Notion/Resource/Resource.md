@@ -14,7 +14,7 @@
 |[[문자열 패턴 매칭]]|Algorithm|||||[ ]|
 |[[백트래킹]]|Algorithm|||||[ ]|
 |[[분할 정복 기법]]|Algorithm|||||[ ]|
-|[[스택 - 큐]]|Algorithm|||||[ ]|
+|[[스택(Stack)]]|Algorithm|||||[ ]|
 |[[완전 탐색]]|Algorithm|||||[ ]|
 |[[이분 탐색]]|Algorithm|||||[ ]|
 |[[정렬]]|Algorithm|||||[ ]|
