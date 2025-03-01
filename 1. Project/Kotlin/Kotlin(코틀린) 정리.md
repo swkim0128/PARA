@@ -64,17 +64,17 @@
 
 ## 10. 고급 문법
 
-- 제네릭(Generic)
-- reified 타입 파라미터
-- 인라인 함수
-- 타입 시스템 (Variance, Contravariance)
+- [[제네릭(Generic)]]
+- [[reified 타입 파라미터]]
+- [[인라인 함수]]
+- [[타입 시스템 (Variance, Contravariance)]]
 
 ## 11. 표준 라이브러리 활용
 
-- 표준 라이브러리 개요
-- 유용한 표준 함수 (apply, let, run, with, also)
-- 파일 입출력
-- 컬렉션 라이브러리
+- [[표준 라이브러리 개요]]
+- [[유용한 표준 함수 (apply, let, run, with, also)]]
+- [[파일 입출력]]
+- [[컬렉션 라이브러리]]
 
 ## 12. 안드로이드 개발에서의 코틀린
 
