@@ -3,6 +3,7 @@
 Obsidian은 JavaScript 및 TypeScript로 작성된 플러그인을 지원하며, 플러그인을 통해 다양한 기능을 확장할 수 있습니다. 플러그인은 `manifest.json`, `main.js`(또는 `main.ts`), 그리고 선택적으로 `styles.css`로 구성됩니다.
 
 ---
+## Obsidian 플러그인 개발환경 설정
 
 ## 2. 플러그인 기본 구조
 
