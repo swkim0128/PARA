@@ -6,9 +6,11 @@
 - Author: [[xxvigrufv]]
 - Full Title: <Spring> @Nullable 어노테이션
 - Category: #articles
-- Document Tags: [[spring boot]] 
+- Document Tags:  #spring boot 
 - Summary: Nullness Annotations Nullness annotations는 2개의 Annotations이 있다. @NonNull : null을 허용하지 않을 경우 @Nullable : null을 허용할 경우
-- URL: https://xxvigrufv.tistory.com/30
+
+## Full Document
+[[Full Document Contents/Spring @Nullable 어노테이션.md|See full document content →]]
 
 ## Highlights
 - @NonNull : null을 허용하지 않을 경우 

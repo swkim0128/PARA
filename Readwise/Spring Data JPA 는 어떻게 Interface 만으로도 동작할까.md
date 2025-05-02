@@ -6,9 +6,11 @@
 - Author: [[TISTORY]]
 - Full Title: Spring Data JPA 는 어떻게 Interface 만으로도 동작할까?
 - Category: #articles
-- Document Tags: [[jpa]] [[spring boot]] 
+- Document Tags:  #jpa  #spring boot 
 - Summary: Spring Data JPA를 공부하면서 궁금한 것이 있었습니다. public interface MemberRepository extends JpaRepository { List findAllByName(String name); } 위와 같이 MemberRepository는 인터페이스고, @Repository 애노테이션을 붙여 놓지도 않았는데, 다음과 같은 코드가 가능했습니다. @Service public class MemberService { private final MemberRepository memberRepository; public MemberService(MemberRepository memberRepository) { this.memberRepository = memberRepository..
-- URL: https://pingpongdev.tistory.com/25
+
+## Full Document
+[[Full Document Contents/Spring Data JPA 는 어떻게 Interface 만으로도 동작할까.md|See full document content →]]
 
 ## Highlights
 - memberRepository의 실제 객체를 보니 Proxy가 주입되어 있습니다. 그리고 그 Proxy는 SimpleJpaRepository를 타겟으로 가지고 있습니다. 결과적으로 다음과 같은 구조인 셈입니다. ([View Highlight](https://read.readwise.io/read/01hcetae67rrmgnagdqq7ee143))

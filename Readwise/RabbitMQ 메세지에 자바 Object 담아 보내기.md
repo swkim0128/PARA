@@ -6,9 +6,11 @@
 - Author: [[Rena B]]
 - Full Title: RabbitMQ 메세지에 자바 Object 담아 보내기
 - Category: #articles
-- Document Tags: [[rabbitmq]] [[spring boot]] 
+- Document Tags:  #rabbitmq  #spring boot 
 - Summary: Message Converters 자바 Object 타입을 메세지로 보내기 위해서는 메세지 컨버터가 필요하다. SimpleMessageConverter -> RabbitTemplate에 디폴트로 설정된 컨버터이다. 바이트-자바 스트링/ 바이트-자바 Object 간 변환이 가능하다. 하지만 공식문서에서 말하길 추천하는 컨버터는 아니다. 그 이유는 '자바'에만 한정되어 사용되기 때문에, 다른 언어와의 호환성이 나쁘기 때문이다. SerializerMessageConverter -> 위와 같은 이유로 비추. Jackson2JsonMessageConverter One rather common alternative that is more flexible and portable across different lang..
-- URL: https://eunbc-2020.tistory.com/184
+
+## Full Document
+[[Full Document Contents/RabbitMQ 메세지에 자바 Object 담아 보내기.md|See full document content →]]
 
 ## Highlights
 - SimpleMessageConverter

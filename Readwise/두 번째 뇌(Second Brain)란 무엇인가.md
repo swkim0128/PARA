@@ -6,9 +6,11 @@
 - Author: [[분석맨]]
 - Full Title: 두 번째 뇌(Second Brain)란 무엇인가?
 - Category: #articles
-- Document Tags: [[second brain]] 
+- Document Tags:  #secondbrain 
 - Summary: 두 번째 뇌를 만들어 우리의 지성과 창의를 확장한다. | 두 번째 뇌(Second Brain)란?  '두 번째 뇌(Second Brain)'는 우리가 신체에 지닌 생물학적 두뇌와 비슷한 시스템을 외부에 구축하는 것이다. 쉽게 말하면, 디지털 노트를 사용하여 지식을 수집하고, 정리하고, 창조하고, 공유한다. 이를 다른 용어로 '개인 지식 관리(PKM; Personal Knowlege Management)'라고도 한
-- URL: https://brunch.co.kr/@analysisman/2
+
+## Full Document
+[[Full Document Contents/두 번째 뇌(Second Brain)란 무엇인가.md|See full document content →]]
 
 ## Highlights
 - **첫째, 하나의 노트에 하나의 아이디어를 적는다.** 

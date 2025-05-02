@@ -6,9 +6,11 @@
 - Author: [[갓대희]]
 - Full Title: [스프링부트 (5)] Spring Boot 로그 설정(1) - Logback
 - Category: #articles
-- Document Tags: [[spring boot]] 
+- Document Tags:  #spring boot 
 - Summary: 이번 포스팅은 스프링 부트 로그 설정에 대한 내용을 다루고 있습니다. 로그백은 log4j, log4j2와 비교했을 때 더 훌륭한 성능을 보여주는 로깅 프레임워크입니다. 스프링 부트에서는 logback-spring.xml 파일을 사용하여 로깅을 수행하며, 설정 파일은 우선순위에 따라 읽힙니다. 로그 레벨은 ERROR, WARN, INFO, DEBUG, TRACE로 구분되며, 각 레벨에 따라 설정된 로그를 출력합니다. 로그를 찍기 위해 LoggerFactory를 사용하여 로거 객체를 불러온 후, 해당 객체를 이용하여 로그를 출력할 수 있습니다.
-- URL: https://goddaehee.tistory.com/206
+
+## Full Document
+[[Full Document Contents/[스프링부트 (5)] Spring Boot 로그 설정(1) - Logback.md|See full document content →]]
 
 ## Highlights
 - - 참고 순서

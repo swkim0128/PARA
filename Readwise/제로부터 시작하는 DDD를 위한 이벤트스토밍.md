@@ -6,13 +6,13 @@
 - Author: [[커스텀 리]]
 - Full Title: 제로부터 시작하는 DDD를 위한 이벤트스토밍
 - Category: #articles
-- Document Tags: [[event storming]] 
+- Document Tags:  #eventstorming 
 - Summary: 이 글에서는 도메인 주도 설계(DDD)와 이벤트 스토밍의 중요성을 설명하고 있습니다. 이벤트 스토밍은 서비스의 이벤트를 시각적으로 표현하여 비즈니스 로직을 이해하는 데 도움을 줍니다. 이를 통해 개발팀은 시스템의 복잡성을 효과적으로 관리할 수 있습니다.
-- URL: https://custom-li.tistory.com/207
+
+## Full Document
+[[Full Document Contents/제로부터 시작하는 DDD를 위한 이벤트스토밍.md|See full document content →]]
 
 ## Highlights
-- 고객은 렌트한 자동차를 반환할 수 있어야 한다. ([View Highlight](https://read.readwise.io/read/01jj8tqfc6beegqwvva0bykb7z))
-## New highlights added February 7, 2025 at 4:03 AM
 - Domain Event
   도메인에서 실제로 발생하는 “**결과**”이다. ([View Highlight](https://read.readwise.io/read/01jkcgx1j0vk6y687fh4s8tpn4))
 - 실제 요청사항을 통해 발생한 **결과**를 “**도메인 이벤트(Domain Event)**”라고 부르게 되는데, 이는 서비스에서 발생한 사실, 결과, 특정행위의 Output을 표현하기위해 사용된다. ([View Highlight](https://read.readwise.io/read/01jkcgxex4h1znyqgdmeawsk4g))

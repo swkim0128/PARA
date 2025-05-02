@@ -6,9 +6,11 @@
 - Author: [[openai.com]]
 - Full Title: GPTBot - OpenAI API
 - Category: #articles
-- Document Tags: [[robots.txt]] 
+- Document Tags:  #robots.txt 
 - Summary: The user needs to have JavaScript enabled to use the app.
-- URL: https://platform.openai.com/docs/gptbot
+
+## Full Document
+[[Full Document Contents/GPTBot - OpenAI API.md|See full document content →]]
 
 ## Highlights
 - [Disallowing GPTBot](https://platform.openai.com/docs/gptbot/disallowing-gptbot)

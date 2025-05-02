@@ -8,6 +8,9 @@
 - Category: #articles
 - Summary: The email discusses the importance of reflection and retrospective for developers, especially during the end-of-year tax season. It introduces different methods of reflection, such as KPT, 4F, and 4L, and provides examples from study group members. The email also includes news about AI products, web animation techniques, and an invitation to join an 8-week study program on Python and AI. Additionally, a member shares their experience of learning web development through Nomad Coders and showcases their side project, a Twitter map of recommended restaurants.
 
+## Full Document
+[[Full Document Contents/Fw 개발자에게 연말정산만큼 중요한 이것! 🤫.md|See full document content →]]
+
 ## Highlights
 - **(1) KPT** 
   KPT는 각각 Keep, Problem, Try의 약자로, 가장 대중적으로 쓰이는 회고 방식이다. 계속해야 할 것, 아쉬웠던 점과 이를 바탕으로 추후 계획을 수립하기에 유용함! 우리 크루들도 KPT를 즐겨 사용한다.

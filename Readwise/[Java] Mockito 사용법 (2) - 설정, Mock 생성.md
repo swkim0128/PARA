@@ -6,11 +6,13 @@
 - Author: [[노력남자]]
 - Full Title: [Java] Mockito 사용법 (2) - 설정, Mock 생성
 - Category: #articles
-- Document Tags: [[spring boot]] [[unit test]] 
+- Document Tags:  #spring boot  #unit test 
 - Summary: This text explains how to configure Mockito and create mock objects using annotations like @Mock, @Spy, and @InjectMocks. 
 @Mock is for creating fake objects that require stubbing, @Spy is for creating real objects with or without stubbing, and @InjectMocks is for automatically injecting mock objects.
 By using these annotations, you can easily set up and manage dependencies in your test classes.
-- URL: https://effortguy.tistory.com/142
+
+## Full Document
+[[Full Document Contents/[Java] Mockito 사용법 (2) - 설정, Mock 생성.md|See full document content →]]
 
 ## Highlights
 - **@Mock**

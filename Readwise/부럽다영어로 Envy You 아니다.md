@@ -6,9 +6,11 @@
 - Author: [[네이버 블로그 | 월스트리트 공식 블로그]]
 - Full Title: "부럽다"영어로 Envy You 아니다?
 - Category: #articles
-- Document Tags: [[english]] 
+- Document Tags:  #english 
 - Summary: "부럽다"는 'envy'가 아니라 'envy you'로 표현됩니다. 'envy'는 부정적이고 강한 감정을 담고 있어서 가볍게 표현할 때는 적합하지 않습니다. 'envious'와 'jealous'는 부러워하거나 질투할 때 사용되는 단어이며, 상황에 따라 적절히 구별해서 사용해야 합니다.
-- URL: https://m.blog.naver.com/wsekorea/221848016781
+
+## Full Document
+[[Full Document Contents/부럽다영어로 Envy You 아니다.md|See full document content →]]
 
 ## Highlights
 - ***'envious'***는 '부러워하다' 동사 'envy'의 형용사형으로 '부러운'이란 의미를 갖고 있는데, 상대방이 가진 뭔가를 부러워할 때, 사용합니다. ([View Highlight](https://read.readwise.io/read/01hvn8zqt4q9wwjwagzqbn7wnm))

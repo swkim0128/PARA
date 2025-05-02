@@ -6,9 +6,11 @@
 - Author: [[노력남자]]
 - Full Title: [Java] Mockito 사용법 (3) - 스터빙
 - Category: #articles
-- Document Tags: [[spring boot]] [[unit test]] 
+- Document Tags:  #spring boot  #unit test 
 - Summary: The text explains the concept of stubbing in Mockito and how to use it for defining return values of mock object methods. It demonstrates using OngoingStubbing and Stubber methods for stubbing in Mockito with examples. The text also mentions how OngoingStubbing allows method chaining for defining different stubbing for each method call.
-- URL: https://effortguy.tistory.com/143
+
+## Full Document
+[[Full Document Contents/[Java] Mockito 사용법 (3) - 스터빙.md|See full document content →]]
 
 ## Highlights
 - 테스트 스텁은 테스트 중에 만들어진 호출에 대해 **미리 준비된 답변**을 제공하는 것 ([View Highlight](https://read.readwise.io/read/01hx8j26rqzzm7j11v57gp4n8t))

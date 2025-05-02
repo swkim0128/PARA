@@ -6,9 +6,11 @@
 - Author: [[Yoobin Hwang]]
 - Full Title: robots.txt 10분 안에 끝내는 총정리 가이드
 - Category: #articles
-- Document Tags: [[https]] [[robots.txt]] 
+- Document Tags:  #https  #robots.txt 
 - Summary: The text is a guide on robots.txt, comparing it to road signs for search engine crawlers. It explains the purpose of robots.txt, how to write it correctly, and where to upload it on a website for effective SEO. The guide emphasizes the importance of properly setting up robots.txt to prevent server overload and improve search engine optimization.
-- URL: https://seo.tbwakorea.com/blog/robots-txt-complete-guide/
+
+## Full Document
+[[Full Document Contents/robots.txt 10분 안에 끝내는 총정리 가이드.md|See full document content →]]
 
 ## Highlights
 - 가장 기본적인 형식인 **모든 또는 특정 크롤러의 특정 폴더 이하 제한 문법** ([View Highlight](https://read.readwise.io/read/01hv0jf9n5rvft6gjzx8r2s7b6))

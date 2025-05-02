@@ -6,9 +6,11 @@
 - Author: [[내 머리는 램인가봐]]
 - Full Title: PHP 에러 핸들링
 - Category: #articles
-- Document Tags: [[php]] 
+- Document Tags:  #php 
 - Summary: PHP 에러 핸들링 PHP에는 error, fatal error, exception이 있다. 이름이 비슷한 error와 fatal error의 차이는 스크립트를 당장 중단하냐 마냐의 것이다. exception은 비교적 나중에 나온 것으로 다른 언어랑 비슷하게 예외를 던져서 try-catch로 핸들링할 수 있는 매커니즘이다. PHP는 버전이 올라감에 따라 error, fatal error의 상당 부분을 exception으로 다룰 수 있게 되었다. PHP의 에러 핸들링 방침은 exception으로 보인다. Error 다음은 PHP의 에러를 다루는 함수이다. set_error_handler('에러핸들러함수이름', E_ALL); trigger_error(msg, err_level); set_error_handl..
-- URL: https://crmerry.tistory.com/174
+
+## Full Document
+[[Full Document Contents/PHP 에러 핸들링.md|See full document content →]]
 
 ## Highlights
 - set_error_handler 함수로 에러를 처리할 핸들러를 등록한다. ([View Highlight](https://read.readwise.io/read/01hckkt3cw2rdxab0s29pz6znb))

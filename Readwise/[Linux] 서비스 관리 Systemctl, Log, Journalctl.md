@@ -6,9 +6,11 @@
 - Author: [[nayoungs]]
 - Full Title: [Linux] 서비스 관리: Systemctl, Log, Journalctl
 - Category: #articles
-- Document Tags: [[linux]] 
+- Document Tags:  #linux 
 - Summary: systemd is a daemon that replaces the init process and manages services in Linux. It collects logs through systemd-journald and rsyslog, which help track system events and issues. Users can view logs using commands like `systemctl` and `journalctl` for real-time monitoring and analysis.
-- URL: https://nayoungs.tistory.com/entry/Linux-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B4%80%EB%A6%AC-systemctl-log-journalctl
+
+## Full Document
+[[Full Document Contents/[Linux] 서비스 관리 Systemctl, Log, Journalctl.md|See full document content →]]
 
 ## Highlights
 - **🔹 unit 제어 서브 커맨드(sub-command)**

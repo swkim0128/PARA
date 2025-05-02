@@ -8,6 +8,9 @@
 - Category: #articles
 - Summary: The document introduces various prompt patterns for developers to enhance their coding skills using ChatGPT. These patterns include Persona, Recipe, Reflection, Rejection Diversion, and Inverted Interaction. By utilizing these patterns, developers can significantly improve ChatGPT's response accuracy, making it a valuable tool for projects and tasks. Additionally, the document highlights the importance of AI skills in today's workforce and suggests learning from platforms like Nomad Coders to leverage AI effectively in coding endeavors.
 
+## Full Document
+[[Full Document Contents/개발자답게 ChatGPT 사용하는 법 😎.md|See full document content →]]
+
 ## Highlights
 - **1. 페르소나 패턴** 
   특정 인물이나 역할을 상상하여 질문에 답하는 것. 

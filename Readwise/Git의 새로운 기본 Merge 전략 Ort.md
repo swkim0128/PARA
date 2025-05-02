@@ -6,9 +6,11 @@
 - Author: [[Textcube]]
 - Full Title: Git의 새로운 기본 Merge 전략 Ort
 - Category: #articles
-- Document Tags: [[git]] 
+- Document Tags:  #git 
 - Summary: Git 2.34부터 새로운 기본 Merge 전략인 ort가 도입되었다. 이 전략은 기존의 resolve 전략과 recursive 전략을 대체하고, 더 빠르고 효율적인 머지를 가능하게 한다. ort는 파일 이름 변경을 탐지하고 처리할 수 있으며, 이름이 변경된 파일을 찾아내는 작업을 최적화하여 더 빠른 머지를 가능하게 한다. 새로운 전략에는 몇 가지 제약사항이 있지만, 이를 대부분 해결할 수 있도록 최적화 작업이 이루어졌다. 이로써 ort는 Git의 기본 머지 전략으로 사용되고 있으며, 이전의 recursive 전략에 비해 더욱 효율적이고 안정적인 머지를 가능하게 한다.
-- URL: https://blog.outsider.ne.kr/1707
+
+## Full Document
+[[Full Document Contents/Git의 새로운 기본 Merge 전략 Ort.md|See full document content →]]
 
 ## Highlights
 - `resolve` 전략

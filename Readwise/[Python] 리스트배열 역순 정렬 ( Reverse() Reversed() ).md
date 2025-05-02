@@ -6,9 +6,11 @@
 - Author: [[개발하는 사막여우]]
 - Full Title: [Python] 리스트/배열 역순 정렬 ( Reverse() / Reversed() )
 - Category: #articles
-- Document Tags: [[python]] 
+- Document Tags:  #python 
 - Summary: 👀 파이썬의 역순 정렬 ( reverse() / reversed() ) 👀 1. list.reverse() : list 자체를 역순으로 정렬, 함수 반환값 None 값 2. reversed(list) : 역순 정렬된 list 새로운 변수에 할당 가능 파이썬의 리스트의 정렬함수에 sort와 sorted가 있듯이, 역순 정렬에는 reverse와 reversed가 있습니다. 공통적으로 두 함수 모두 배열에 대한 역순정렬 기능을 제공해주고, 이 두 함수의 차이점은 sort와 sorted의 차이점과 비슷합니다. 1. reverse() → list.reverse() 메모리 내의 배열 원소들을 직접 수정. 반환값은 None -> 따라서 rev = list.sort() 실행 시 rev에는 None값 저장됨. array..
-- URL: https://dev-note-97.tistory.com/14
+
+## Full Document
+[[Full Document Contents/[Python] 리스트배열 역순 정렬 ( Reverse() Reversed() ).md|See full document content →]]
 
 ## Highlights
 - [**1. reverse() → list.reverse()**](https://dev-note-97.tistory.com/14#--%--reverse--%--%E-%--%--%--list-reverse--)

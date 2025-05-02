@@ -6,9 +6,11 @@
 - Author: [[velog.io]]
 - Full Title: [Message Queue]RabbitMQ를 사용해 메세지 주고 받기
 - Category: #articles
-- Document Tags: [[rabbitmq]] 
+- Document Tags:  #rabbitmq 
 - Summary: RabbitMQ is a popular open-source message queue system that can be easily set up using Docker to avoid complex installations. The guide explains how to create exchanges and queues, and bind them to handle message delivery efficiently. It also highlights the advantages of configuring RabbitMQ through code for better management and properties visibility.
-- URL: https://velog.io/@power0080/Message-QueueRabbitMQ%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4-%EB%A9%94%EC%84%B8%EC%A7%80-%EC%A3%BC%EA%B3%A0-%EB%B0%9B%EA%B8%B0#4-rabbitlistener-%ED%99%9C%EC%9A%A9
+
+## Full Document
+[[Full Document Contents/[Message Queue]RabbitMQ를 사용해 메세지 주고 받기.md|See full document content →]]
 
 ## Highlights
 - value : queue를 정의하는 attribute → `@Queue` 를 이용해 정의

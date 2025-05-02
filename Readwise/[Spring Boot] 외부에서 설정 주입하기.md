@@ -6,9 +6,11 @@
 - Author: [[latera.kr]]
 - Full Title: [Spring Boot] 외부에서 설정 주입하기
 - Category: #articles
-- Document Tags: [[spring boot]] 
+- Document Tags:  #spring boot 
 - Summary: (jar 내부와 같은)애플리케이션 클래스패스에서 name의 기본 프로퍼티 값을 제공하는 application. properties을 가질 수 있습니다.
-- URL: https://www.latera.kr/reference/java/2019-09-29-spring-boot-config-externalize/
+
+## Full Document
+[[Full Document Contents/[Spring Boot] 외부에서 설정 주입하기.md|See full document content →]]
 
 ## Highlights
 - Spring Boot는 값의 오버라이딩을 구분하도록 설계된 까다로운 순서의 `PropertySource`를 사용합니다. 프로퍼티는 다음의 순서로 고려됩니다.

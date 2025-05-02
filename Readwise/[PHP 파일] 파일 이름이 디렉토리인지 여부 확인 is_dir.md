@@ -6,9 +6,11 @@
 - Author: [[위키독스]]
 - Full Title: [PHP 파일] 파일 이름이 디렉토리인지 여부 확인 <is_dir>
 - Category: #articles
-- Document Tags: [[php]] 
+- Document Tags:  #php 
 - Summary: PHP에서 **파일 이름이 디렉토리인지 여부를 확인**하려면 `is_dir` 함수를 사용합니다.        # is_dir 함수 예제 `is_dir` 함수를 사용하는 예제입니다…
-- URL: https://wikidocs.net/208192
+
+## Full Document
+[[Full Document Contents/[PHP 파일] 파일 이름이 디렉토리인지 여부 확인 is_dir.md|See full document content →]]
 
 ## Highlights
 - is_dir ( string $filename ) : bool ([View Highlight](https://read.readwise.io/read/01hg7829177kwcg2y78cmnjpxg))

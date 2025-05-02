@@ -7,7 +7,9 @@
 - Full Title: Https를 위한 SSL/TLS 핸드 셰이크 작동원리
 - Category: #articles
 - Summary: HTTPS를 위한 SSL/TLS 핸드 셰이크 작동원리는 인터넷에서 안전한 통신을 위해 사용되는 HTTPS의 기술적인 원리를 설명하는 문서입니다. HTTPS는 SSL/TLS 전송 기술을 사용하여 통신을 암호화하는 방식이며, SSL/TLS 인증서를 사용하여 안전한 통신을 보장합니다. SSL/TLS 인증서에는 대칭키 암호화 방식과 공개키 암호화 방식이 사용되며, 핸드 셰이크 과정을 통해 브라우저와 웹 서버가 신분을 확인하고 통신을 시작합니다. 이를 통해 HTTPS는 인터넷 상에서 안전한 통신을 제공합니다.
-- URL: https://brunch.co.kr/@sangjinkang/38
+
+## Full Document
+[[Full Document Contents/Https를 위한 SSLTLS 핸드 셰이크 작동원리.md|See full document content →]]
 
 ## Highlights
 - **SSL 인증서와 SSL handshake에 탑재된 기술**

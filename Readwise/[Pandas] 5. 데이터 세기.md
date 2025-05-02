@@ -7,7 +7,9 @@
 - Full Title: [Pandas] 5. 데이터 세기
 - Category: #articles
 - Summary: 01. 데이터 개수 세기 : count( ) 위의 데이터 프레임(df1)에서 각 columns별로 몇 개의 데이터가 들어있는지 확인하는 방법에 대해 알아보자. 〰️ 데이터 프레임에 count( )적용하기 df1.count() 위의 코드처럼 전체 데이터 프레임 df1에 .count( ) 를 적용하면 각 columns에 몇 개의 데이터가 있는지 알 수 있다. 이때 NaN값은 세지 않는다. 〰️ 특정 columns(series 형태)에 count( ) 적용하기 df1['Pclass'].count() count( )는 데이터 프레임뿐만 아니라, 시리즈(series) 형태인 경우에도 적용할 수 있다. 따라서 위의 코드처럼 특정 columns를 추출한 뒤, count( )를 적용하면 해당 column에 몇 개의 데..
-- URL: https://bigdaheta.tistory.com/46
+
+## Full Document
+[[Full Document Contents/[Pandas] 5. 데이터 세기.md|See full document content →]]
 
 ## Highlights
 - **01. 데이터 개수 세기 : count( )**

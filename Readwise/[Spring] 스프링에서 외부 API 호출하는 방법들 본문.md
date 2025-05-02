@@ -7,7 +7,9 @@
 - Full Title: [Spring] 스프링에서 외부 API 호출하는 방법들 본문
 - Category: #articles
 - Summary: 외부 API를 호출하는 방법들에는 HttpURLConnection/URLConnection, HttpClient, RestTemplate, WebClient, OpenFeign이 있다. HttpURLConnection/URLConnection은 순수 자바로 HTTP 통신이 가능하지만 오래된 자바 버전에서 사용되며 동기적인 통신을 기본으로 한다. HttpClient는 Apache HTTP 컴포넌트로 객체 생성이 쉽고 간결하지만 코드가 반복적이고 길다. RestTemplate은 스프링에서 제공하는 템플릿으로 사용하기 편하고 직관적이지만 동기적인 방식을 사용하며 커넥션 풀을 기본적으로 사용하지 않아서 연결할 때마다 로컬 포트를 열고 tcp connection을 맺어야 한다. WebClient는 스프링 5부터 도입된 웹 클라이언트 라이브러리로 비동기/논블로킹 방식을 지원하며 높은 처리량과 확장성을 지원한다. OpenFeign은 선언적 웹서비스 클라이언트로 어노테이션을 사용하여 인터페이스에 구현이 가능하다.
-- URL: https://jie0025.tistory.com/531
+
+## Full Document
+[[Full Document Contents/[Spring] 스프링에서 외부 API 호출하는 방법들 본문.md|See full document content →]]
 
 ## Highlights
 - **spring RestTemplate** 

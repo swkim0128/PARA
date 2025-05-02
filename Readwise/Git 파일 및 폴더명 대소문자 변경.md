@@ -7,7 +7,9 @@
 - Full Title: Git 파일 및 폴더명 대소문자 변경
 - Category: #articles
 - Summary: Git은 기본적으로 파일 및 폴더명의 대소문자를 구분하지 않는다. 그래서 cat이라는 파일을 Cat으로 변경해도, Git은 감지하지 못한다. 이를 해결하기 위한 방법이 두가지가 있다.
-- URL: https://velog.io/@gidskql6671/Git-%ED%8C%8C%EC%9D%BC-%EB%B0%8F-%ED%8F%B4%EB%8D%94%EB%AA%85-%EB%8C%80%EC%86%8C%EB%AC%B8%EC%9E%90-%EB%B3%80%EA%B2%BD
+
+## Full Document
+[[Full Document Contents/Git 파일 및 폴더명 대소문자 변경.md|See full document content →]]
 
 ## Highlights
 - git config core.ignorecase false

@@ -6,9 +6,11 @@
 - Author: [[velog.io]]
 - Full Title: RabbitMQ DLX를 사용하여 예외발생 시 무한 Retry를 제한하자.
 - Category: #articles
-- Document Tags: [[rabbitmq]] 
+- Document Tags:  #rabbitmq 
 - Summary: RabbitMQ can endlessly retry message processing until it's successful, which may lead to problems if exceptions occur. To manage failures better, you can use a Dead Letter Exchange (DLX) that directs failed messages to a different queue for alternative processing. This helps prevent infinite retries and allows for more effective error handling.
-- URL: https://velog.io/@gjwjdghk123/RabbitMQ-DLX%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-Retry%EB%A5%BC-%EC%A0%9C%ED%95%9C%ED%95%98%EC%9E%90-ekjdv6qt
+
+## Full Document
+[[Full Document Contents/RabbitMQ DLX를 사용하여 예외발생 시 무한 Retry를 제한하자..md|See full document content →]]
 
 ## Highlights
 - 실패한 메세지 Retry하기

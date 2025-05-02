@@ -1,6 +1,5 @@
 ---
 type: Vim
-archive: false
 ---
 ### **일반**
 

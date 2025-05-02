@@ -7,7 +7,9 @@
 - Full Title: [HTTP] User-Agent를 읽는 법
 - Category: #articles
 - Summary: 웹 개발을 하다보면 접속 환경과 관련된 이슈가 종종 발생합니다. 그럴 때는 로그에 남아 있는 클라이언트의 정보를 유용하게 활용할 수 있습니다. 사용자의 접속 환경 정보는 요청 헤더 Request header 의 User-Agent, UA가 가지고 있습니다. UA는 클라이언트의 브라우저, 운영체제 종류에 따라 다른 웹 페이지를 보여주거나, 통계를 내는 등 다양한 용도로 활용할 수 있습니다. 브라우저를 열고 개발자 도구의 콘솔에서 navigator.userAgent 를 입력하면 다음과 같은 결과를 출력해 줍니다. Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.3..
-- URL: https://co1nam.tistory.com/89
+
+## Full Document
+[[Full Document Contents/[HTTP] User-Agent를 읽는 법.md|See full document content →]]
 
 ## Highlights
 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) ([View Highlight](https://read.readwise.io/read/01hdfqevjx6dcdneyq3wy83j0r))

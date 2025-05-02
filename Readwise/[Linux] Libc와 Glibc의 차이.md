@@ -6,9 +6,11 @@
 - Author: [[jinkwon.kim]]
 - Full Title: [Linux] Libc와 Glibc의 차이
 - Category: #articles
-- Document Tags: [[linux]] 
+- Document Tags:  #linux 
 - Summary: libc는 "표준 C 라이브러리"를 의미하며, glibc는 GNU에서 만든 libc입니다. glibc는 1992년부터 Linux에서 가장 많이 사용되는 libc로, 다양한 API를 제공합니다. 또한, 다른 경량화된 libc도 존재하며, 이들은 특정 용도에 맞춰 설계되었습니다.
-- URL: https://doitnow-man.tistory.com/entry/linux-libc%EC%99%80-glibc%EC%9D%98-%EC%B0%A8%EC%9D%B4
+
+## Full Document
+[[Full Document Contents/[Linux] Libc와 Glibc의 차이.md|See full document content →]]
 
 ## Highlights
 - libc는  "표준 C 라이브러리"를 말하는 대 명사이고 

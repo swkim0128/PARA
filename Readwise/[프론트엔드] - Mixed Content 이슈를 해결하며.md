@@ -6,9 +6,11 @@
 - Author: [[c17an.netlify.app]]
 - Full Title: [프론트엔드] - Mixed Content 이슈를 해결하며
 - Category: #articles
-- Document Tags: [[https]] 
+- Document Tags:  #https 
 - Summary: 배움과 도전을 즐기는 공대생의 기록입니다.
-- URL: https://c17an.netlify.app/blog/front-end/Mixed-Content-%EC%9D%B4%EC%8A%88-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0/article/
+
+## Full Document
+[[Full Document Contents/[프론트엔드] - Mixed Content 이슈를 해결하며.md|See full document content →]]
 
 ## Highlights
 - 보안 문제로 인해 최신 브라우저들에서는 https 페이지에서 http 리소스를 요청할 수 없음 ([View Highlight](https://read.readwise.io/read/01hdg2nedfqehh91jve98rrgnd))

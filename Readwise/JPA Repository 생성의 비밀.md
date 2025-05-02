@@ -6,9 +6,11 @@
 - Author: [[anonymDev]]
 - Full Title: JPA Repository 생성의 비밀
 - Category: #articles
-- Document Tags: [[jpa]] [[spring boot]] 
+- Document Tags:  #jpa  #spring boot 
 - Summary: JPA Repository 생성은 spring-data-jpa를 사용하면 인터페이스로 선언해서 사용할 수 있다. 하지만 메서드들은 직접 구현하지 않아도 된다. 대신 SimpleJpaRepository에 구현되어 있다. JpaRepositoryFactory 클래스가 개발자가 정의한 인터페이스를 참조하여 JpaRepository를 대신 구현하며, RepositoryFactorySupport를 확장하여 getRepository를 상속 받는다. 최종적으로 Bean으로 생성되는 CountryRepository는 Proxy Repository 인스턴스이며, SimpleJpaRepository가 뒤에서 JpaRepository 인터페이스의 실 구현체를 제공한다.
-- URL: https://brunch.co.kr/@anonymdevoo/40
+
+## Full Document
+[[Full Document Contents/JPA Repository 생성의 비밀.md|See full document content →]]
 
 ## Highlights
 - spring-data-jpa에는 JPARepository를 생성하는 JpaRepositoryFactory 클래스가 존재하는데 개발자가 정의한 CountryRepository 인터페이스를 참조하여 JpaRepository를 대신 구현하는 역할을 한다. ([View Highlight](https://read.readwise.io/read/01hccaz0j2wbmx9m8r2ymxz7h8))

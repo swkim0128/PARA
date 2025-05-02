@@ -7,7 +7,9 @@
 - Full Title: RabbitMQ DLX/DLQ 메세지 손실 방지
 - Category: #articles
 - Summary: This text explains how to prevent message loss in RabbitMQ when restarting by configuring DLX and DLQ to store messages on disk using the durability and autoDelete options. It also discusses how to make Exchange/Queue configurations persistent by setting these options to true and false, respectively. Additionally, it highlights the importance of proper configuration when using annotations or the org.springframework.amqp.core package to create Queues.
-- URL: https://devssul.tistory.com/30
+
+## Full Document
+[[Full Document Contents/RabbitMQ DLXDLQ 메세지 손실 방지.md|See full document content →]]
 
 ## Highlights
 - RabbitMQ 서버가 재시작 되었을 때 메세지가 없어지는 현상을 방지하기 위해선

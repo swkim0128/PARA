@@ -6,9 +6,11 @@
 - Author: [[나무뚱이]]
 - Full Title: Linux 프로그래밍 - Libc란?
 - Category: #articles
-- Document Tags: [[linux]] 
+- Document Tags:  #linux 
 - Summary: C 표준 라이브러리 ( C standard library ) 약칭 libc 위치 우분투 : /lib CentOS : /lib64 libc.so.6 : libc의 중심이 되는 파일 GNU lib : 리눅스에서 보통 사용되는 libc , 약칭 glibc 만드는 사람 리눅스 커널 : 리누스 토발즈 GNU lib : 다른 사람이 만듦
-- URL: https://athena7.tistory.com/entry/linux-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-libc%EB%9E%80
+
+## Full Document
+[[Full Document Contents/Linux 프로그래밍 - Libc란.md|See full document content →]]
 
 ## Highlights
 - C 표준 라이브러리 ( C standard library ) 

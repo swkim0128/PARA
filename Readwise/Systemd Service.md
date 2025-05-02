@@ -6,9 +6,11 @@
 - Author: [[velog.io]]
 - Full Title: Systemd Service
 - Category: #articles
-- Document Tags: [[linux]] 
+- Document Tags:  #linux 
 - Summary: The text explains how to create and manage systemd services, using ssh.service as an example. It covers key sections like [Unit], [Service], and [Install], detailing their purposes and configurations. Additionally, it illustrates how to enable and start services while explaining dependencies and service types.
-- URL: https://velog.io/@markyang92/systemd-timer
+
+## Full Document
+[[Full Document Contents/Systemd Service.md|See full document content →]]
 
 ## Highlights
 - 서비스 소속 **Target Unit**설정 및 **부팅 시** Unit이 *enable, disable* 을 위한 섹션 ([View Highlight](https://read.readwise.io/read/01j4gcebdpyf9jhph7pwq48swt))

@@ -6,9 +6,11 @@
 - Author: [[velog.io]]
 - Full Title: [RabbitMQ] 기초 개념
 - Category: #articles
-- Document Tags: [[rabbitmq]] 
-- Summary: AMQP를 구현한 오픈소스 메세지 브로커이다.producers에서 consumers로 메세지(요청)를 전달할 때 중간에서 브로커 역할을 한다.사용하는 케이스는 다음과 같다.요청을 많은 사용자에게 전달할 때요청에 대한 처리시간이 길 때많은 작업이 요청되어 처리를 해야할 
-- URL: https://velog.io/@sdb016/RabbitMQ-%EA%B8%B0%EC%B4%88-%EA%B0%9C%EB%85%90
+- Document Tags:  #rabbitmq 
+- Summary: AMQP를 구현한 오픈소스 메세지 브로커이다.producers에서 consumers로 메세지(요청)를 전달할 때 중간에서 브로커 역할을 한다.사용하는 케이스는 다음과 같다.요청을 많은 사용자에게 전달할 때요청에 대한 처리시간이 길 때많은 작업이 요청되어 처리를 해야할
+
+## Full Document
+[[Full Document Contents/[RabbitMQ] 기초 개념.md|See full document content →]]
 
 ## Highlights
 - • Producer: 요청을 보내는 주체, 보내고자 하는 메세지를 exchange에 publish한다.

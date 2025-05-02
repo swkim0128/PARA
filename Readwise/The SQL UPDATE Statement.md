@@ -6,9 +6,11 @@
 - Author: [[w3schools.com]]
 - Full Title: The SQL UPDATE Statement
 - Category: #articles
-- Document Tags: [[sql]] 
+- Document Tags:  #sql 
 - Summary: W3Schools offers free online tutorials, references and exercises in all the major languages of the web. Covering popular subjects like HTML, CSS, JavaScript, Python, SQL, Java, and many, many more.
-- URL: https://www.w3schools.com/sql/sql_update.asp
+
+## Full Document
+[[Full Document Contents/The SQL UPDATE Statement.md|See full document content →]]
 
 ## Highlights
 - UPDATE *table_name* 

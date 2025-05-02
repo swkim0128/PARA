@@ -7,7 +7,9 @@
 - Full Title: [Java] 암호화 알고리즘 실무 적용 사례
 - Category: #articles
 - Summary: 현대 IT 환경에서 데이터 보안은 중요한 문제입니다. 데이터 암호화는 개인 정보 유출로부터 보호하기 위한 핵심 대책입니다. 암호화 알고리즘은 데이터의 특성과 보안 요구에 따라 선택되며, 단방향 암호화와 양방향 암호화로 나눌 수 있습니다. 단방향 암호화는 데이터의 무결성을 보장하고, 양방향 암호화는 데이터의 비밀성을 유지합니다. 대표적인 암호화 알고리즘으로는 SHA, AES, RSA가 있습니다. 암호화를 적용할 때는 최신 보안 표준과 권장 사항을 준수하는 것이 중요합니다.
-- URL: https://aday7.tistory.com/entry/Java-%EC%95%94%ED%98%B8%ED%99%94-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8B%A4%EB%AC%B4-%EC%A0%81%EC%9A%A9-%EC%82%AC%EB%A1%80-SHA-AES-RSA
+
+## Full Document
+[[Full Document Contents/[Java] 암호화 알고리즘 실무 적용 사례.md|See full document content →]]
 
 ## Highlights
 - **1. 단방향 암호화: 복호화 불가능**

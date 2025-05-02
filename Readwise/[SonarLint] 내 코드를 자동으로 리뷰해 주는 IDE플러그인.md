@@ -6,9 +6,11 @@
 - Author: [[dev.yong]]
 - Full Title: [SonarLint] 내 코드를 자동으로 리뷰해 주는 IDE플러그인
 - Category: #articles
-- Document Tags: [[sonarlint]] 
+- Document Tags:  #sonarlint 
 - Summary: SonarLint는 IDE 플러그인으로 코드 품질 문제를 식별하고 해결하는데 도움을 줍니다. 이 툴은 코드정적 분석을 통해 위험성이 있는 코드를 감지하고 보완합니다. SonarLint를 설치하면 코드 작성 중 발생한 문제를 실시간으로 알려주어 개발 작업에 집중할 수 있습니다.
-- URL: https://yongdev91.tistory.com/7
+
+## Full Document
+[[Full Document Contents/[SonarLint] 내 코드를 자동으로 리뷰해 주는 IDE플러그인.md|See full document content →]]
 
 ## Highlights
 - Sonar는 다음 7가지 품질 요소를 기준으로 코드의 품질을 구분한다.
