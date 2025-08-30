@@ -1,12 +1,6 @@
----
-type: Git
-archive: false
----
 ## Git Log
 
 ### 주요 옵션
-
-  
 
 ### log Format
 

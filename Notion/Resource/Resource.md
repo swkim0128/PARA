@@ -58,9 +58,9 @@
 |[[Django - 테스트]]|Django|||||[ ]|
 |[[Django - 템플릿]]|Django|||||[ ]|
 |[[Django - 프로젝트 및 앱의 구조와 설정]]|Django|||||[ ]|
-|[[vim cheat sheet]]|Vim|||||[ ]|
-|[[Vim 명령어 정리]]|Vim|||||[ ]|
-|[[Vimrc & Plugin]]|Vim|||||[ ]|
+|[[vim_cheat_sheet]]|Vim|||||[ ]|
+|[[Vim_명령어_정리]]|Vim|||||[ ]|
+|[[vim_setting]]|Vim|||||[ ]|
 |[[Linux - apache, mariadb, php]]|Linux|||||[ ]|
 |[[Linux - Black-void-zsh]]|Linux|||||[ ]|
 |[[Linux Shell Script - 기본 개념]]|Linux|||||[ ]|
