@@ -1,0 +1,7 @@
+# 백업 파일 디렉토리
+
+이 디렉토리는 동기화 시 생성되는 백업 파일을 저장합니다.
+
+## 백업 파일 형식
+- `claude_desktop_config_YYYYMMDD_HHMMSS.json`
+- `claude_code_config_YYYYMMDD_HHMMSS.json`
