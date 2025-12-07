@@ -1,83 +1,109 @@
-# Claude Desktop & Claude Code 설정 동기화 가이드
+# Claude Desktop & Claude Code 동기화 가이드
 
-> 마지막 업데이트: 2024-12-05
+> 작업 파일 위치: `~/Projects/claude-config-sync/`
 
-이 디렉토리에는 Claude Desktop에서 사용 중인 MCP 서버와 스킬을 Claude Code에도 적용하기 위한 모든 파일이 포함되어 있습니다.
+## 🎯 개요
 
-## 📁 파일 구성
+Claude Desktop에서 사용 중인 MCP 서버와 스킬을 Claude Code에도 동일하게 적용하는 방법을 안내합니다.
 
-```
-04.Claude-Config/
-├── README.md                          # 이 파일
-├── Claude-Desktop-Configuration.md    # 상세 설정 가이드
-├── claude_config_template.json        # MCP 설정 템플릿
-├── notion-weekly-schedule-skill.md    # 노션 주간 일정 스킬 문서
-├── sync-claude-config.sh             # 자동 동기화 스크립트
-└── backups/                          # 설정 파일 백업 디렉토리
-```
+## 📂 프로젝트 위치
+
+**작업 파일**: `~/Projects/claude-config-sync/`
+
+모든 실제 설정 파일, 스크립트, 스킬 파일은 위 경로에 있습니다.
 
 ## 🚀 빠른 시작
 
-### 1. 스크립트 실행 권한 부여
+### 1. 프로젝트로 이동
 ```bash
-cd /Users/eunsol/Project/para/02.Areas/04.Claude-Config
-chmod +x sync-claude-config.sh
+cd ~/Projects/claude-config-sync
 ```
 
-### 2. 동기화 스크립트 실행
+### 2. 동기화 실행
 ```bash
+cd scripts
+chmod +x sync-claude-config.sh
 ./sync-claude-config.sh
 ```
 
-### 3. Claude Code 재시작
+### 3. 환경 변수 설정
+```bash
+# ~/.zshrc 또는 ~/.bashrc에 추가
+export NOTION_API_KEY="your-notion-api-key"
 
-## 📝 MCP 서버 설정
+# 적용
+source ~/.zshrc
+```
 
-현재 사용 가능한 MCP 서버:
+### 4. Claude Code 재시작
+
+## 📋 설정 대상
+
+### MCP 서버
 - **filesystem**: 파일 시스템 접근
 - **notion**: Notion 통합
 - **google-calendar**: Google Calendar 통합
 - **google-drive**: Google Drive 통합
 - **gmail**: Gmail 통합
 
-## 💾 백업 관리
+### 스킬
+- **notion-weekly-schedule**: 노션 '일지 및 회고' 데이터베이스 관리
 
-### 자동 백업
-스크립트 실행 시 자동으로 백업 생성
+## 📝 주요 파일
 
-### 수동 백업
-```bash
-# Claude Desktop 설정 백업
-cp ~/Library/Application\ Support/Claude/claude_desktop_config.json \
-   backups/claude_desktop_config_$(date +%Y%m%d_%H%M%S).json
+| 파일 | 위치 | 설명 |
+|------|------|------|
+| sync-claude-config.sh | `~/Projects/claude-config-sync/scripts/` | 자동 동기화 스크립트 |
+| claude_config_template.json | `~/Projects/claude-config-sync/mcp-configs/` | MCP 설정 템플릿 |
+| SKILL.md | `~/Projects/claude-config-sync/skills/notion-weekly-schedule/` | 노션 스킬 문서 |
 
-# Claude Code 설정 백업
-cp ~/.claude/claude_code_config.json \
-   backups/claude_code_config_$(date +%Y%m%d_%H%M%S).json
+## 🔧 설정 파일 경로
+
+### Claude Desktop
+```
+~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
-### 백업 복원
-```bash
-# 백업 파일 목록
-ls -lt backups/
-
-# 복원
-cp backups/claude_desktop_config_YYYYMMDD_HHMMSS.json \
-   ~/Library/Application\ Support/Claude/claude_desktop_config.json
+### Claude Code
+```
+~/.claude/claude_code_config.json
 ```
 
-## 📋 체크리스트
+## 💾 백업
 
-- [ ] Claude Desktop MCP 설정 확인
-- [ ] 환경 변수 설정 완료  
-- [ ] 동기화 스크립트 실행
-- [ ] Claude Code 재시작
-- [ ] MCP 서버 연결 확인
-- [ ] 스킬 동작 테스트
-- [ ] 백업 파일 생성 확인
+동기화 스크립트는 자동으로 백업을 생성합니다:
+- 위치: `~/Projects/claude-config-sync/backups/`
+- 형식: `claude_desktop_config_YYYYMMDD_HHMMSS.json`
 
-## 📚 추가 문서
+## 🔄 마이그레이션
 
-자세한 내용은 다음 문서를 참고하세요:
-- `Claude-Desktop-Configuration.md`: 상세 설정 가이드
-- `notion-weekly-schedule-skill.md`: 노션 스킬 문서
+이 디렉토리의 파일을 프로젝트로 이동하려면:
+
+```bash
+cd /Users/eunsol/Project/para/02.Areas/04.Claude-Config
+chmod +x migrate-to-projects.sh
+./migrate-to-projects.sh
+```
+
+## 📚 상세 문서
+
+자세한 설정 방법은 다음 문서를 참조하세요:
+- `~/Projects/claude-config-sync/README.md`
+- `~/Projects/claude-config-sync/docs/Claude-Desktop-Configuration.md`
+
+## ❓ 문제 해결
+
+### MCP 서버가 연결되지 않을 때
+1. 환경 변수 확인: `echo $NOTION_API_KEY`
+2. 설정 파일 확인: `cat ~/.claude/claude_code_config.json | jq .`
+3. Claude Code 재시작
+
+### 스킬이 인식되지 않을 때
+1. 스킬 디렉토리 확인: `ls -la ~/.claude/skills/`
+2. SKILL.md 파일 확인: `find ~/.claude/skills/ -name "SKILL.md"`
+3. Claude Code 재시작
+
+## 💡 참고
+
+- [Claude 공식 문서](https://docs.claude.com)
+- [MCP 프로토콜](https://modelcontextprotocol.io)
