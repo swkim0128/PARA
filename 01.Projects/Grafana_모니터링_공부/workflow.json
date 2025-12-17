@@ -1,0 +1,142 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "labelIds": [
+            "INBOX"
+          ],
+          "readStatus": "unread"
+        }
+      },
+      "id": "gmail-trigger",
+      "name": "On New Email",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1,
+      "position": [
+        380,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "prompt": "=이메일 내용을 분석하여 다음 카테고리 중 하나로 분류해줘. 부가적인 설명 없이 오직 카테고리 단어 하나만 대답해.\n\n[카테고리 목록]\n- 업무\n- 뉴스레터\n- 영수증\n- 기타\n\n[이메일 정보]\n보낸사람: {{ $('On New Email').item.json.from.text }}\n제목: {{ $('On New Email').item.json.subject }}\n내용: {{ $('On New Email').item.json.snippet }}"
+      },
+      "id": "llm-chain",
+      "name": "Ask Gemini",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash"
+      },
+      "id": "gemini-model",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        600,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.text }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "업무"
+            },
+            {
+              "value2": "뉴스레터"
+            },
+            {
+              "value2": "영수증"
+            }
+          ]
+        }
+      },
+      "id": "switch-category",
+      "name": "Route by Category",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        820,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "labelIds": []
+      },
+      "id": "label-action",
+      "name": "Label Action",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1040,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "On New Email": {
+      "main": [
+        [
+          {
+            "node": "Ask Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_language_model": [
+        [
+          {
+            "node": "Ask Gemini",
+            "type": "ai_language_model",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask Gemini": {
+      "main": [
+        [
+          {
+            "node": "Route by Category",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Category": {
+      "main": [
+        [
+          {
+            "node": "Label Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
