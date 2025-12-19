@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+cafe_images/
+downloaded_images/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ChromeDriver
+chromedriver
+chromedriver.exe

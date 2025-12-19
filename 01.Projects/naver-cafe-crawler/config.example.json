@@ -1,0 +1,21 @@
+{
+  "cafe_url": "https://cafe.naver.com/YOUR_CAFE_URL",
+  "download_directory": "./cafe_images",
+  "settings": {
+    "headless": false,
+    "use_existing_browser": false,
+    "debug_port": 9222,
+    "wait_timeout": 10,
+    "page_load_delay": 2,
+    "between_articles_delay": 1
+  },
+  "pagination": {
+    "start_from_last_page": true,
+    "specific_start_page": null
+  },
+  "filters": {
+    "download_images": true,
+    "download_videos": false,
+    "download_attachments": false
+  }
+}
