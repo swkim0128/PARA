@@ -8,7 +8,8 @@
 
 # --- ⚙️ 설정 구간 ---
 # 위 1단계에서 복사한 웹 앱 URL을 입력하세요.
-GAS_WEBAPP_URL="https://script.google.com/macros/s/AKfycbzzKEqh35dFzS2NNa2NHsy6rxvwrPFTslihK3SGP7iTDLmTi2vtCIiL11fM8h3Ti4as/exec"
+GAS_WEBAPP_URL="https://script.google.com/macros/s/AKfycbwyxZutWDICaYgoyA485tLDx5TW1XEhdFQ2TEHBxZis5hh8q8VXfby6Ja7g8dDiofxR/exec"
+
 
 
 # ------------------
