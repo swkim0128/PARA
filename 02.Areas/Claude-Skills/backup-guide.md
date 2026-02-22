@@ -9,7 +9,7 @@ description: "클로드 스킬을 자동으로 백업하는 스킬입니다. /mn
 사용자가 작성한 클로드 스킬들을 자동으로 백업하는 스킬입니다.
 
 ## 백업 경로
-- 백업 위치: `/Users/eunsol/Project/para/03.Resources/22.Claude-Skills/backups/`
+- 백업 위치: `/Users/eunsol/Project/para/02.Areas/Claude-Skills/`
 - 디렉토리 형식: `[스킬명]_[YYYYMMDD_HHMMSS]`
 
 ## 백업 프로세스

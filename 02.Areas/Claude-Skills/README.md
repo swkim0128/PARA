@@ -5,7 +5,7 @@
 
 ## 디렉토리 구조
 ```
-22.Claude-Skills/
+Claude-Skills/
 ├── README.md              # 이 파일
 ├── backup-guide.md        # 백업 가이드
 └── backups/               # 백업 파일들

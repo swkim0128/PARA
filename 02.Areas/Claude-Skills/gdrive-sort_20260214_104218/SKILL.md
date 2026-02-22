@@ -46,7 +46,6 @@ description: "Google Drive에서 동기화된 마크다운 파일을 PARA 구조
 | 19.Spring | Spring, SpringBoot, IoC, DI, AOP, JPA, MVC |
 | 20.Web | HTTP, REST, API, 웹, 브라우저, CSS, HTML, 아키텍처 패턴(CQRS, Saga, Outbox 등) |
 | 21.Tools | 개발 도구, IDE, Docker, CI/CD |
-| 22.Claude-Skills | Claude, 스킬, AI 에이전트 |
 | 23.CS-Fundamentals | 운영체제, 네트워크, 컴퓨터 구조, 자료구조 이론 |
 | 24.Database | DB, SQL, NoSQL, 인덱스, 튜닝, RDBMS |
 | ShellScript | 쉘 스크립트, Bash 스크립트 |
