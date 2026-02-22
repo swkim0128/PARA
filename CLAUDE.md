@@ -67,3 +67,19 @@ Outline(지식 베이스 도구)과 Obsidian 간의 문서 동기화를 위한 O
 - 리소스 노트는 주제별로 정리됨 (Algorithm, JavaScript, React, TypeScript, Kotlin 등)
 - 각 리소스 주제는 메인 개요 파일을 가짐 (예: `알고리즘 정리.md`, `Javascript 정리.md`)
 - 프로젝트 폴더는 프로젝트별 문서 및 계획 파일 포함
+
+## 태스크 및 대시보드
+
+### TASKS.md
+위치: 루트 `TASKS.md`
+
+GTD 스타일의 프로젝트/태스크 추적 파일:
+- **Active**: 진행 중인 태스크 (상태, 우선순위, Notion 링크 포함)
+- **Waiting On**: 대기 중인 항목
+- **Someday**: 언젠가 할 항목
+- **Done**: 완료된 프로젝트 이력
+
+### dashboard.html
+위치: 루트 `dashboard.html`
+
+TASKS.md 기반의 생산성 대시보드 UI 파일
