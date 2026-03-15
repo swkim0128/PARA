@@ -58,6 +58,7 @@ cp 02.Areas/Claude-Skills/<skill>/SKILL_20260201_063854.md \
 | skill-creator | 스킬 생성/개선 | - |
 | skill-backup | 스킬 백업 관리 | 2026-03-02 |
 | gdrive-sort | 구글 드라이브 정리 | - |
+| notion-weekly-routine | 주간 일정정리 루틴 (이번 주 정리 → 회고 → 다음 주 계획) | 2026-03-15 |
 
 ---
-*마지막 업데이트: 2026-03-02*
+*마지막 업데이트: 2026-03-15*
