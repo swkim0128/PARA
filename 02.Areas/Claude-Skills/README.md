@@ -51,7 +51,7 @@ cp 02.Areas/Claude-Skills/<skill>/SKILL_20260201_063854.md \
 
 | 스킬명 | 설명 | 최신 백업 |
 |--------|------|----------|
-| notion-weekly-schedule | 주간 일정 관리 | 2026-03-02 |
+| notion-weekly-schedule | 주간 일정 관리 (진행 중 프로젝트 태스크 동기화 포함) | 2026-03-22 |
 | notion-weekly-retrospective | 주간 회고 작성 | 2026-01-25 |
 | notion-project-creator | 프로젝트 생성 | - |
 | task-management | 태스크 관리 | - |
@@ -60,6 +60,7 @@ cp 02.Areas/Claude-Skills/<skill>/SKILL_20260201_063854.md \
 | gdrive-sort | 구글 드라이브 정리 | - |
 | notion-weekly-routine | 주간 일정정리 루틴 (이번 주 정리 → 회고 → 다음 주 계획) | 2026-03-15 |
 | notion-diet-manager | 식단 관리 (식재료 추가/제거, 먹은 음식 기록) | 2026-03-22 |
+| notion-project-manager | 프로젝트/태스크/스프린트 관리 | 2026-03-22 |
 
 ---
 *마지막 업데이트: 2026-03-22*
