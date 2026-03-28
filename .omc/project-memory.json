@@ -1,0 +1,145 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1774703750792,
+  "projectRoot": "/Users/eunsol/Project/para",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "01.Projects": {
+      "path": "01.Projects",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1774703750787,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "02.Areas": {
+      "path": "02.Areas",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774703750787,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "03.Resources": {
+      "path": "03.Resources",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774703750787,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "04.Archives": {
+      "path": "04.Archives",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774703750787,
+      "keyFiles": [
+        "README.md"
+      ]
+    },
+    "05.Excalidraw": {
+      "path": "05.Excalidraw",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774703750788,
+      "keyFiles": [
+        "NotionToLocalUseCase.excalidraw.md"
+      ]
+    },
+    "06.Temp_Images": {
+      "path": "06.Temp_Images",
+      "purpose": null,
+      "fileCount": 479,
+      "lastAccessed": 1774703750788,
+      "keyFiles": [
+        "Untitled 1 10.png",
+        "Untitled 1 11.png",
+        "Untitled 1 12.png",
+        "Untitled 1 13.png",
+        "Untitled 1 14.png"
+      ]
+    },
+    "Notion": {
+      "path": "Notion",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1774703750789,
+      "keyFiles": []
+    },
+    "Readwise": {
+      "path": "Readwise",
+      "purpose": null,
+      "fileCount": 103,
+      "lastAccessed": 1774703750789,
+      "keyFiles": [
+        "(4) Ddd의 서비스팩토리패키지 - 코드를 작성하는 세부 방법들 본문.md",
+        "12-02. 비어있는지 확인.md",
+        "2. Jackson2JsonMessageConverter란.md",
+        "29. 변수 Scope.md",
+        "4. 리눅스 파일 내용을 출력하는 명령어.md"
+      ]
+    },
+    "Template": {
+      "path": "Template",
+      "purpose": null,
+      "fileCount": 6,
+      "lastAccessed": 1774703750789,
+      "keyFiles": [
+        "basic_template.md",
+        "분기_회고록_건강과습관_프롬프트.md",
+        "분기_회고록_인간관계_프롬프트.md",
+        "분기_회고록_일_프롬프트.md",
+        "분기_회고록_종합회고_프롬프트.md"
+      ]
+    },
+    "gdrive": {
+      "path": "gdrive",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774703750789,
+      "keyFiles": []
+    },
+    "memory": {
+      "path": "memory",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1774703750790,
+      "keyFiles": [
+        "glossary.md"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}
