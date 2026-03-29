@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1774703750792,
+  "lastScanned": 1774790992146,
   "projectRoot": "/Users/eunsol/Project/para",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "01.Projects",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1774703750787,
+      "lastAccessed": 1774790992142,
       "keyFiles": [
         "README.md"
       ]
@@ -45,7 +45,7 @@
       "path": "02.Areas",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774703750787,
+      "lastAccessed": 1774790992142,
       "keyFiles": [
         "README.md"
       ]
@@ -54,7 +54,7 @@
       "path": "03.Resources",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774703750787,
+      "lastAccessed": 1774790992142,
       "keyFiles": [
         "README.md"
       ]
@@ -63,7 +63,7 @@
       "path": "04.Archives",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774703750787,
+      "lastAccessed": 1774790992142,
       "keyFiles": [
         "README.md"
       ]
@@ -72,7 +72,7 @@
       "path": "05.Excalidraw",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774703750788,
+      "lastAccessed": 1774790992142,
       "keyFiles": [
         "NotionToLocalUseCase.excalidraw.md"
       ]
@@ -81,7 +81,7 @@
       "path": "06.Temp_Images",
       "purpose": null,
       "fileCount": 479,
-      "lastAccessed": 1774703750788,
+      "lastAccessed": 1774790992143,
       "keyFiles": [
         "Untitled 1 10.png",
         "Untitled 1 11.png",
@@ -94,14 +94,14 @@
       "path": "Notion",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1774703750789,
+      "lastAccessed": 1774790992143,
       "keyFiles": []
     },
     "Readwise": {
       "path": "Readwise",
       "purpose": null,
       "fileCount": 103,
-      "lastAccessed": 1774703750789,
+      "lastAccessed": 1774790992144,
       "keyFiles": [
         "(4) Ddd의 서비스팩토리패키지 - 코드를 작성하는 세부 방법들 본문.md",
         "12-02. 비어있는지 확인.md",
@@ -114,7 +114,7 @@
       "path": "Template",
       "purpose": null,
       "fileCount": 6,
-      "lastAccessed": 1774703750789,
+      "lastAccessed": 1774790992144,
       "keyFiles": [
         "basic_template.md",
         "분기_회고록_건강과습관_프롬프트.md",
@@ -127,14 +127,14 @@
       "path": "gdrive",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774703750789,
+      "lastAccessed": 1774790992144,
       "keyFiles": []
     },
     "memory": {
       "path": "memory",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774703750790,
+      "lastAccessed": 1774790992144,
       "keyFiles": [
         "glossary.md"
       ]
@@ -142,57 +142,15 @@
   },
   "hotPaths": [
     {
-      "path": "03.Resources/ShellScript/setup-mac-dev.sh",
-      "accessCount": 4,
-      "lastAccessed": 1774774379865,
-      "type": "file"
-    },
-    {
-      "path": "03.Resources/06.MacOS/2026 Mac 터미널 & AI 코딩 환경.md",
+      "path": "test-file.md",
       "accessCount": 2,
-      "lastAccessed": 1774772513066,
+      "lastAccessed": 1774791772182,
       "type": "file"
     },
     {
-      "path": "test-diff.md",
-      "accessCount": 2,
-      "lastAccessed": 1774776886232,
-      "type": "file"
-    },
-    {
-      "path": "03.Resources/ShellScript/sync-gdrive.sh",
+      "path": "prompt.md",
       "accessCount": 1,
-      "lastAccessed": 1774771908266,
-      "type": "file"
-    },
-    {
-      "path": "03.Resources/ShellScript/configs/ghostty.config",
-      "accessCount": 1,
-      "lastAccessed": 1774774211016,
-      "type": "file"
-    },
-    {
-      "path": "03.Resources/ShellScript/configs/starship.toml",
-      "accessCount": 1,
-      "lastAccessed": 1774774213928,
-      "type": "file"
-    },
-    {
-      "path": "03.Resources/ShellScript/configs/zshrc",
-      "accessCount": 1,
-      "lastAccessed": 1774774232937,
-      "type": "file"
-    },
-    {
-      "path": "03.Resources/ShellScript/configs/nvim/init.lua",
-      "accessCount": 1,
-      "lastAccessed": 1774774293406,
-      "type": "file"
-    },
-    {
-      "path": "TASKS.md",
-      "accessCount": 1,
-      "lastAccessed": 1774775367265,
+      "lastAccessed": 1774791740847,
       "type": "file"
     }
   ],
