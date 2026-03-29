@@ -140,6 +140,61 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "03.Resources/ShellScript/setup-mac-dev.sh",
+      "accessCount": 4,
+      "lastAccessed": 1774774379865,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/06.MacOS/2026 Mac 터미널 & AI 코딩 환경.md",
+      "accessCount": 2,
+      "lastAccessed": 1774772513066,
+      "type": "file"
+    },
+    {
+      "path": "test-diff.md",
+      "accessCount": 2,
+      "lastAccessed": 1774776886232,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/sync-gdrive.sh",
+      "accessCount": 1,
+      "lastAccessed": 1774771908266,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/configs/ghostty.config",
+      "accessCount": 1,
+      "lastAccessed": 1774774211016,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/configs/starship.toml",
+      "accessCount": 1,
+      "lastAccessed": 1774774213928,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/configs/zshrc",
+      "accessCount": 1,
+      "lastAccessed": 1774774232937,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/configs/nvim/init.lua",
+      "accessCount": 1,
+      "lastAccessed": 1774774293406,
+      "type": "file"
+    },
+    {
+      "path": "TASKS.md",
+      "accessCount": 1,
+      "lastAccessed": 1774775367265,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
