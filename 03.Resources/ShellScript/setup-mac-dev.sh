@@ -101,8 +101,9 @@ info "CLI 도구 설치 중..."
 FORMULAS=(
   lsd bat fzf fd ripgrep git-delta
   btop dust duf fastfetch
-  neovim tmux
+  neovim tmux tmuxinator
   zoxide lazygit navi starship mise
+  yazi gh jq thefuck
 )
 
 for formula in "${FORMULAS[@]}"; do
@@ -198,6 +199,45 @@ cp "$CONFIGS_DIR/nvim/init.lua" ~/.config/nvim/init.lua
 success "Neovim 설정 완료"
 
 # -----------------------------------------------------------------------
+# 12. Git Delta 설정
+# -----------------------------------------------------------------------
+info "Git Delta 설정 중..."
+git config --global core.pager delta
+git config --global interactive.diffFilter "delta --color-only"
+git config --global delta.navigate true
+git config --global delta.side-by-side true
+git config --global delta.line-numbers true
+success "Git Delta 설정 완료"
+
+# lazygit 설정
+info "Lazygit 설정 파일 복사 중..."
+mkdir -p ~/.config/lazygit
+backup_if_exists ~/.config/lazygit/config.yml
+cp "$CONFIGS_DIR/lazygit/config.yml" ~/.config/lazygit/config.yml
+success "Lazygit 설정 완료"
+
+# -----------------------------------------------------------------------
+# 14. Tmux TPM (플러그인 매니저)
+# -----------------------------------------------------------------------
+info "Tmux TPM 확인 중..."
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+  info "TPM 설치 중..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  success "TPM 설치 완료"
+else
+  success "TPM 이미 설치됨"
+fi
+
+# -----------------------------------------------------------------------
+# 15. Tmux 설정
+# -----------------------------------------------------------------------
+info "Tmux 설정 파일 복사 중..."
+backup_if_exists ~/.tmux.conf
+cp "$CONFIGS_DIR/tmux.conf" ~/.tmux.conf
+success "Tmux 설정 완료"
+warn "tmux 실행 후 'Prefix + I' 로 플러그인을 설치하세요."
+
+# -----------------------------------------------------------------------
 # 완료 메시지
 # -----------------------------------------------------------------------
 echo ""
@@ -209,7 +249,8 @@ echo "  다음 단계:"
 echo "  1. 터미널을 재시작하거나 'source ~/.zshrc' 실행"
 echo "  2. Ghostty를 재시작하여 설정 적용"
 echo "  3. 'nvim' 실행 → 플러그인 자동 설치 대기"
-echo "  4. (선택) 'claude auth login' 으로 Claude Code 인증"
+echo "  4. 'tmux' 실행 → 'Prefix + I' 로 플러그인 설치"
+echo "  5. (선택) 'claude auth login' 으로 Claude Code 인증"
 echo ""
 echo "  백업 파일 위치: 기존 설정파일명.bak"
 echo ""

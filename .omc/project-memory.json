@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1774790992146,
+  "lastScanned": 1774955573064,
   "projectRoot": "/Users/eunsol/Project/para",
   "techStack": {
     "languages": [],
@@ -36,7 +36,7 @@
       "path": "01.Projects",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1774790992142,
+      "lastAccessed": 1774955573058,
       "keyFiles": [
         "README.md"
       ]
@@ -45,7 +45,7 @@
       "path": "02.Areas",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774790992142,
+      "lastAccessed": 1774955573059,
       "keyFiles": [
         "README.md"
       ]
@@ -54,7 +54,7 @@
       "path": "03.Resources",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774790992142,
+      "lastAccessed": 1774955573059,
       "keyFiles": [
         "README.md"
       ]
@@ -63,7 +63,7 @@
       "path": "04.Archives",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774790992142,
+      "lastAccessed": 1774955573059,
       "keyFiles": [
         "README.md"
       ]
@@ -72,7 +72,7 @@
       "path": "05.Excalidraw",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774790992142,
+      "lastAccessed": 1774955573059,
       "keyFiles": [
         "NotionToLocalUseCase.excalidraw.md"
       ]
@@ -81,7 +81,7 @@
       "path": "06.Temp_Images",
       "purpose": null,
       "fileCount": 479,
-      "lastAccessed": 1774790992143,
+      "lastAccessed": 1774955573061,
       "keyFiles": [
         "Untitled 1 10.png",
         "Untitled 1 11.png",
@@ -94,14 +94,14 @@
       "path": "Notion",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1774790992143,
+      "lastAccessed": 1774955573061,
       "keyFiles": []
     },
     "Readwise": {
       "path": "Readwise",
       "purpose": null,
       "fileCount": 103,
-      "lastAccessed": 1774790992144,
+      "lastAccessed": 1774955573061,
       "keyFiles": [
         "(4) Ddd의 서비스팩토리패키지 - 코드를 작성하는 세부 방법들 본문.md",
         "12-02. 비어있는지 확인.md",
@@ -114,7 +114,7 @@
       "path": "Template",
       "purpose": null,
       "fileCount": 6,
-      "lastAccessed": 1774790992144,
+      "lastAccessed": 1774955573062,
       "keyFiles": [
         "basic_template.md",
         "분기_회고록_건강과습관_프롬프트.md",
@@ -127,14 +127,14 @@
       "path": "gdrive",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774790992144,
+      "lastAccessed": 1774955573062,
       "keyFiles": []
     },
     "memory": {
       "path": "memory",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774790992144,
+      "lastAccessed": 1774955573062,
       "keyFiles": [
         "glossary.md"
       ]
@@ -142,15 +142,33 @@
   },
   "hotPaths": [
     {
-      "path": "test-file.md",
-      "accessCount": 2,
-      "lastAccessed": 1774791772182,
+      "path": "03.Resources/ShellScript/setup-mac-dev.sh",
+      "accessCount": 8,
+      "lastAccessed": 1774959185998,
       "type": "file"
     },
     {
-      "path": "prompt.md",
+      "path": "03.Resources/06.MacOS/맥북 세팅.md",
+      "accessCount": 3,
+      "lastAccessed": 1774956595542,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/06.MacOS/2026 Mac 터미널 & AI 코딩 환경.md",
+      "accessCount": 3,
+      "lastAccessed": 1774959168315,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/configs/tmux.conf",
       "accessCount": 1,
-      "lastAccessed": 1774791740847,
+      "lastAccessed": 1774957507465,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/configs/lazygit/config.yml",
+      "accessCount": 1,
+      "lastAccessed": 1774959194781,
       "type": "file"
     }
   ],

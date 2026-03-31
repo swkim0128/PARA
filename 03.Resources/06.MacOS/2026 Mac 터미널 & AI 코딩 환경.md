@@ -258,6 +258,142 @@ alias lg="lazygit"
 
 저장 후 `source ~/.zshrc`를 입력하여 적용합니다.
 
+### 4. Tmux 설정
+
+```bash
+# TPM (Tmux Plugin Manager) 설치
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+nano ~/.tmux.conf
+```
+
+```bash
+# ~/.tmux.conf
+
+# === Prefix 변경 (Ctrl+Space, Ctrl+b도 유지) ===
+set -g prefix C-Space
+set -g prefix2 C-b
+bind C-Space send-prefix
+
+# === Neovim 연동 필수 설정 ===
+set -sg escape-time 10            # ESC 딜레이 제거
+set -g focus-events on            # Autoread를 위한 포커스 감지
+set -g base-index 1               # 윈도우 번호 1부터 시작
+setw -g pane-base-index 1         # 패널 번호 1부터 시작
+set -g renumber-windows on        # 탭 닫으면 번호 자동 재정렬
+
+# === 기본 설정 ===
+set-option -g history-limit 50000
+bind % split-window -h -c "#{pane_current_path}"
+bind '"' split-window -v -c "#{pane_current_path}"
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+set -g automatic-rename off
+set -g mouse on
+set -g allow-passthrough on
+set -g pane-border-format " #{pane_index} #{pane_current_command} "
+set -g pane-border-status top
+set -g pane-border-lines double
+
+# === 복사 모드 (vi) ===
+setw -g mode-keys vi
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear "pbcopy"
+bind-key -T copy-mode-vi WheelUpPane send-keys -X -N 5 scroll-up
+bind-key -T copy-mode-vi WheelDownPane send-keys -X -N 5 scroll-down
+
+# === 플러그인 ===
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-battery'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+# yazi 파일 탐색기 (Prefix + Tab)
+bind Tab split-window -h -l 50% -c "#{pane_current_path}" "yazi"
+
+# === Catppuccin 테마 (mocha) ===
+set -g @catppuccin_flavor 'mocha'
+set -g @catppuccin_window_status_style 'rounded'
+
+# 상태 바 왼쪽: 세션 이름
+set -g status-left-length 40
+set -g status-left "#{E:@catppuccin_status_session}"
+
+# 상태 바 오른쪽: 디렉토리 + Git + CPU + 메모리 + 배터리 + 시간
+set -g status-right-length 150
+set -g @catppuccin_date_time_text " %m/%d %H:%M"
+set -g status-right "#{E:@catppuccin_status_directory}"
+set -ag status-right "#[bg=default] #[fg=#a6e3a1,bg=#313244]  #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-') "
+set -ag status-right "#[bg=default] #[fg=#89b4fa,bg=#313244]  #{cpu_percentage} "
+set -ag status-right "#[bg=default] #[fg=#f9e2af,bg=#313244]  #{ram_percentage} "
+set -ag status-right "#[bg=default] #[fg=#f5c2e7,bg=#313244] #{battery_icon} #{battery_percentage} "
+set -ag status-right "#{E:@catppuccin_status_date_time}"
+
+# 윈도우 탭
+set -g @catppuccin_window_text " #I:#{=10:window_name} "
+set -g @catppuccin_window_current_text " #[bold] *#I:#W* "
+
+# === Pane 이동 (Option + hjkl) ===
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D
+bind -n M-k select-pane -U
+bind -n M-l select-pane -R
+bind L last-window
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+# === TPM 실행 (항상 마지막에) ===
+run '~/.tmux/plugins/tpm/tpm'
+```
+
+저장 후 tmux를 실행하고 `Prefix + I`로 플러그인을 설치합니다.
+
+### 5. Git Delta 설정
+
+`git-delta`는 git diff/log 출력을 문법 강조 + 라인 번호 + side-by-side 뷰로 렌더링해주는 도구입니다.
+
+```bash
+# git-delta는 Phase 1의 brew install 명령에 포함되어 있습니다.
+# 아래 git 전역 설정을 추가합니다.
+
+git config --global core.pager delta
+git config --global interactive.diffFilter "delta --color-only"
+git config --global delta.navigate true
+git config --global delta.side-by-side true
+git config --global delta.line-numbers true
+```
+
+`~/.gitconfig`에 다음 내용이 추가됩니다:
+
+```ini
+[core]
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+```
+
+lazygit에서도 delta를 사용하려면 `~/.config/lazygit/config.yml`을 생성합니다:
+
+```bash
+mkdir -p ~/.config/lazygit
+nano ~/.config/lazygit/config.yml
+```
+
+```yaml
+# ~/.config/lazygit/config.yml
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --side-by-side --line-numbers
+```
+
 ---
 
 ## Phase 3. Neovim 설정 (init.lua)
