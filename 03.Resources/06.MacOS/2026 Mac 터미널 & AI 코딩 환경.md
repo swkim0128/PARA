@@ -365,6 +365,18 @@ set -sa command-alias 'm50=select-layout even-horizontal'
 # 명령어 창에서 'killall'을 치면 현재 세션의 모든 패널/윈도우를 종료합니다.
 set -sa command-alias 'killall=kill-session'
 
+# ---------------------------------------------------------
+# ✨ [Tmux 세션 자동 저장 및 복구 (Resurrect & Continuum)] ✨
+# ---------------------------------------------------------
+# Neovim 세션(열려있던 파일들)까지 함께 복구하도록 설정
+set -g @resurrect-strategy-nvim 'session'
+# 패널 안의 프로그램(클로드 코드 등)도 가능하면 살려내기
+set -g @resurrect-processes 'claude nvim npm yazi'
+# 컴퓨터를 켜고 Tmux를 처음 실행할 때, 마지막 세션을 자동으로 띄움
+set -g @continuum-restore 'on'
+# 15분마다 백그라운드에서 자동으로 현재 상태를 저장함 (단위: 분)
+set -g @continuum-save-interval '15'
+
 # === TPM 실행 ===
 run '~/.tmux/plugins/tpm/tpm'
 ```
@@ -606,7 +618,58 @@ require("lazy").setup({
 
 ---
 
-## Phase 4. 실전 바이브 코딩 워크플로우
+## Phase 4. 커스텀 도구 스크립트
+
+tmux 팝업 메뉴와 Claude Code 연동을 위한 두 가지 스크립트입니다.
+
+### ~/.my-tools.sh — 나만의 명령어 팝업 메뉴
+
+fzf로 자주 쓰는 명령어를 선택·실행합니다.
+
+- **tmux 단축키:** `Prefix + M`
+- **zsh 단축키:** `Ctrl + F`
+
+```bash
+# 명령어 목록은 "화면에 보일 이름 | 실제 명령어" 형식으로 추가
+COMMANDS="
+🤖 Claude Code: 현재 프로젝트 분석 | claude -p '이 프로젝트의 구조와 핵심 로직을 분석해서 요약해줘'
+🛠️  Tmux 설정 새로고침 | tmux source-file ~/.tmux.conf
+🌐 로컬 서버 시작 (예시) | npm run dev
+🧹 Docker 사용하지 않는 자원 정리 | docker system prune -af
+📂 NvChad 설정 폴더로 이동 | cd ~/.config/nvim && nvim .
+"
+```
+
+### ~/.project-jump.sh — 프로젝트 빠른 이동
+
+`~/Projects` 안의 폴더를 fzf로 선택하면 tmux 세션을 생성하고 즉시 전환합니다.
+
+- **tmux 단축키:** `Prefix + P`
+
+### ~/.tmux-sessionizer.sh — 프로젝트 세션 관리자
+
+`~/project`, `~/work` 경로에서 프로젝트를 선택하면 nvim(70%) + claude(30%) 레이아웃으로 자동 구성합니다. 동일 프로젝트 내 여러 작업 세션(fix, feature 등)도 지원합니다.
+
+- **tmux 단축키:** `Prefix + F`
+
+### ~/.claude-skills.sh — Claude Code 스킬 팝업 메뉴
+
+현재 tmux 세션에서 실행 중인 Claude Code 패널을 자동으로 찾아 프롬프트를 전송합니다.
+
+- **tmux 단축키:** `Prefix + C`
+
+```bash
+# 스킬 목록은 "이름 | 프롬프트" 형식으로 추가
+SKILLS="
+🔍 프로젝트 요약 | 현재 프로젝트의 전체 구조와 핵심 로직을 분석해서 요약해 줘.
+🐛 코드 리뷰 | 방금 작성한 코드에서 개선할 점이나 잠재적인 버그가 있는지 확인해 줘.
+📝 리팩토링 | 이 코드를 더 읽기 쉽고 효율적으로 리팩토링해 주고 이유를 설명해 줘.
+"
+```
+
+---
+
+## Phase 5. 실전 바이브 코딩 워크플로우
 
 1. **디렉토리 이동 (zoxide):** `cd 프로젝트명`으로 스마트 이동
 2. **Git UI (lazygit):** `lg` 단축어로 실행
@@ -618,6 +681,7 @@ require("lazy").setup({
 5. **프롬프트 전송:**
    - Neovim에서 `v`로 블록 지정 → **Space + s** → Enter로 Claude로 전송
    - Claude가 파일 작성을 마치면 Neovim에서 확인
+6. **Claude 스킬 호출:** `Prefix + C` → 스킬 선택 → Claude 패널로 자동 전송
 
 ---
 

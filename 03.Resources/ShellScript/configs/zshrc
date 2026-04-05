@@ -68,6 +68,9 @@ function tools() {
   [[ -n "$cmd" ]] && eval "$cmd"
 }
 
+# Ctrl + F를 누르면 내 명령어 메뉴 실행
+bindkey -s '^f' '~/.my-tools.sh\n'
+
 # alias
 alias vim="nvim"
 alias vi="nvim"

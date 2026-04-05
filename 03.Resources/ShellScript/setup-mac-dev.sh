@@ -238,6 +238,30 @@ success "Tmux 설정 완료"
 warn "tmux 실행 후 'Prefix + I' 로 플러그인을 설치하세요."
 
 # -----------------------------------------------------------------------
+# 16. 커스텀 도구 스크립트
+# -----------------------------------------------------------------------
+info "커스텀 도구 스크립트 복사 중..."
+backup_if_exists ~/.my-tools.sh
+cp "$CONFIGS_DIR/my-tools.sh" ~/.my-tools.sh
+chmod +x ~/.my-tools.sh
+success "my-tools.sh 설치 완료 (Prefix+M, Ctrl+F)"
+
+backup_if_exists ~/.claude-skills.sh
+cp "$CONFIGS_DIR/claude-skills.sh" ~/.claude-skills.sh
+chmod +x ~/.claude-skills.sh
+success "claude-skills.sh 설치 완료 (Prefix+C)"
+
+backup_if_exists ~/.project-jump.sh
+cp "$CONFIGS_DIR/project-jump.sh" ~/.project-jump.sh
+chmod +x ~/.project-jump.sh
+success "project-jump.sh 설치 완료 (Prefix+P)"
+
+backup_if_exists ~/.tmux-sessionizer.sh
+cp "$CONFIGS_DIR/tmux-sessionizer.sh" ~/.tmux-sessionizer.sh
+chmod +x ~/.tmux-sessionizer.sh
+success "tmux-sessionizer.sh 설치 완료 (Prefix+F)"
+
+# -----------------------------------------------------------------------
 # 완료 메시지
 # -----------------------------------------------------------------------
 echo ""
