@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"diff ~/.tmux.conf /Users/eunsol/Project/para/03.Resources/ShellScript/configs/tmux.conf && echo \\\"tmux 동일\\\" ; diff ~/.zshrc /Users/eunsol/Project/para/03.Resources/ShellScript/configs/zshr...",
+  "error": "Exit code 1\n97,105d96\n< # <Prefix> + M (Shift+m) 을 누르면 화면 중앙에 팝업으로 메뉴 띄우기\n< bind M display-popup -E -w 70% -h 50% -T \" My Command Menu \" \"~/.my-tools.sh\"\n< \n< # ---------------------------------------------------------\n< # [클로드 코드 스킬 메뉴 호출]\n< # ---------------------------------------------------------\n< # <Prefix> + C (Shift+c) 를 누르면 클로드 스킬 팝업 호출\n< bind C run-shell 'tmux display-popup -E -w 70% -h 50% -T \" Claude Skills \" \"~/.claude-skills.sh\"'\n< \n71,73d70\n< # Ctrl + F를 누르면 내 명령어 메뉴 실행\n< bindkey...",
+  "timestamp": "2026-04-05T09:44:30.287Z",
+  "retry_count": 1
+}

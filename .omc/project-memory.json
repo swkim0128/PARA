@@ -140,6 +140,19 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "03.Resources/06.MacOS/2026 Mac 터미널 & AI 코딩 환경.md",
+      "accessCount": 4,
+      "lastAccessed": 1775385691078,
+      "type": "file"
+    },
+    {
+      "path": "03.Resources/ShellScript/setup-mac-dev.sh",
+      "accessCount": 3,
+      "lastAccessed": 1775385680567,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
