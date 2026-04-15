@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COMMANDS_FILE="$HOME/.my-commands.txt"
+COMMANDS_FILE="$HOME/.config/vibe-tools/commands.txt"
 
 # ---------------------------------------------------------
 # [1] 명령어 목록 파일 존재 여부 확인
@@ -17,7 +17,6 @@ SELECTED=$(grep -v '^\s*#' "$COMMANDS_FILE" | grep -v '^\s*$' | fzf \
   --prompt="🚀 실행할 작업을 선택하세요 > " \
   --height=40% --layout=reverse --border=rounded)
 
-# 선택을 취소(ESC)한 경우 스크립트 종료
 if [ -z "$SELECTED" ]; then
     exit 0
 fi

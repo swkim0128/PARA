@@ -33,9 +33,9 @@ success "디렉토리 구조 생성 완료"
 # -----------------------------------------------------------------------
 info "Tmux 및 워크플로우 스크립트 복사 중..."
 cp ~/.tmux.conf              "$BACKUP_DIR/tmux-scripts/tmux.conf"
-cp ~/.tmux-sessionizer.sh    "$BACKUP_DIR/tmux-scripts/tmux-sessionizer.sh"
-cp ~/.claude-skills.sh       "$BACKUP_DIR/tmux-scripts/claude-skills.sh"
-cp ~/.my-tools.sh            "$BACKUP_DIR/tmux-scripts/my-tools.sh"
+cp ~/.config/vibe-tools/tmux-sessionizer.sh    "$BACKUP_DIR/tmux-scripts/tmux-sessionizer.sh"
+cp ~/.config/vibe-tools/claude-skills.sh       "$BACKUP_DIR/tmux-scripts/claude-skills.sh"
+cp ~/.config/vibe-tools/my-tools.sh            "$BACKUP_DIR/tmux-scripts/my-tools.sh"
 success "tmux-scripts/ 복사 완료"
 
 # -----------------------------------------------------------------------
