@@ -428,179 +428,134 @@ git:
 
 ---
 
-## Phase 3. Neovim 설정 (init.lua)
+## Phase 3. Neovim 설정 (NvChad)
 
-tmux와 통합된 바이브 코딩 환경 + LSP 자동 완성이 포함된 설정입니다.
+NvChad 배포판을 기반으로 LSP 자동 완성 + tmux 통합 바이브 코딩 환경을 구성합니다.
+
+### 1. NvChad 설치
 
 ```bash
-mkdir -p ~/.config/nvim
-nano ~/.config/nvim/init.lua
+# 기존 설정이 있으면 백업
+mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null
+
+# NvChad starter 클론 후 nvim 실행 (첫 실행 시 플러그인 자동 설치)
+git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
+```
+
+첫 실행 시 lazy.nvim이 모든 플러그인을 자동으로 설치합니다. 설치 완료 후 `:MasonInstallAll`을 실행하면 기본 LSP 서버도 설치됩니다.
+
+설정 구조:
+
+```
+~/.config/nvim/
+├── init.lua              # 진입점 (수정 불필요)
+├── lua/
+│   ├── chadrc.lua        # NvChad 커스터마이징 (테마 등)
+│   ├── options.lua       # 기본 옵션
+│   ├── mappings.lua      # 키 매핑
+│   ├── plugins/          # 추가 플러그인
+│   └── configs/          # 플러그인별 설정
+```
+
+### 2. NvChad 커스터마이징 (chadrc.lua)
+
+```bash
+nano ~/.config/nvim/lua/chadrc.lua
 ```
 
 ```lua
--- ==========================================
--- 1. 기본 UI 및 줄 번호 설정
--- ==========================================
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.cursorline = true
-vim.opt.termguicolors = true
+-- ~/.config/nvim/lua/chadrc.lua
+---@type ChadrcConfig
+local M = {}
 
--- ==========================================
--- 2. 들여쓰기 설정
--- ==========================================
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
+M.base46 = {
+  theme = "catppuccin",         -- 테마 (Ghostty와 통일)
+  transparency = true,
+}
 
--- ==========================================
--- 3. 검색 설정
--- ==========================================
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = false
-
--- ==========================================
--- 4. 시스템 연동
--- ==========================================
-vim.opt.clipboard = "unnamedplus"
-vim.opt.mouse = "a"
-vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/site")
-
--- ==========================================
--- 5. 리더 키
--- ==========================================
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
--- ==========================================
--- 6. 플러그인 매니저 (lazy.nvim) 자동 설치
--- ==========================================
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git", "clone", "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
--- ==========================================
--- 7. 플러그인 목록
--- ==========================================
-require("lazy").setup({
-
-  -- [1] 하단 상태 표시줄
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('lualine').setup()
-    end
+M.ui = {
+  statusline = {
+    theme = "default",
+    separator_style = "round",
   },
-
-  -- [2] 색상 테마 (Ghostty Catppuccin Macchiato와 동일)
-  {
-    "catppuccin/nvim", name = "catppuccin", priority = 1000,
-    config = function()
-      require("catppuccin").setup({
-        flavour = "mocha",
-        transparent_background = true,
-        term_colors = true,
-      })
-      vim.cmd.colorscheme "catppuccin"
-    end
+  tabufline = {
+    enabled = true,
   },
+}
 
-  -- [3] 파일 탐색기
-  {
-    "nvim-tree/nvim-tree.lua", version = "*", lazy = false,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("nvim-tree").setup {}
-      vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
-    end,
-  },
+return M
+```
 
-  -- [4] 코드 구문 강조 (Treesitter)
-  {
-    "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter").setup({
-        ensure_installed = {
-          "c", "lua", "vim", "vimdoc", "query",
-          "python", "javascript", "typescript", "html", "css", "json",
-          "kotlin", "php", "java"
-        },
-        auto_install = true,
-        highlight = { enable = true, additional_vim_regex_highlighting = false },
-      })
-    end,
-  },
+### 3. 기본 옵션 (options.lua)
 
-  -- [5] 파일/텍스트 검색 (Telescope)
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '파일 찾기' })
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '텍스트 검색' })
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '열려있는 파일' })
-    end,
-  },
+```bash
+nano ~/.config/nvim/lua/options.lua
+```
 
-  -- [6] LSP 및 자동 완성
+```lua
+-- ~/.config/nvim/lua/options.lua
+local opt = vim.opt
+
+-- 줄 번호
+opt.number = true
+opt.relativenumber = true
+
+-- 들여쓰기
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.smartindent = true
+
+-- 검색
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = false
+
+-- 시스템 연동
+opt.clipboard = "unnamedplus"
+opt.mouse = "a"
+
+-- Neovim + tmux 연동 (ESC 딜레이 제거)
+opt.timeoutlen = 400
+opt.ttimeoutlen = 0
+```
+
+### 4. 추가 플러그인 (plugins/init.lua)
+
+```bash
+nano ~/.config/nvim/lua/plugins/init.lua
+```
+
+```lua
+-- ~/.config/nvim/lua/plugins/init.lua
+return {
+
+  -- LSP 서버 자동 설치 (Mason 확장)
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "lua_ls", "ts_ls", "jdtls",
+        "kotlin_language_server", "intelephense", "marksman",
+      },
     },
-    config = function()
-      require("mason").setup()
-      local servers = { "lua_ls", "ts_ls", "jdtls", "kotlin_language_server", "intelephense", "marksman" }
-      require("mason-lspconfig").setup({ ensure_installed = servers })
-
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      for _, server in ipairs(servers) do
-        vim.lsp.config(server, { capabilities = capabilities })
-        vim.lsp.enable(server)
-      end
-
-      require("luasnip.loaders.from_vscode").lazy_load()
-
-      local cmp = require("cmp")
-      cmp.setup({
-        snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-          ['<Tab>'] = cmp.mapping.select_next_item(),
-          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-        }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'buffer' },
-          { name = 'path' },
-        })
-      })
-    end,
   },
 
-  -- [7] 바이브 코딩 - tmux 창으로 텍스트 전송 (vim-slime)
+  -- Treesitter 언어 추가
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "python", "javascript", "typescript",
+        "html", "css", "json", "kotlin", "php", "java",
+      },
+    },
+  },
+
+  -- 바이브 코딩 - tmux 창으로 텍스트 전송
   {
     "jpalardy/vim-slime",
+    event = "VeryLazy",
     init = function()
       vim.g.slime_target = "tmux"
       vim.g.slime_dont_ask_default = 0
@@ -611,10 +566,30 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>s", "<Plug>SlimeParagraphSend", { desc = "현재 문단 tmux로 전송" })
     end,
   },
-})
+}
 ```
 
-`nvim` 실행 시 플러그인과 LSP가 자동 다운로드됩니다.
+### 5. 키 매핑 (mappings.lua)
+
+```bash
+nano ~/.config/nvim/lua/mappings.lua
+```
+
+```lua
+-- ~/.config/nvim/lua/mappings.lua
+require("nvchad.mappings")
+
+local map = vim.keymap.set
+
+-- 파일 탐색기
+map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "파일 탐색기 토글" })
+
+-- 버퍼 이동
+map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "다음 버퍼" })
+map("n", "<S-Tab>", "<cmd>bprev<CR>", { desc = "이전 버퍼" })
+```
+
+`nvim` 재실행 시 변경사항이 반영됩니다. Mason UI는 `:Mason`으로 접근할 수 있습니다.
 
 ---
 

@@ -36,6 +36,8 @@ cp ~/.tmux.conf              "$BACKUP_DIR/tmux-scripts/tmux.conf"
 cp ~/.config/vibe-tools/tmux-sessionizer.sh    "$BACKUP_DIR/tmux-scripts/tmux-sessionizer.sh"
 cp ~/.config/vibe-tools/claude-skills.sh       "$BACKUP_DIR/tmux-scripts/claude-skills.sh"
 cp ~/.config/vibe-tools/my-tools.sh            "$BACKUP_DIR/tmux-scripts/my-tools.sh"
+cp ~/.config/vibe-tools/claude-delegate.sh     "$BACKUP_DIR/tmux-scripts/claude-delegate.sh"
+cp ~/.config/vibe-tools/claude-callback.sh     "$BACKUP_DIR/tmux-scripts/claude-callback.sh"
 success "tmux-scripts/ 복사 완료"
 
 # -----------------------------------------------------------------------
@@ -49,8 +51,9 @@ success "nvim-lua/ 복사 완료"
 # 4. Claude Code 설정 복사
 # -----------------------------------------------------------------------
 info "Claude Code 설정 복사 중..."
-cp ~/.claude/settings.json          "$BACKUP_DIR/claude-config/settings.json"
-cp ~/.claude/hooks/mac-notify.sh    "$BACKUP_DIR/claude-config/hooks/mac-notify.sh"
+# 실제 파일 위치: ~/.config/vibe-tools/claude-config/ (symlink로 ~/.claude/에 연결됨)
+cp ~/.config/vibe-tools/claude-config/settings.json          "$BACKUP_DIR/claude-config/settings.json"
+cp ~/.config/vibe-tools/claude-config/hooks/mac-notify.sh    "$BACKUP_DIR/claude-config/hooks/mac-notify.sh"
 success "claude-config/ 복사 완료"
 
 # -----------------------------------------------------------------------
@@ -81,9 +84,11 @@ vibe-coding-backup/
 | 파일 | 복원 위치 | 역할 |
 |------|-----------|------|
 | `tmux.conf` | `~/.tmux.conf` | Tmux 전체 설정 (Catppuccin Macchiato 테마, 단축키, Resurrect/Continuum) |
-| `tmux-sessionizer.sh` | `~/.tmux-sessionizer.sh` | 프로젝트 선택 시 nvim 70% + claude 30% 레이아웃 자동 구성 (`Prefix+F`) |
-| `claude-skills.sh` | `~/.claude-skills.sh` | 현재 세션에서 Claude 패널을 자동 탐지하여 스킬 프롬프트 전송 (`Prefix+C`) |
-| `my-tools.sh` | `~/.my-tools.sh` | fzf 기반 자주 쓰는 명령어 팝업 메뉴 (`Prefix+M`, `Ctrl+F`) |
+| `tmux-sessionizer.sh` | `~/.config/vibe-tools/tmux-sessionizer.sh` | 프로젝트 선택 시 nvim 70% + claude 30% 레이아웃 자동 구성 (`Prefix+F`) |
+| `claude-skills.sh` | `~/.config/vibe-tools/claude-skills.sh` | 현재 세션에서 Claude 패널을 자동 탐지하여 스킬 프롬프트 전송 (`Prefix+C`) |
+| `my-tools.sh` | `~/.config/vibe-tools/my-tools.sh` | fzf 기반 자주 쓰는 명령어 팝업 메뉴 (`Prefix+M`, `Ctrl+F`) |
+| `claude-delegate.sh` | `~/.config/vibe-tools/claude-delegate.sh` | 다른 tmux 패널의 클로드에게 작업 위임 + 콜백 요청 (IPC) |
+| `claude-callback.sh` | `~/.config/vibe-tools/claude-callback.sh` | 작업 완료 후 지휘관 패널에 결과 보고 (IPC) |
 
 ### Tmux 주요 단축키
 
@@ -102,11 +107,14 @@ vibe-coding-backup/
 
 ## ✏️ nvim-lua/
 
-NvChad 기반 Neovim 커스텀 설정입니다.
+NvChad 기반 Neovim 커스텀 설정입니다 (`~/.config/nvim/lua/` 전체 백업).
 
 | 파일 | 역할 |
 |------|------|
-| `options.lua` | 인코딩(cp949/utf-8), 스왑/백업 파일 비활성화 |
+| `chadrc.lua` | NvChad 커스터마이징 (catppuccin 테마, 투명 배경, 상태바) |
+| `options.lua` | 줄 번호, 들여쓰기, clipboard, tmux ESC 딜레이 제거 |
+| `mappings.lua` | 파일 탐색기, 버퍼 이동 단축키 |
+| `plugins/init.lua` | 추가 플러그인 (Mason LSP, Treesitter, vim-slime tmux 연동) |
 | `autocmds.lua` | 저장 시 줄 끝 공백 자동 제거 (마크다운 제외) |
 | `configs/conform.lua` | 저장 시 자동 포매터 (lua/css/html/python/php) |
 | `configs/lspconfig.lua` | LSP 서버 설정 |
@@ -115,10 +123,12 @@ NvChad 기반 Neovim 커스텀 설정입니다.
 
 ## 🤖 claude-config/
 
+실제 파일 위치: `~/.config/vibe-tools/claude-config/` (심볼릭 링크로 `~/.claude/`에 연결)
+
 | 파일 | 복원 위치 | 역할 |
 |------|-----------|------|
-| `settings.json` | `~/.claude/settings.json` | Claude Code 플러그인, hooks 설정 |
-| `hooks/mac-notify.sh` | `~/.claude/hooks/mac-notify.sh` | 작업 완료 시 macOS 알림 표시 |
+| `settings.json` | `~/.config/vibe-tools/claude-config/settings.json` | Claude Code 플러그인, hooks 설정 |
+| `hooks/mac-notify.sh` | `~/.config/vibe-tools/claude-config/hooks/mac-notify.sh` | 작업 완료 시 macOS 알림 표시 |
 
 ### Claude Code Hooks
 
@@ -134,16 +144,27 @@ NvChad 기반 Neovim 커스텀 설정입니다.
 ```bash
 # tmux 설정
 cp tmux-scripts/tmux.conf ~/.tmux.conf
-cp tmux-scripts/tmux-sessionizer.sh ~/.tmux-sessionizer.sh && chmod +x ~/.tmux-sessionizer.sh
-cp tmux-scripts/claude-skills.sh ~/.claude-skills.sh && chmod +x ~/.claude-skills.sh
-cp tmux-scripts/my-tools.sh ~/.my-tools.sh && chmod +x ~/.my-tools.sh
+mkdir -p ~/.config/vibe-tools
+cp tmux-scripts/tmux-sessionizer.sh ~/.config/vibe-tools/tmux-sessionizer.sh && chmod +x ~/.config/vibe-tools/tmux-sessionizer.sh
+cp tmux-scripts/claude-skills.sh    ~/.config/vibe-tools/claude-skills.sh    && chmod +x ~/.config/vibe-tools/claude-skills.sh
+cp tmux-scripts/my-tools.sh         ~/.config/vibe-tools/my-tools.sh         && chmod +x ~/.config/vibe-tools/my-tools.sh
+cp tmux-scripts/claude-delegate.sh  ~/.config/vibe-tools/claude-delegate.sh  && chmod +x ~/.config/vibe-tools/claude-delegate.sh
+cp tmux-scripts/claude-callback.sh  ~/.config/vibe-tools/claude-callback.sh  && chmod +x ~/.config/vibe-tools/claude-callback.sh
 
-# Neovim lua 설정
+# Neovim (NvChad) 설정
+# ⚠️ 반드시 NvChad를 먼저 설치한 후 lua 설정을 복원하세요
+git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
+# nvim 종료 후:
 cp -r nvim-lua/. ~/.config/nvim/lua/
 
-# Claude Code 설정
-cp claude-config/settings.json ~/.claude/settings.json
-cp claude-config/hooks/mac-notify.sh ~/.claude/hooks/mac-notify.sh && chmod +x ~/.claude/hooks/mac-notify.sh
+# Claude Code 설정 (vibe-tools로 복원 후 symlink 연결)
+mkdir -p ~/.config/vibe-tools/claude-config/hooks
+cp claude-config/settings.json          ~/.config/vibe-tools/claude-config/settings.json
+cp claude-config/hooks/mac-notify.sh    ~/.config/vibe-tools/claude-config/hooks/mac-notify.sh
+chmod +x ~/.config/vibe-tools/claude-config/hooks/mac-notify.sh
+# symlink: ~/.claude/ → ~/.config/vibe-tools/claude-config/
+ln -sf ~/.config/vibe-tools/claude-config/settings.json ~/.claude/settings.json
+ln -sf ~/.config/vibe-tools/claude-config/hooks         ~/.claude/hooks
 ```
 README_EOF
 success "README.md 생성 완료"
