@@ -61,6 +61,8 @@ cp 02.Areas/Claude-Skills/<skill>/SKILL_20260201_063854.md \
 | notion-weekly-routine | 주간 일정정리 루틴 (이번 주 정리 → 회고 → 다음 주 계획) | 2026-03-15 |
 | notion-diet-manager | 식단 관리 (식재료 추가/제거, 먹은 음식 기록) | 2026-03-22 |
 | notion-project-manager | 프로젝트/태스크/스프린트 관리 | 2026-03-22 |
+| update-vibe-commands | vibe-tools 명령어 모음 업데이트 (commands.txt, aliases.zsh) | 2026-04-17 |
+| update-vibe-script-files | vibe-tools 데이터 파일 업데이트 워크플로우 (commands.txt, prompts/, sessionizer-paths.txt) | 2026-04-17 |
 
 ---
-*마지막 업데이트: 2026-03-22*
+*마지막 업데이트: 2026-04-17*
