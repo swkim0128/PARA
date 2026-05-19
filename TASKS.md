@@ -2,9 +2,11 @@
 
 ## Active
 - [ ] **Grafana 모니터링 공부** - — 업무 환경에서 Grafana를 활용한 애플리케이션 모니터링 시스템 구축 학습 `In progress` `높음` [Notion](https://www.notion.so/2cba25196d34812eac25ffcc700233c3)
+- [ ] **Saga 패턴 공부** - — 분산 트랜잭션 / Saga·CQRS·Outbox 패턴 학습 `In progress` `중간` [Notion](https://www.notion.so/30fa25196d34801ba390f77a870e1def)
 - [ ] **Spring 프레임워크 개념, 원리 조사** - — Spring 프레임워크의 핵심 개념과 동작 원리 학습 `Planning` `중간` [Notion](https://www.notion.so/2faa25196d348193af9ffa044552ce7f)
 
 ## Waiting On
+- [ ] **법안 git graph (legigraph)** - — 법안의 발의~병합 흐름을 Git Graph로 시각화 (Next.js+Kotlin/Spring GraphQL+AWS) `Paused` `중간` [Notion](https://www.notion.so/83e67ee556a44be9b257fea9b3fd9ffa)
 
 ## Someday
 - [ ] **컴퓨터 구조 개념 정독** - — 컴퓨터 구조의 핵심 개념들을 체계적으로 학습 `Backlog` `중간` [Notion](https://www.notion.so/2faa25196d3481ad9337dd9a6e6b5adb)

@@ -1,5 +1,19 @@
 # Grafana 모니터링 학습 가이드
 
+## 🔗 Notion 연동
+
+> Notion `Projects` DB → PARA 단방향 동기화. 직접 편집 금지 — 다음 동기화 시 덮어쓰기됨.
+> Last synced: 2026-05-19
+
+- **Notion ID**: [PRO-110](https://www.notion.so/2cba25196d34812eac25ffcc700233c3)
+- **Status**: In progress
+- **Priority**: 높음
+- **ParaType**: Project
+- **Tags**: 개인, 공부
+- **Start Date**: 2025-12-17
+- **End Date**: _(미정)_
+- **Description**: 업무 환경에서 Grafana를 활용한 애플리케이션 모니터링 시스템 구축 학습
+
 ## 📚 학습 목차
 
 ## 1. Grafana 기초

@@ -1,3 +1,17 @@
+## **🔗 Notion 연동**
+
+> Notion `Projects` DB → PARA 단방향 동기화. 직접 편집 금지 — 다음 동기화 시 덮어쓰기됨.
+> Last synced: 2026-05-19
+
+- **Notion ID**: [PRO-73](https://www.notion.so/83e67ee556a44be9b257fea9b3fd9ffa) (페이지명: 법안 git graph)
+- **Status**: Paused
+- **Priority**: 중간
+- **ParaType**: Project
+- **Tags**: 개인, 사이드 프로젝트
+- **Start Date**: 2024-12-23
+- **End Date**: _(미정)_
+- **연결된 Tasks**: 11건 (노션 페이지에서 확인)
+
 ## **📌 프로젝트 개요**
 
 LegiGraph는 대한민국 국회의 법안 변화를 Git Graph 형식으로 시각화하는 웹 애플리케이션입니다. 사용자는 특정 법안의 발의 내역, 버전 히스토리, 입법 절차 등을 시각적으로 탐색할 수 있으며, 각 버전 간의 차이도 비교할 수 있습니다.
