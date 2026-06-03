@@ -6,17 +6,17 @@
 
 | Layer | 위치 | 누가 소유 |
 |---|---|---|
-| **Raw Sources** (불변) | `07.Wiki/_Sources/` (수집 후), `01~04.{PARA}/` (PARA 컨텍스트 자료) | 사용자 (수집·큐레이션) |
-| **Wiki** (LLM 소유) | `07.Wiki/{Entities,Concepts,Topics,Comparisons}/`, `index.md`, `log.md` | LLM (생성·갱신·교차참조) |
-| **Schema** (이 파일) | `07.Wiki/WIKI.md` | 사용자 (규칙 정의) |
+| **Raw Sources** (불변) | `03.Resources/Wiki/_Sources/` (수집 후), `01~04.{PARA}/` (PARA 컨텍스트 자료) | 사용자 (수집·큐레이션) |
+| **Wiki** (LLM 소유) | `03.Resources/Wiki/{Entities,Concepts,Topics,Comparisons}/`, `index.md`, `log.md` | LLM (생성·갱신·교차참조) |
+| **Schema** (이 파일) | `03.Resources/Wiki/WIKI.md` | 사용자 (규칙 정의) |
 
 **불변 규칙**: LLM은 `_Sources/` 안의 원천 파일을 **절대 수정하지 않는다**. 합성/요약은 별도 위키 페이지에 작성하고 원천은 링크만 한다.
 
 ## 2. PARA 정합
 
-PARA 폴더(01~04)는 위키와 **공존**한다. 두 가지 룰로 정합:
+위키는 PARA `03.Resources/` 하위(`03.Resources/Wiki/`)에 위치하며, PARA 폴더(01~04)의 다른 자료와 **공존**한다. 두 가지 룰로 정합:
 
-1. **소유권**: 원천 자료(논문·기사·노트·강의)는 의미에 맞게 PARA 또는 `07.Wiki/_Sources/` 어디든 둘 수 있음. 위키 페이지(엔티티·개념 등)는 무조건 `07.Wiki/` 하위.
+1. **소유권**: 원천 자료(논문·기사·노트·강의)는 의미에 맞게 PARA 또는 `03.Resources/Wiki/_Sources/` 어디든 둘 수 있음. 위키 페이지(엔티티·개념 등)는 무조건 `03.Resources/Wiki/` 하위.
 2. **PARA 라벨링**: 모든 위키 페이지 frontmatter에 `para:` 필드로 1차 컨텍스트 명시. `[[wikilink]]`로 PARA 항목과 양방향 연결.
 
 | `para:` 값 | 의미 |
@@ -100,7 +100,7 @@ LLM이 **매 ingest마다** 갱신. 카테고리별 분류 + 1줄 요약 + 선�
 ### Query
 1. 사용자: Claude에 질문 → `prompts/query.md` 적용
 2. LLM:
-   - `07.Wiki/` 검색 (index 우선 → 관련 페이지 drill-down)
+   - `03.Resources/Wiki/` 검색 (index 우선 → 관련 페이지 drill-down)
    - 인용 포함 답변
    - **가치 있는 답변은 새 페이지로 파일링 제안** (사용자 승인 시 페이지 생성)
 
