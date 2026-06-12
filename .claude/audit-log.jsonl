@@ -2983,3 +2983,328 @@
   "change_type": "write",
   "timestamp": "2026-06-12T12:17:01Z"
 }
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:35:29Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:35:30Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:33Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:42Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:43Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:49Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:49Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:50Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:50Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:52Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:52Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:53Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:37:53Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/README.md",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:21Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/.gitignore",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:24Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/.env.example",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:28Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/requirements.txt",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:31Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:41Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:41Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:55Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:55Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:56Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:56Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:56Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:38:56Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:41:22Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:41:28Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:41:28Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/scripts/__init__.py",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:41:32Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/data/raw/.gitkeep",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:41:35Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/data/parsed/.gitkeep",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:41:38Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/scripts/common.py",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:42:05Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/scripts/fetch_vote_results.py",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:42:33Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/scripts/fetch_winners.py",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:42:52Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/scripts/fetch_counting_stations.py",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:07Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/docs/schema.md",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:26Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/.env.example",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:32Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:33Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:33Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:39Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:42Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:42Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:46Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:46Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:51Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:51Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:55Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:43:55Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:05Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:11Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:11Z"
+}
+{
+  "file_path": "/Users/eunsol/Project/para/01.Projects/Election-2026-Local-Archive/docs/election_type_codes.md",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:27Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:47Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:52Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:44:56Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:11Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:11Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:13Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:13Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:14Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:14Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:16Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:16Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:18Z"
+}
+{
+  "file_path": "",
+  "change_type": "write",
+  "timestamp": "2026-06-12T12:45:18Z"
+}
