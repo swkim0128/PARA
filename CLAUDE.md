@@ -2,6 +2,19 @@
 
 이 파일은 Claude Code (claude.ai/code)가 이 저장소의 코드를 다룰 때 참고할 가이드를 제공합니다.
 
+## 🔔 세션 시작 규칙 (개인 컴)
+
+- 개인 컴에서는 **agy(Antigravity)가 메인 툴**이다. Claude Code는 보조로 사용한다.
+- 세션 시작 시 루트의 **`NEXT-SESSION.md`** (개인 컴 작업 브리핑 SoT)를 확인한다 — `.claude/settings.json` 의 SessionStart 훅이 자동으로 컨텍스트에 주입한다.
+- 브리핑의 최상위 우선순위 작업과 "다음 행동"을 한 줄로 제안하고, 승인 시 바로 이어서 진행한다.
+- 작업 단위 완료 시 `NEXT-SESSION.md` 의 상태·다음 행동·최종 갱신일을 갱신한다.
+
+## 🍱 노션 루틴 관리 (다이어리·식단·예산 — 0순위 작업)
+
+- Claude Code에서는 **`notion-suite` 스킬**(`/notion` 계열: notion-diary, notion-diet-manager, notion-budget)을 우선 사용한다.
+- 스킬이 없는 환경(agy/Codex/Gemini) 또는 폴백용 SoT: `02.Areas/07.Notion-Ops/` 의 SOP 문서 (README=공통 규약·DB ID, 01.다이어리 / 02.식단 / 03.예산).
+- SOP와 스킬 내용이 어긋나면 스킬 최신본 기준으로 SOP를 갱신한다.
+
 ## 저장소 개요
 
 이 저장소는 PARA 방법론을 사용하여 구성된 Obsidian 볼트입니다:

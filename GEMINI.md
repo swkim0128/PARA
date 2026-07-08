@@ -13,6 +13,24 @@ This is a personal knowledge management system built on the PARA method.
 
 이 영역은 Gemini/Antigravity 코딩 어시스턴트가 이 저장소의 코드를 다룰 때 참고할 가이드입니다. (CLAUDE.md 설정 기반)
 
+## 🔔 세션 시작 규칙 (개인 컴 필수 — Antigravity 메인)
+
+세션을 시작하면 **가장 먼저** 다음을 수행한다:
+
+1. 루트의 **`NEXT-SESSION.md`** 를 읽는다 — 개인 컴 작업 브리핑(SoT).
+2. `git pull` 로 최신 상태 동기화를 확인한다.
+3. 브리핑의 최상위 우선순위 작업과 그 "다음 행동"을 한 줄로 제안하고, 승인 시 바로 이어서 진행한다.
+4. 작업 단위 완료 또는 세션 종료 시 `NEXT-SESSION.md` 의 상태·다음 행동·최종 갱신일을 갱신한다.
+
+## 🍱 노션 루틴 관리 (다이어리·식단·예산 — 0순위 작업)
+
+일기/기분, 먹었어/식재료, 지출/~원 등의 요청이 오면 즉시 해당 SOP를 Read 하고 Notion MCP로 수행한다:
+
+- 다이어리: `02.Areas/07.Notion-Ops/01.다이어리.md`
+- 식단: `02.Areas/07.Notion-Ops/02.식단.md`
+- 예산: `02.Areas/07.Notion-Ops/03.예산.md`
+- 공통 규약(DB ID·명명 규칙·메타 룰·MCP 전제 조건): `02.Areas/07.Notion-Ops/README.md`
+
 ## 버전 관리
 
 이 볼트는 자동 백업을 위해 obsidian-git 플러그인을 사용합니다:
