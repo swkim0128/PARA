@@ -31,7 +31,7 @@
 - Consumes: 없음 (첫 태스크)
 - Produces: 이후 모든 세션이 로드하는 도구 분업 규칙. Task 3의 `vibe delegate --tool`·`VIBE_HUB_TOOL` 명칭을 여기서 미리 문서화하므로 Task 3 구현은 이 명칭과 정확히 일치해야 한다.
 
-- [ ] **Step 1: 세션 시작 규칙 교체**
+- [x] **Step 1: 세션 시작 규칙 교체**
 
 `/Users/eunsol/Project/para/CLAUDE.md`에서 아래 기존 블록을:
 
@@ -52,7 +52,7 @@
 - 화면 구성: 노트북 단독 = main-vertical(허브 좌 50% + 위임 pane 우측 스택, 3개째부터 cmux 승격) / 외장 모니터 = 장기 프로젝트를 `cmux-proj` 워크스페이스로 분리 배치.
 ```
 
-- [ ] **Step 2: 변경 검증**
+- [x] **Step 2: 변경 검증**
 
 Run: `grep -n "VIBE_HUB_TOOL" /Users/eunsol/Project/para/CLAUDE.md`
 Expected: 1건 매치 (새 규칙 라인)
@@ -60,7 +60,7 @@ Expected: 1건 매치 (새 규칙 라인)
 Run: `grep -n "agy(Antigravity)가 메인 툴" /Users/eunsol/Project/para/CLAUDE.md`
 Expected: 매치 없음 (exit 1)
 
-- [ ] **Step 3: 커밋**
+- [x] **Step 3: 커밋**
 
 ```bash
 git -C /Users/eunsol/Project/para add CLAUDE.md
@@ -78,7 +78,7 @@ git -C /Users/eunsol/Project/para commit -m "DOC: backup $(date '+%Y-%m-%d %H:%M
 - Consumes: 없음
 - Produces: cmux-proj 런처가 읽는 프로젝트 목록. 형식: `name|path|hexcolor|description|pin(선택)`
 
-- [ ] **Step 1: 업무 프로젝트 3줄 제거, 개인 프로젝트 2줄 추가**
+- [x] **Step 1: 업무 프로젝트 3줄 제거, 개인 프로젝트 2줄 추가**
 
 기존 파일에서 아래 3줄을 삭제:
 
@@ -95,7 +95,7 @@ legigraph|$HOME/Project/legigraph|#2E4053|입법 그래프 사이드 프로젝�
 grafana-test|$HOME/Project/grafana-test|#E67E22|Grafana 모니터링 실습 환경
 ```
 
-- [ ] **Step 2: 형식 검증**
+- [x] **Step 2: 형식 검증**
 
 Run: `grep -c '^[a-zA-Z]' /Users/eunsol/Project/vibe-dotfiles/vibe-tools/cmux-projects.txt`
 Expected: 5 (주석(#) 제외 데이터 5줄 — para, vibe-dotfiles, vibe-ai-config, legigraph, grafana-test)
@@ -111,7 +111,7 @@ Expected: 디렉토리 출력
 Run: `ls -d /Users/eunsol/Project/grafana-test`
 Expected: 디렉토리 출력
 
-- [ ] **Step 3: 커밋 (vibe-dotfiles 레포)**
+- [x] **Step 3: 커밋 (vibe-dotfiles 레포)**
 
 먼저 컨벤션 확인: `git -C /Users/eunsol/Project/vibe-dotfiles log --oneline -5`
 
@@ -137,7 +137,7 @@ git -C /Users/eunsol/Project/vibe-dotfiles commit -m "chore(cmux): 개인 컴 �
 - Consumes: Task 1이 문서화한 명칭 — `--tool claude|gemini|codex`, `VIBE_HUB_TOOL`(기본 `claude`)
 - Produces: `vibe delegate <대상> [--tool <t>] ["메시지"]`, `VIBE_HUB_TOOL=<t> vibe main`. pane 타이틀 `<tool>:<프로젝트명>`
 
-- [ ] **Step 1: worktree 생성**
+- [x] **Step 1: worktree 생성**
 
 ```bash
 git -C /Users/eunsol/Project/vibe-ai-config worktree add /Users/eunsol/Project/vibe-ai-config/.worktrees/feat-vibe-delegate-tool -b feat/vibe-delegate-tool
@@ -145,7 +145,7 @@ git -C /Users/eunsol/Project/vibe-ai-config worktree add /Users/eunsol/Project/v
 
 이후 편집은 전부 `.worktrees/feat-vibe-delegate-tool/claude-config/plugins/tmux-suite/scripts/vibe.sh` 대상.
 
-- [ ] **Step 2: `main)` 케이스에 허브 도구 파라미터화**
+- [x] **Step 2: `main)` 케이스에 허브 도구 파라미터화**
 
 L153-155의 기존 코드:
 
@@ -164,7 +164,7 @@ L153-155의 기존 코드:
     tmux send-keys -t "${PARA_SESSION}:claude" "$HUB_TOOL" Enter
 ```
 
-- [ ] **Step 3: `delegate)` 케이스 인자 파싱을 `--tool` 지원으로 교체**
+- [x] **Step 3: `delegate)` 케이스 인자 파싱을 `--tool` 지원으로 교체**
 
 L316-317의 기존 코드:
 
@@ -219,7 +219,7 @@ L316-317의 기존 코드:
     esac
 ```
 
-- [ ] **Step 4: pane 실행·타이틀·준비 폴링을 도구 일반화**
+- [x] **Step 4: pane 실행·타이틀·준비 폴링을 도구 일반화**
 
 L356-358의 기존 코드:
 
@@ -269,7 +269,7 @@ L388의 완료 echo:
     echo "🤝 위임 pane 생성 → $NEW_PANE  tool=$TOOL  cwd=$TARGET_DIR  (현재 창 좌측 50% 고정, 신규 pane 은 우측 스택 맨 아래 append, 관찰 가능)"
 ```
 
-- [ ] **Step 5: help 텍스트 갱신**
+- [x] **Step 5: help 텍스트 갱신**
 
 L513 delegate 설명 라인을:
 
@@ -284,7 +284,7 @@ L513 delegate 설명 라인을:
   VIBE_HUB_TOOL=gemini vibe main       # 허브 도구 교체 (기본 claude)
 ```
 
-- [ ] **Step 6: 정적 검증 (VERIFY)**
+- [x] **Step 6: 정적 검증 (VERIFY)**
 
 Run: `bash -n /Users/eunsol/Project/vibe-ai-config/.worktrees/feat-vibe-delegate-tool/claude-config/plugins/tmux-suite/scripts/vibe.sh`
 Expected: 출력 없음 (exit 0)
@@ -297,7 +297,7 @@ Expected: 변경 전 대비 **신규 경고 0건** (기존 경고는 비교 기�
 Run: `grep -n 'TOOL="claude"' /Users/eunsol/Project/vibe-ai-config/.worktrees/feat-vibe-delegate-tool/claude-config/plugins/tmux-suite/scripts/vibe.sh`
 Expected: 1건 (기본값 claude 보존)
 
-- [ ] **Step 7: 커밋 + main 병합 + worktree 정리**
+- [x] **Step 7: 커밋 + main 병합 + worktree 정리**
 
 먼저 컨벤션 확인: `git -C /Users/eunsol/Project/vibe-ai-config log --oneline -5`
 
@@ -311,7 +311,7 @@ git -C /Users/eunsol/Project/vibe-ai-config branch -d feat/vibe-delegate-tool
 
 (push 는 하지 않는다 — 사용자 확인 후 별도.)
 
-- [ ] **Step 8: 스모크 테스트 (선택 — tmux 세션 안에서만 가능)**
+- [ ] **Step 8: 스모크 테스트 (선택 — tmux 세션 안에서만 가능, 사용자 수동)**
 
 사용자 또는 tmux 내부 세션에서 수동 확인:
 - `vibe delegate para` → 기존과 동일하게 claude pane 생성 (회귀 확인)
@@ -332,7 +332,7 @@ git -C /Users/eunsol/Project/vibe-ai-config branch -d feat/vibe-delegate-tool
 
 **주의: 토큰 실값을 계획·로그·git 추적 파일에 절대 기록하지 않는다.**
 
-- [ ] **Step 1: 토큰을 ~/.zshrc.local 로 이전**
+- [x] **Step 1: 토큰을 ~/.zshrc.local 로 이전**
 
 `/Users/eunsol/.gemini/settings.json` L41에 있는 현재 토큰 값(`github_pat_...`)을 복사해 `/Users/eunsol/.zshrc.local`에 append (파일이 없으면 생성):
 
@@ -341,7 +341,7 @@ git -C /Users/eunsol/Project/vibe-ai-config branch -d feat/vibe-delegate-tool
 export GITHUB_PERSONAL_ACCESS_TOKEN="<settings.json L41 의 기존 값>"
 ```
 
-- [ ] **Step 2: settings.json 에서 평문 제거**
+- [x] **Step 2: settings.json 에서 평문 제거**
 
 L41을:
 
@@ -351,7 +351,7 @@ L41을:
 
 으로 교체 (gemini CLI 는 settings.json 값의 `$VAR`/`${VAR}` 환경변수 해석을 지원).
 
-- [ ] **Step 3: 검증**
+- [x] **Step 3: 검증**
 
 Run: `grep -c "github_pat_" /Users/eunsol/.gemini/settings.json`
 Expected: 0 (grep exit 1)
@@ -366,7 +366,7 @@ Expected: 정상 파싱 출력 (단, 이 명령은 stdout 에 토큰이 포함�
 
 새 셸에서 gemini github MCP 동작 확인 (수동): `gemini mcp list` 또는 gemini 세션에서 github 도구 호출.
 
-- [ ] **Step 4: 사용자 액션 안내 (구현 밖)**
+- [x] **Step 4: 사용자 액션 안내 (구현 밖)**
 
 기존 토큰은 이미 평문 노출 이력이 있으므로 **GitHub → Settings → Developer settings 에서 재발급(rotate)** 을 권장. 재발급 시 `~/.zshrc.local` 값만 갱신하면 된다. (에이전트가 대신 할 수 없음 — 보고에 명시.)
 
@@ -382,11 +382,11 @@ Expected: 정상 파싱 출력 (단, 이 명령은 stdout 에 토큰이 포함�
 - Consumes: Task 1-4 완료 상태
 - Produces: 차기 세션 인수인계 정보
 
-- [ ] **Step 1: design.md 상태 갱신**
+- [x] **Step 1: design.md 상태 갱신**
 
 `- 상태: 설계 승인 대기 (A안 구두 승인 완료, 문서 검토 대기)` 라인을 `- 상태: 구현 완료 (YYYY-MM-DD) — 잔여: GitHub PAT 재발급(사용자), Codex 편입(보류)` 으로 교체 (실제 날짜 기입).
 
-- [ ] **Step 2: NEXT-SESSION.md 에 완료 기록 추가**
+- [x] **Step 2: NEXT-SESSION.md 에 완료 기록 추가**
 
 `## 🧹 정리 작업` 섹션 위에 다음 블록 추가:
 
@@ -400,7 +400,7 @@ Expected: 정상 파싱 출력 (단, 이 명령은 stdout 에 토큰이 포함�
 
 최종 갱신 날짜 라인(`**최종 갱신: ...**`)을 오늘 날짜로 갱신.
 
-- [ ] **Step 3: 검증 + 커밋**
+- [x] **Step 3: 검증 + 커밋**
 
 Run: `grep -n "개인컴 AI 작업환경" /Users/eunsol/Project/para/NEXT-SESSION.md`
 Expected: 1건 이상 매치
