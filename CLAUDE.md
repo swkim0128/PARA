@@ -4,7 +4,10 @@
 
 ## 🔔 세션 시작 규칙 (개인 컴)
 
-- 개인 컴에서는 **agy(Antigravity)가 메인 툴**이다. Claude Code는 보조로 사용한다.
+- 개인 컴 도구 분업: **Claude Code = 허브(작업 관리·위임 지휘)·구현·커밋·오케스트레이션 / Gemini CLI = 조사·대량 컨텍스트(1M) 분석·문서화·웹 검색 / agy(Antigravity) = 브라우저 실검증·IDE형 보조 / Codex = 보류(자리 예약)**.
+- 허브 도구는 교체 가능: `vibe main` 은 `VIBE_HUB_TOOL` 환경변수(기본 `claude`)로 허브 도구를 결정한다. Claude 팀 플랜 이탈 시 어댑터 교체 시나리오는 `01.Projects/개인컴_AI_작업환경_업그레이드/design.md` §3.3 참조.
+- 프로젝트 작업 위임: `vibe delegate <프로젝트|경로> [--tool claude|gemini|codex] ["메시지"]` — 구현은 claude(기본), 조사·문서화는 `--tool gemini`. **Single-Writer 원칙**: 하나의 레포에 동시에 한 도구만 Write (위임 전 대상 레포 dirty 여부 확인).
+- 화면 구성: 노트북 단독 = main-vertical(허브 좌 50% + 위임 pane 우측 스택, 3개째부터 cmux 승격) / 외장 모니터 = 장기 프로젝트를 `cmux-proj` 워크스페이스로 분리 배치.
 - 세션 시작 시 루트의 **`NEXT-SESSION.md`** (개인 컴 작업 브리핑 SoT)를 확인한다 — `.claude/settings.json` 의 SessionStart 훅이 자동으로 컨텍스트에 주입한다.
 - 브리핑의 최상위 우선순위 작업과 "다음 행동"을 한 줄로 제안하고, 승인 시 바로 이어서 진행한다.
 - 작업 단위 완료 시 `NEXT-SESSION.md` 의 상태·다음 행동·최종 갱신일을 갱신한다.
