@@ -1,10 +1,10 @@
 # 🖥️ NEXT-SESSION — 개인 컴 작업 브리핑
 
-> **이 파일은 세션 간 인수인계 SoT다.** 개인 컴에서 에이전트(agy/Antigravity 메인, Gemini/Claude 보조) 세션을 열면
+> **이 파일은 세션 간 인수인계 SoT다.** 개인 컴에서 에이전트(Claude Code 허브·구현, Gemini 조사·분석, agy 보조) 세션을 열면
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-07-08** (볼트 전체 스캔 기준)
+**최종 갱신: 2026-07-17** (AI 작업환경 업그레이드 반영)
 
 ---
 
@@ -39,6 +39,12 @@
 - 위치: `01.Projects/Spring_프레임워크_개념_원리_조사/`
 - 현황: 학습 범위 5개 영역(Core IoC/DI/AOP, MVC, Boot, Security, Data) 정의만 됨. 폴더 안 자료는 CQRS/Outbox 뿐(saga-pattern과 중복) — 정작 Spring 자료 0개.
 - **다음 행동: Spring Core(IoC/DI) 정리 노트 1편 작성 착수** → status를 In progress로.
+
+## ✅ 완료 — 개인컴 AI 작업환경 업그레이드 (2026-07-17)
+
+- Claude 허브 + Gemini 분업 체제 구성 완료. `vibe delegate <프로젝트> --tool gemini` 로 조사·문서화 위임, `VIBE_HUB_TOOL` 로 허브 교체 가능.
+- 설계·계획: `01.Projects/개인컴_AI_작업환경_업그레이드/`
+- 잔여 사용자 액션: GitHub PAT 재발급 (기존 토큰 평문 노출 이력) → `~/.zshrc.local` 값 갱신
 
 ## 🧹 정리 작업 (짧게 끝남)
 
