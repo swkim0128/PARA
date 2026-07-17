@@ -15,9 +15,9 @@
 
 | 항목 | 결정 |
 | --- | --- |
-| 구독 플랜 | Claude Pro/Max + Gemini AI Pro/Ultra |
+| 구독 플랜 | Claude Pro/Max(회사 팀 플랜 경유) + Gemini AI Pro/Ultra |
 | Codex | **보류** — 자리만 예약, 나중에 `--tool codex`로 편입 |
-| 허브 도구 | **Claude Code** (vibe/cmux 위임 인프라·notion-suite·훅이 전부 Claude 기반) |
+| 허브 도구 | **Claude Code** (vibe/cmux 위임 인프라·notion-suite·훅이 전부 Claude 기반). 단, Claude 접근이 회사 팀 플랜 의존이라 **허브 역할은 교체 가능하게 설계** (§3.3) |
 | Gemini 역할 | **작업 성격별 분업** — 조사·대량 컨텍스트(1M) 분석·문서화·웹 검색 |
 | agy(Antigravity) | 보조로 전환 — 브라우저 실검증·IDE형 대량 분석 시 사용 |
 | 모니터 | 상황마다 다름(노트북 단독 ⇄ 외장 모니터) — 두 시나리오 모두 대응 |
@@ -43,6 +43,14 @@
 - **열람**: 변경 확인은 `vibe peek <프로젝트> diff` (cmux diff surface 자동 승격) — 기존 규칙 그대로.
 - **에스컬레이션 기준(기존 규칙 준용)**: 장기 체류·강격리 → `cmux-proj` / 멀티 레포 이슈 → `cmux-issue`.
 
+### 3.3 허브 도구 교체 가능성 (De-risking)
+
+Claude Code 접근은 회사 팀 플랜에 의존하므로, 팀 플랜 이탈 시 agy 또는 Codex가 메인이 될 수 있다. 이에 대비해 **허브를 특정 도구에 하드코딩하지 않는다**:
+
+1. **허브 도구 파라미터화**: `vibe main`도 delegate와 동일하게 도구 선택을 지원 (`VIBE_HUB_TOOL` 환경변수, 기본 `claude`). 허브 교체 = 환경변수 1줄 변경.
+2. **SoT는 도구 무관 파일로 유지**: 작업 인수인계(NEXT-SESSION.md·TASKS.md), 규칙 정본(vibe-ai-config/shared/ — coding-partner.md·SOP 5종), 노션 SOP(02.Areas/07.Notion-Ops/)는 전부 마크다운이라 어떤 도구든 읽고 이어받을 수 있음. Claude 전용 스킬(notion-suite 등)이 없어도 SOP 폴백 경로가 이미 정의돼 있음.
+3. **어댑터 구조 활용**: vibe-ai-config의 shared → 어댑터(claude-config / antigravity / codex) 빌드 구조가 이미 존재. 허브 교체 시 해당 어댑터를 채우는 것이 유일한 추가 작업 (Codex 어댑터 채우기가 그 시나리오의 첫 단계).
+
 ## 4. 구현 항목 (4건)
 
 ### 4.1 vibe.sh `--tool` 옵션 추가 — `vibe-ai-config` 레포
@@ -51,6 +59,7 @@
 - `--tool gemini`이면 pane에서 `gemini` CLI를 대상 프로젝트 cwd로 실행. 초기 메시지 전달은 gemini CLI 인자 규격에 맞춰 처리(미지원 시 pane에 프롬프트만 준비).
 - `--tool codex`는 미설치 시 "codex 미설치 — 보류 상태" 안내 후 종료(자리 예약).
 - `VIBE_DELEGATED=1` 마커·pane 타이틀 규칙은 도구 무관 동일 적용. pane 타이틀에 도구명 표기(예: `gemini:legigraph`).
+- `vibe main`은 `VIBE_HUB_TOOL` 환경변수(기본 `claude`)로 허브 도구를 결정 — §3.3 허브 교체 대비.
 - 검증: `bash -n` + `shellcheck` 통과, `vibe delegate <proj>`(무옵션) 기존 동작 회귀 확인.
 
 ### 4.2 cmux-projects.txt 개인화 — `vibe-dotfiles` 레포
@@ -78,6 +87,6 @@
 
 ## 6. 비범위 (YAGNI)
 
-- Codex 어댑터(`vibe-ai-config/codex/`) 채우기 — 구독 확정 후 별도 작업.
+- Codex 어댑터(`vibe-ai-config/codex/`) 채우기 — 구독 확정 후 별도 작업. 단, Claude 팀 플랜 이탈 시 허브 교체 시나리오(§3.3)의 첫 작업으로 승격됨.
 - Gemini용 위임 자동화 훅·서브에이전트 매핑 — pane 수동 위임으로 시작, 필요해지면 추가.
 - launchd 자동화 신규 추가 없음 (기존 3종 유지).
