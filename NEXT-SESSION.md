@@ -1,10 +1,17 @@
 # 🖥️ NEXT-SESSION — 개인 컴 작업 브리핑
 
-> **이 파일은 세션 간 인수인계 SoT다.** 개인 컴에서 에이전트(Claude Code 허브·구현, Gemini 조사·분석, agy 보조) 세션을 열면
+> **이 파일은 세션 간 인수인계 SoT다.** 개인 컴에서 에이전트(agy 메인 허브·구현, Claude Code/Gemini 보조·조사) 세션을 열면
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-07-17** (AI 작업환경 업그레이드 반영)
+**최종 갱신: 2026-08-02** (하네스 설정 정비: OMC 제거 + claude-dashboard 복구)
+
+## 🔧 2026-08-02 설정 정비 상태 (Claude Code 재시작 직전 저장)
+
+- **OMC(oh-my-claudecode) 완전 제거 완료**: npm 전역(`oh-my-claude-sisyphus`)·Claude 플러그인·마켓플레이스 등록·vibe-ai-config 정본 참조까지 4개 표면 제거, 검증 통과. 재시작 후 omc 스킬/에이전트 완전 언로드 확인만 하면 끝.
+- **claude-dashboard 복구**: 삭제된 것 아니었음 — statusLine이 캐시에 없는 1.27.0을 가리켜 깨져 보임. 정본에서 1.26.2로 정합(vibe-ai-config 커밋 `a69b632`), settings.json 재생성됨.
+- **7/31 개인컴 적용 런북**(스킬 npx 복사 전환·48개·8그룹) 적용 완료 상태 검증됨 — dangling 0, 48/48.
+- 후속: ① 업무컴에 OMC 제거 반영(`git pull` + `./install.sh work` + plugin/npm 제거) ② vibe-ai-config `pipeline`·`multi-dispatch` 스킬의 omc 에이전트 참조 정리 ③ `~/.omc` 데이터 삭제 여부 결정.
 
 ---
 
@@ -40,9 +47,9 @@
 - 현황: 학습 범위 5개 영역(Core IoC/DI/AOP, MVC, Boot, Security, Data) 정의만 됨. 폴더 안 자료는 CQRS/Outbox 뿐(saga-pattern과 중복) — 정작 Spring 자료 0개.
 - **다음 행동: Spring Core(IoC/DI) 정리 노트 1편 작성 착수** → status를 In progress로.
 
-## ✅ 완료 — 개인컴 AI 작업환경 업그레이드 (2026-07-17)
+## ✅ 완료 — 개인컴 AI 작업환경 업그레이드 (2026-07-17, 메인 도구: agy)
 
-- Claude 허브 + Gemini 분업 체제 구성 완료. `vibe delegate <프로젝트> --tool gemini` 로 조사·문서화 위임, `VIBE_HUB_TOOL` 로 허브 교체 가능.
+- agy(Antigravity) 메인 허브 + Claude/Gemini 보조 분업 체제 구성 완료 (`VIBE_HUB_TOOL=agy`). `vibe delegate <프로젝트> --tool <tool>` 로 적절한 도구에 위임 가능.
 - 설계·계획: `01.Projects/개인컴_AI_작업환경_업그레이드/`
 - 잔여 사용자 액션: GitHub PAT 재발급 (기존 토큰 평문 노출 이력) → `~/.zshrc.local` 값 갱신
 

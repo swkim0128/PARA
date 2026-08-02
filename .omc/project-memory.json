@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1777030311258,
+  "lastScanned": 1785655174516,
   "projectRoot": "/Users/eunsol/Project/para",
   "techStack": {
     "languages": [],
@@ -24,7 +24,9 @@
   "structure": {
     "isMonorepo": false,
     "workspaces": [],
-    "mainDirectories": [],
+    "mainDirectories": [
+      "scripts"
+    ],
     "gitBranches": {
       "defaultBranch": "main",
       "branchingStrategy": null
@@ -32,11 +34,20 @@
   },
   "customNotes": [],
   "directoryMap": {
+    "--help": {
+      "path": "--help",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1785655174503,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
     "01.Projects": {
       "path": "01.Projects",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1777030311224,
+      "lastAccessed": 1785655174504,
       "keyFiles": [
         "README.md"
       ]
@@ -45,7 +56,7 @@
       "path": "02.Areas",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777030311232,
+      "lastAccessed": 1785655174505,
       "keyFiles": [
         "README.md"
       ]
@@ -54,7 +65,7 @@
       "path": "03.Resources",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777030311244,
+      "lastAccessed": 1785655174507,
       "keyFiles": [
         "README.md"
       ]
@@ -63,7 +74,7 @@
       "path": "04.Archives",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777030311245,
+      "lastAccessed": 1785655174507,
       "keyFiles": [
         "README.md"
       ]
@@ -72,7 +83,7 @@
       "path": "05.Excalidraw",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777030311248,
+      "lastAccessed": 1785655174507,
       "keyFiles": [
         "NotionToLocalUseCase.excalidraw.md"
       ]
@@ -81,7 +92,7 @@
       "path": "06.Temp_Images",
       "purpose": null,
       "fileCount": 479,
-      "lastAccessed": 1777030311250,
+      "lastAccessed": 1785655174509,
       "keyFiles": [
         "Untitled 1 10.png",
         "Untitled 1 11.png",
@@ -90,18 +101,25 @@
         "Untitled 1 14.png"
       ]
     },
+    "Clippings": {
+      "path": "Clippings",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1785655174511,
+      "keyFiles": []
+    },
     "Notion": {
       "path": "Notion",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1777030311251,
+      "lastAccessed": 1785655174512,
       "keyFiles": []
     },
     "Readwise": {
       "path": "Readwise",
       "purpose": null,
       "fileCount": 103,
-      "lastAccessed": 1777030311252,
+      "lastAccessed": 1785655174513,
       "keyFiles": [
         "(4) Ddd의 서비스팩토리패키지 - 코드를 작성하는 세부 방법들 본문.md",
         "12-02. 비어있는지 확인.md",
@@ -114,7 +132,7 @@
       "path": "Template",
       "purpose": null,
       "fileCount": 6,
-      "lastAccessed": 1777030311252,
+      "lastAccessed": 1785655174513,
       "keyFiles": [
         "basic_template.md",
         "분기_회고록_건강과습관_프롬프트.md",
@@ -127,19 +145,59 @@
       "path": "gdrive",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777030311255,
+      "lastAccessed": 1785655174514,
       "keyFiles": []
     },
     "memory": {
       "path": "memory",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1777030311256,
+      "lastAccessed": 1785655174514,
       "keyFiles": [
         "glossary.md"
       ]
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 1,
+      "lastAccessed": 1785655174514,
+      "keyFiles": [
+        "claude_usage.py"
+      ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": ".claude/work-log/2026-08-02.md",
+      "accessCount": 3,
+      "lastAccessed": 1785656920068,
+      "type": "file"
+    },
+    {
+      "path": "AGENTS.md",
+      "accessCount": 2,
+      "lastAccessed": 1785342800505,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 2,
+      "lastAccessed": 1785342815895,
+      "type": "file"
+    },
+    {
+      "path": "GEMINI.md",
+      "accessCount": 2,
+      "lastAccessed": 1785342823929,
+      "type": "file"
+    },
+    {
+      "path": "NEXT-SESSION.md",
+      "accessCount": 2,
+      "lastAccessed": 1785657090522,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
