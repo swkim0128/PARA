@@ -10,15 +10,18 @@
 |---|---|---|---|
 | 일지 및 회고 (Diary/Schedule) | data_source `d4c94e28-6040-45f4-a4ae-69b74a6b26b4` | 주간 일지·회고 페이지의 부모 DB — 주간 페이지 생성·검색 기준 | 스킬 `notion-weekly-schedule`·`notion-weekly-retrospective` references/page-structure.md, `notion-weekly-routine` references/slot-mapping.md |
 | Diet | `collection://ed46300e-3f34-4ad5-8319-100810b659b9` | 주간 식단 페이지 DB | 스킬 `notion-diet-manager` references/db-schema.md |
-| Ingredients | `collection://3f8112d6-3518-4d77-b86c-8e481c687d2f` | 식재료 마스터 DB — 재고('보유 중') SoT | 스킬 `notion-diet-manager` references/db-schema.md |
+| Ingredients | `collection://3f8112d6-3518-4d77-b86c-8e481c687d2f` | 식재료 마스터 DB — 재고 SoT는 `보유 중` checkbox (2026-08-06 신설) | 스킬 `notion-diet-manager` references/db-schema.md |
 | Foods | `collection://8b14c31d-85b4-411d-a1ed-538222261d09` | 음식 마스터 DB | 스킬 `notion-diet-manager` references/db-schema.md |
+| 🏦 Household Ledger | `collection://17f03db9-14ee-4379-bd14-f47194444f87` | 월간 예산 페이지 DB — 제목 `YYYY년 MM월 지출`, 예산·입금·저축 속성 + 정기/변동/예산외 rollup·수식 | 2026-08-06 실스키마 조사 (`01.Projects/노션_루틴_업그레이드/db-requirements.md`) |
+| 🧺 Ledger | `collection://7391b842-ef1c-42c5-a7ca-d82068dbaccd` | 지출 트랜잭션 DB — 가격·지출일·카테고리(12종)·세부 카테고리·실행 status·`가맹점`·`출처`(2026-08-06 신설) | 2026-08-06 실스키마 조사 (동상) |
 
 ## ID 없음 (동적 검색 도메인)
 
 | 대상 | 식별 방법 |
 |---|---|
-| 예산 (월간 Budget 페이지) | **고정 ID 없음** — 명명 규칙으로 동적 검색: `{YYYY-MM} 예산` → `Budget {YYYY-MM}` → `예산 {YYYY}년 {M}월` → `가계부 {YYYY-MM}` (우선순위 순). 상세는 [[03.예산]] |
 | 다이어리 (일간 페이지) | **고정 ID 없음** — 동적 검색: `{YYYY-MM-DD}` → `일기 {YYYY-MM-DD}` → `Diary {YYYY-MM-DD}` → `Daily {YYYY-MM-DD}`. 상세는 [[01.다이어리]] |
+
+> ⚠️ **예산은 동적 검색 도메인이 아니다** (2026-08-06 정정): 월간 페이지는 Household Ledger DB 소속이며 제목 규칙은 `YYYY년 MM월 지출`. 구 검색 키워드(`{YYYY-MM} 예산`·`Budget {YYYY-MM}`·`가계부`)는 실체와 불일치해 폐기. [[03.예산]] 재작성 전까지 본 표가 우선.
 
 ## 페이지 명명 규칙 (검색 키워드)
 

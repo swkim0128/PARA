@@ -1,0 +1,49 @@
+# 노션 DB 구성 업데이트 — 요구사항 (Diet · Ingredients · 예산)
+
+**작성일: 2026-08-06** · 작성 경위: 업무컴에서 작성한 요구사항이 접근 가능한 경로(볼트 git·vibe-ai-config·노션·Plane)에 없어 **개인컴에서 재작성**. 근거: `design.md`(D1·D2·B1~B4) + 노션 실스키마 조사(아래 §1).
+
+## 1. 현재 실태 조사 결과 (2026-08-06 기준)
+
+### 예산 — 도메인 문서와 실체 전면 불일치 (핵심 발견)
+
+실제 노션 예산은 이미 2-DB 체계로 운영 중이다. `03.예산.md`의 "동적 검색 + 페이지 마크다운 표 + 카테고리 7종"은 실체와 다르다.
+
+| DB | ID | 실체 |
+|---|---|---|
+| 🏦 Household Ledger (월 페이지) | `collection://17f03db9-14ee-4379-bd14-f47194444f87` | 제목 `YYYY년 MM월 지출`(예: HL-36 = 2026년 05월). 속성: Date·Year·BasicLedgerPrice(기본예산)·ExtraLedgerPrice(예산외)·DepositPrice/ExtraDepositPrice(입금)·SavingAmount(저축)·FixedExpenses/VariableExpenses/OutOfBudgetExpenses(→Ledger relation)·합계 rollup·수식(AllLedgerPrice/AllExpenditurePrice/AllLeftAmount/LeftExpenditure)·auto ID(HL-) |
+| 🧺 Ledger (지출 트랜잭션) | `collection://7391b842-ef1c-42c5-a7ca-d82068dbaccd` | 속성: Name(품목)·가격(won)·지출일(date)·카테고리(select **12종**)·세부 카테고리(multi_select 48종)·정기 지출일(select)·실행(status 6단계: 아직여유→실행고민→실행예정→실행완료→지출완료/실행취소)·Place·URL·할당 버튼 2종(변동/예산외). 카테고리별 페이지 템플릿 11종 |
+
+- **카테고리 실체 12종**: 식비·교통·문화여가·의료건강·주거통신·의복미용·생활용품·교육학습·여행숙박·금융·경조선물·기타비용 — 도메인 문서의 "7종 확정"과 충돌. **실체(12종)를 정본으로 채택**하고 문서를 후속 갱신한다.
+- Wish list 역할은 별도 표가 아니라 **Ledger의 실행 status 라이프사이클**(아직여유/실행고민/실행예정 = 후보, 지출완료 = 확정) + 월 페이지 "지출 후보 / 다음 달 지출 후보" 섹션이 수행 중.
+
+### Ingredients / Diet
+
+- Ingredients: Name·Tag(multi_select 11종)·Price(won)·URL·생성일시·Diet relation·Latest Date rollup. **재고 상태 속성 없음** → D1(재고 SoT = 마스터 '보유 중')을 담을 스키마 부재.
+- Diet: Ingredients relation 설명이 "현재 가지고 있는 식재료" — 구 규칙(주간 페이지 = 재고) 기준. SoT 이전 후에는 파생 뷰.
+
+## 2. 스키마 변경 요구사항
+
+| # | DB | 변경 | 근거 |
+|---|---|---|---|
+| S1 | Ingredients | `보유 중` CHECKBOX 추가 — 재고 SoT. 구매→체크, 소진→해제 | design D1 |
+| S2 | Ingredients | S1 직후 **백필**: 이번 주 Diet 페이지의 Ingredients relation 항목을 `보유 중`=true 로 이관 | D1 이월 규칙 |
+| S3 | Ledger | `가맹점` RICH_TEXT 추가 — 뱅크샐러드 중복 방지 키(지출일+가격+가맹점)의 가맹점 축. Name(품목)과 분리 | design B2 |
+| S4 | Ledger | `출처` SELECT(대화·뱅크샐러드·정기·기타) 추가 — import 식별·재업로드 안전 | design B2 |
+| S5 | ids.md | Household Ledger·Ledger ID 등록, "예산 고정 ID 없음(동적 검색)" 기술 정정 | §1 발견 |
+
+- Diet relation 설명 갱신("파생 뷰(참조용)")은 MCP DDL로 안전 변경이 어려워 **보류** — 노션 UI 수작업 항목으로 기록.
+- Household Ledger 자체는 변경 없음 (수식·rollup 체계 완성도 높음 — 외과수술 원칙).
+
+## 3. 후속 (본 문서 범위 밖, 다음 단계)
+
+1. `03.예산.md` 전면 재작성 — 2-DB 체계·카테고리 12종·실행 status 라이프사이클 기준으로 (7종 표기·마크다운 표 절차 폐기).
+2. `02.식단.md` — '보유 중' 속성명 확정 반영 (규칙은 이미 SoT 기준으로 작성돼 있음).
+3. vibe-ai-config `notion-budget`·`notion-diet-manager` 스킬을 실스키마 기준으로 갱신 (pane %14 위임분 검증과 병합).
+
+## 적용 이력
+
+- [x] S1 보유 중 추가 (2026-08-06 적용, checkbox 확인)
+- [x] S2 백필 — **대상 0건으로 종료**: 이번 주(week 32) relation 유일 항목이 n8n 템플릿 placeholder `_`(38개 주간 페이지에 연결된 더미)로 확인됨. 직전 주(week 31) 식단 페이지는 미생성. 실재고는 사용자 입력 시 체크.
+- [x] S3 가맹점 추가 (2026-08-06 적용)
+- [x] S4 출처 추가 (2026-08-06 적용 — 대화/뱅크샐러드/정기/기타)
+- [x] S5 ids.md 갱신 (Household Ledger·Ledger 등록, 예산 동적 검색 기술 폐기 정정)

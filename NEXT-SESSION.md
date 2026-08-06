@@ -13,13 +13,15 @@
 - **7/31 개인컴 적용 런북**(스킬 npx 복사 전환·48개·8그룹) 적용 완료 상태 검증됨 — dangling 0, 48/48.
 - 후속 — **전부 마감(2026-08-06)**: ① ~~업무컴에 OMC 제거 반영~~ (8/6 완료) ② ~~vibe-ai-config omc 잔여 참조 정리~~ (`pipeline` 스킬은 이미 제거돼 있었고, `multi-dispatch/SKILL.md` 상태 경로 `.omc/state` → `.claude/state` 대체, 커밋 `8954354`) ③ ~~`~/.omc` + 고아 캐시 삭제~~ (8/2 완료) ④ ~~para 볼트 `.omc/` 잔여물 삭제~~ (8/6 완료 — 디렉토리 제거 + `.gitignore`에 `.omc/` 추가).
 - GitHub PAT 재발급(개인컴 AI 작업환경 잔여 액션)은 **진행하지 않기로 결정(2026-08-06)**.
+- **8/6 설정 구성 감사 + 정리 완료**: ① `~/.claude/.omc*` 잔재 3건 삭제(8/2 정리 때 누락분 — 이제 OMC 흔적 진짜 0) ② 레거시 `~/.claude/config.json`(구식 MCP 설정) 삭제 ③ 고아 마켓플레이스 디렉토리(`affaan-m-everything-claude-code `) 삭제 ④ `plane-mcp@cc-claude`를 settings.base → work overlay로 이동(개인컴에서 조용한 로드 실패 해소) ⑤ allow 중복 패턴 18건 정리(88→70) ⑥ git 로컬 파괴성 명령(restore·checkout --·stash drop/clear·reset --hard) ask 승격(git * allow·push 무확인은 유지) — vibe-ai-config `d8c85a6`·`57471f5`, `./install.sh personal` 재생성 완료. **업무컴 후속: 다음 `git pull` + `./install.sh work` 시 자동 반영(plane-mcp는 work overlay 경유 유지).**
 
 ## 🆕 신규 프로젝트 — 노션 루틴 3종 업그레이드 (2026-08-02 착수)
 
 - 위치: `01.Projects/노션_루틴_업그레이드/` — `requirements.md`(§0 아키텍처 + 일정 R1-6·예산 B1-4·식단 D1-2, 설계 4결정 확정) + `diagnosis.md`(진단 + 진행 추적) + `design.md`(3계층 아키텍처 + 기능 설계).
 - 진행: **Phase 1 안정성 완료**(vibe-ai-config `8fe8509`·`23b5d0d`, push 완료) → **도메인 정본 정비 완료**(02.Areas/07.개인관리(구 Notion-Ops → 도메인 상위로 개칭): ids.md(현 adapters/notion/ids.md)·04.일정.md 신설, 02/03/README 재편, "도메인 정본 + 스킬 어댑터" 원칙으로 CLAUDE.md/AGENTS.md 갱신) → **Phase 2+3 스킬 구현 위임 중**(pane %14, vibe-ai-config: ID 인용 전환·뱅크샐러드 import·wish list·월말 정리·요일×끼니·재고 SoT·GCal MCP 전환 등 11개 항목).
 - 뱅크샐러드 드롭 폴더 생성됨: `~/Documents/banksalad/` (볼트 밖 — 금융 데이터 git 제외).
-- **다음 행동: pane %14 완료 보고 검증(커밋·재배포 diff 0) → diagnosis.md 체크박스 갱신 → 실데이터 리허설(뱅크샐러드 샘플 1회 dry-run).**
+- **8/6 노션 DB 구성 업데이트 완료** (`db-requirements.md` 신설 — 업무컴 작성분 미접근으로 개인컴 재작성): ① 예산 실체 발견 — 이미 2-DB 체계(🏦 Household Ledger 월 페이지 + 🧺 Ledger 지출 트랜잭션, 카테고리 12종·실행 status) 운영 중, 도메인 문서(03.예산.md)의 "동적 검색+마크다운 표+7종"은 실체와 전면 불일치 ② 스키마 적용: Ingredients `보유 중`(재고 SoT)·Ledger `가맹점`+`출처`(뱅크샐러드 import 키) 추가 ③ ids.md에 예산 2-DB 등록 + 동적 검색 기술 폐기 ④ 재고 백필은 대상 0건(주간 relation이 placeholder `_` 뿐).
+- **다음 행동: ① 03.예산.md 전면 재작성(2-DB·12종·실행 status 기준) + 02.식단.md '보유 중' 반영 ② notion-budget·notion-diet-manager 스킬을 실스키마 기준으로 갱신(pane %14 위임분 검증과 병합) ③ 실데이터 리허설(뱅크샐러드 샘플 dry-run) ④ 실보유 식재료 사용자 입력 받아 보유 중 체크.**
 
 ---
 
