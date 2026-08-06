@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"which omc\",\"description\":\"Verify omc binary removed\"}",
-  "error": "Exit code 1\nomc not found",
-  "timestamp": "2026-08-02T07:39:27.763Z",
-  "retry_count": 1
-}

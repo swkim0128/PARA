@@ -187,3 +187,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,obsidian,windows,linux,visualstudiocode,intellij+all
+
+### OMC (oh-my-claudecode) — 2026-08 제거됨, 잔여물 재생성 방지
+.omc/

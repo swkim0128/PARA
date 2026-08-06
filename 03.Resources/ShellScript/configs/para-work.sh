@@ -11,7 +11,7 @@ set -euo pipefail
 
 PARA_DIR="$HOME/Project/para"
 NEXT_SESSION_FILE="$PARA_DIR/NEXT-SESSION.md"
-NOTION_OPS_DIR="$PARA_DIR/02.Areas/07.Notion-Ops"
+NOTION_OPS_DIR="$PARA_DIR/02.Areas/07.개인관리"
 
 _now_timestamp() {
     date '+%Y-%m-%d %H:%M:%S'
@@ -86,7 +86,7 @@ do_briefing() {
 # 3. Notion Ops SOP Viewer
 do_notion() {
     if [ ! -d "$NOTION_OPS_DIR" ]; then
-        echo "❌ 오류: Notion-Ops 디렉토리를 찾을 수 없습니다 ($NOTION_OPS_DIR)" >&2
+        echo "❌ 오류: 개인관리 디렉토리를 찾을 수 없습니다 ($NOTION_OPS_DIR)" >&2
         exit 1
     fi
 

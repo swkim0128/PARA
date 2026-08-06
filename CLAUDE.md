@@ -6,11 +6,11 @@
 
 ---
 
-## 🍱 노션 루틴 — 스킬 우선
+## 🍱 노션 루틴 — 도메인 정본 + 스킬 어댑터
 
-- Claude Code에서는 **`notion-suite` 스킬**(`/notion` 계열: notion-diary, notion-diet-manager, notion-budget)을 `02.Areas/07.Notion-Ops/` SOP보다 **우선 사용**한다.
-- SOP 문서는 스킬이 없는 환경(agy/Codex/Gemini)용 폴백 SoT다.
-- 스킬과 SOP 내용이 어긋나면 **스킬 최신본 기준으로 SOP를 갱신**한다.
+- **`02.Areas/07.개인관리/` 도메인 문서가 규칙의 정본(SoT)** 이고, `notion-suite` 스킬(`/notion` 계열)은 그 규칙을 노션 MCP로 수행하는 **어댑터**다.
+- Claude Code에서 노션 루틴 수행 시 스킬을 사용하되, 도메인 규칙(슬롯 시각표·카테고리·표기 규칙 등)은 스킬이 인용하는 도메인 문서를 따른다.
+- 스킬과 도메인 문서가 어긋나면 **도메인 문서 기준으로 스킬을 갱신**한다. (기능→환경별 수단 매핑은 `02.Areas/07.개인관리/README.md` 레지스트리 참조)
 
 ## 🔔 세션 브리핑 자동 주입
 

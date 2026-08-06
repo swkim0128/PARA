@@ -4,24 +4,32 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-08-02** (하네스 설정 정비: OMC 제거 + claude-dashboard 복구)
+**최종 갱신: 2026-08-06** (OMC 제거 후속 4건 전부 마감 — 설정 정비 완결)
 
 ## 🔧 2026-08-02 설정 정비 상태 (Claude Code 재시작 직전 저장)
 
-- **OMC(oh-my-claudecode) 완전 제거 완료**: npm 전역(`oh-my-claude-sisyphus`)·Claude 플러그인·마켓플레이스 등록·vibe-ai-config 정본 참조까지 4개 표면 제거, 검증 통과. 재시작 후 omc 스킬/에이전트 완전 언로드 확인만 하면 끝.
+- **OMC(oh-my-claudecode) 완전 제거 완료 + 재시작 검증 통과(2026-08-02)**: 재시작 후 세션에 omc 스킬/에이전트 0개, npm 전역 empty, installed_plugins/marketplaces 등록 없음, statusLine(claude-dashboard 1.26.2) 정상 확인. 잔여 데이터(`~/.claude/plugins/cache/omc/` 307MB, `~/.omc` 16K)도 사용자 승인 하에 삭제 완료 — 개인컴 OMC 흔적 0.
 - **claude-dashboard 복구**: 삭제된 것 아니었음 — statusLine이 캐시에 없는 1.27.0을 가리켜 깨져 보임. 정본에서 1.26.2로 정합(vibe-ai-config 커밋 `a69b632`), settings.json 재생성됨.
 - **7/31 개인컴 적용 런북**(스킬 npx 복사 전환·48개·8그룹) 적용 완료 상태 검증됨 — dangling 0, 48/48.
-- 후속: ① 업무컴에 OMC 제거 반영(`git pull` + `./install.sh work` + plugin/npm 제거) ② vibe-ai-config `pipeline`·`multi-dispatch` 스킬의 omc 에이전트 참조 정리 ③ `~/.omc` 데이터 삭제 여부 결정.
+- 후속 — **전부 마감(2026-08-06)**: ① ~~업무컴에 OMC 제거 반영~~ (8/6 완료) ② ~~vibe-ai-config omc 잔여 참조 정리~~ (`pipeline` 스킬은 이미 제거돼 있었고, `multi-dispatch/SKILL.md` 상태 경로 `.omc/state` → `.claude/state` 대체, 커밋 `8954354`) ③ ~~`~/.omc` + 고아 캐시 삭제~~ (8/2 완료) ④ ~~para 볼트 `.omc/` 잔여물 삭제~~ (8/6 완료 — 디렉토리 제거 + `.gitignore`에 `.omc/` 추가).
+- GitHub PAT 재발급(개인컴 AI 작업환경 잔여 액션)은 **진행하지 않기로 결정(2026-08-06)**.
+
+## 🆕 신규 프로젝트 — 노션 루틴 3종 업그레이드 (2026-08-02 착수)
+
+- 위치: `01.Projects/노션_루틴_업그레이드/` — `requirements.md`(§0 아키텍처 + 일정 R1-6·예산 B1-4·식단 D1-2, 설계 4결정 확정) + `diagnosis.md`(진단 + 진행 추적) + `design.md`(3계층 아키텍처 + 기능 설계).
+- 진행: **Phase 1 안정성 완료**(vibe-ai-config `8fe8509`·`23b5d0d`, push 완료) → **도메인 정본 정비 완료**(02.Areas/07.개인관리(구 Notion-Ops → 도메인 상위로 개칭): ids.md(현 adapters/notion/ids.md)·04.일정.md 신설, 02/03/README 재편, "도메인 정본 + 스킬 어댑터" 원칙으로 CLAUDE.md/AGENTS.md 갱신) → **Phase 2+3 스킬 구현 위임 중**(pane %14, vibe-ai-config: ID 인용 전환·뱅크샐러드 import·wish list·월말 정리·요일×끼니·재고 SoT·GCal MCP 전환 등 11개 항목).
+- 뱅크샐러드 드롭 폴더 생성됨: `~/Documents/banksalad/` (볼트 밖 — 금융 데이터 git 제외).
+- **다음 행동: pane %14 완료 보고 검증(커밋·재배포 diff 0) → diagnosis.md 체크박스 갱신 → 실데이터 리허설(뱅크샐러드 샘플 1회 dry-run).**
 
 ---
 
-## ⭐ 0순위 — 노션 루틴 관리 (매 세션 우선 수행)
+## ⭐ 0순위 — 개인관리 루틴 (매 세션 우선 수행)
 
-> 어떤 툴(agy/Claude/Codex)에서든 요청 시 `02.Areas/07.Notion-Ops/` 의 SOP 문서를 읽고 Notion MCP로 수행한다.
+> 어떤 툴(agy/Claude/Codex)에서든 요청 시 `02.Areas/07.개인관리/` 의 도메인 문서를 읽고 수행한다 (현재 저장소 어댑터: Notion MCP).
 
-1. **노션 다이어리** — 오늘 일지(감정/주요 사건/하이라이트) 기록 → SOP: `02.Areas/07.Notion-Ops/01.다이어리.md`
-2. **노션 식단** — 오늘 식단 기록/관리 → SOP: `02.Areas/07.Notion-Ops/02.식단.md`
-3. **노션 예산** — 지출/예산 기록·점검 → SOP: `02.Areas/07.Notion-Ops/03.예산.md`
+1. **다이어리** — 오늘 일지(감정/주요 사건/하이라이트) 기록 → SOP: `02.Areas/07.개인관리/01.다이어리.md`
+2. **식단** — 오늘 식단 기록/관리 → SOP: `02.Areas/07.개인관리/02.식단.md`
+3. **예산** — 지출/예산 기록·점검 → SOP: `02.Areas/07.개인관리/03.예산.md`
 
 ## 🔴 1순위 — Grafana 모니터링 실습 (`In progress` / 높음)
 
@@ -51,7 +59,7 @@
 
 - agy(Antigravity) 메인 허브 + Claude/Gemini 보조 분업 체제 구성 완료 (`VIBE_HUB_TOOL=agy`). `vibe delegate <프로젝트> --tool <tool>` 로 적절한 도구에 위임 가능.
 - 설계·계획: `01.Projects/개인컴_AI_작업환경_업그레이드/`
-- 잔여 사용자 액션: GitHub PAT 재발급 (기존 토큰 평문 노출 이력) → `~/.zshrc.local` 값 갱신
+- 잔여 사용자 액션: ~~GitHub PAT 재발급~~ — 진행하지 않기로 결정(2026-08-06)
 
 ## 🧹 정리 작업 (짧게 끝남)
 
