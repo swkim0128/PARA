@@ -65,4 +65,9 @@
 - [x] ~~S7 🛒 Wish List DB 신설~~ → **폐기(휴지통)** — 위시리스트 = 기존 Ledger로 정정
 - [x] S8 Household Ledger `가계부금액` rollup 신설 (2026-08-06)
 - [x] S9 Ledger `매핑 거래` relation 신설 (dual → 거래내역 `위시리스트`) (2026-08-06)
-- [x] S10 Household Ledger ↔ Ledger 관계 절단 (2026-08-06 사용자 지시) — relation 3종(FixedExpenses/VariableExpenses/OutOfBudgetExpenses) + 종속 rollup 3종(FixedExpenditure/VariableExpenditure/ExcludingExpenditure) 제거. **잔여 이슈: 이 rollup을 참조하던 수식(AllExpenditurePrice·AllLeftAmount·LeftExpenditure) 재정의 필요** — 신규 기준은 `가계부금액`(거래내역 rollup). 기존 월 페이지(2024~2026)의 지출 매핑 링크는 소실(노션 UI의 삭제 속성 복구로 되돌리기 가능).
+- [x] S10 Household Ledger ↔ Ledger 관계 절단 (2026-08-06 사용자 지시) — relation 3종(FixedExpenses/VariableExpenses/OutOfBudgetExpenses) + 종속 rollup 3종(FixedExpenditure/VariableExpenditure/ExcludingExpenditure) 제거. 기존 월 페이지(2024~2026)의 지출 매핑 링크는 소실(노션 UI의 삭제 속성 복구로 되돌리기 가능).
+- [x] S11 거래내역 `예산외` CHECKBOX + 행 수식 3종(`지출액`=지출∧¬예산외, `예산외지출액`=지출∧예산외, `수입액`=수입) 신설 (2026-08-06)
+- [x] S12 Household Ledger 금액 rollup 3종 신설: `지출금액`·`예산외지출금액`·`수입금액` = 거래내역 행 수식 sum. 임시 `가계부금액` rollup은 대체 후 제거 (2026-08-06)
+  - 구현 노트: MCP 수식 파서가 relation 순회(`prop("거래내역").filter(...)`)를 지원하지 않아 **행 수식 + rollup(sum)** 2단 구성으로 우회.
+- [x] S13 거래내역 relation 정리 — 폐기된 Wish List DB를 가리키던 죽은 `위시리스트` relation 삭제, Ledger 쪽 relation을 `위시리스트`로 개명 (2026-08-06)
+- [ ] **잔여**: HL 구 수식(AllExpenditurePrice·AllLeftAmount·LeftExpenditure)이 삭제된 rollup을 참조해 깨진 상태 — 신규 rollup(`지출금액`·`예산외지출금액`·`수입금액`) 기준으로 노션 UI에서 재정의 필요 (MCP로 기존 수식 코드 수정 불가).
