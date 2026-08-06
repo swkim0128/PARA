@@ -65,3 +65,4 @@
 - [x] ~~S7 🛒 Wish List DB 신설~~ → **폐기(휴지통)** — 위시리스트 = 기존 Ledger로 정정
 - [x] S8 Household Ledger `가계부금액` rollup 신설 (2026-08-06)
 - [x] S9 Ledger `매핑 거래` relation 신설 (dual → 거래내역 `위시리스트`) (2026-08-06)
+- [x] S10 Household Ledger ↔ Ledger 관계 절단 (2026-08-06 사용자 지시) — relation 3종(FixedExpenses/VariableExpenses/OutOfBudgetExpenses) + 종속 rollup 3종(FixedExpenditure/VariableExpenditure/ExcludingExpenditure) 제거. **잔여 이슈: 이 rollup을 참조하던 수식(AllExpenditurePrice·AllLeftAmount·LeftExpenditure) 재정의 필요** — 신규 기준은 `가계부금액`(거래내역 rollup). 기존 월 페이지(2024~2026)의 지출 매핑 링크는 소실(노션 UI의 삭제 속성 복구로 되돌리기 가능).

@@ -12,7 +12,7 @@
 | Diet | `collection://ed46300e-3f34-4ad5-8319-100810b659b9` | 주간 식단 페이지 DB | 스킬 `notion-diet-manager` references/db-schema.md |
 | Ingredients | `collection://3f8112d6-3518-4d77-b86c-8e481c687d2f` | 식재료 마스터 DB — 재고 SoT는 `보유 중` checkbox (2026-08-06 신설) | 스킬 `notion-diet-manager` references/db-schema.md |
 | Foods | `collection://8b14c31d-85b4-411d-a1ed-538222261d09` | 음식 마스터 DB | 스킬 `notion-diet-manager` references/db-schema.md |
-| 🏦 Household Ledger | `collection://17f03db9-14ee-4379-bd14-f47194444f87` | 월간 예산 페이지 DB — 제목 `YYYY년 MM월 지출`, 예산·입금·저축 속성 + 정기/변동/예산외 rollup·수식 | 2026-08-06 실스키마 조사 (`01.Projects/노션_루틴_업그레이드/db-requirements.md`) |
+| 🏦 Household Ledger | `collection://17f03db9-14ee-4379-bd14-f47194444f87` | 월간 예산 페이지 DB — 제목 `YYYY년 MM월 지출`, 예산·입금·저축 속성 + `거래내역` relation·`가계부금액` rollup(2026-08-06 신설). 구 Ledger relation·rollup은 2026-08-06 절단(수식 재정의 잔여) | 2026-08-06 실스키마 조사 (`01.Projects/노션_루틴_업그레이드/db-requirements.md`) |
 | 🧺 Ledger | `collection://7391b842-ef1c-42c5-a7ca-d82068dbaccd` | 지출 트랜잭션 + **위시리스트** DB — 실행 status(아직여유/실행고민/실행예정→실행완료/지출완료/실행취소)가 wish 후보→구매 라이프사이클 담당. `매핑 거래` relation(2026-08-06 신설)으로 거래내역과 연결 | 2026-08-06 실스키마 조사 (`db-requirements.md` §2-b) |
 | 💳 거래내역 | `collection://f6f2513b-0caa-4fb2-b831-ccc5ea8a04d5` | 뱅크샐러드 가계부 원본 DB (2026-08-06 신설) — 거래일·금액·타입·대분류·소분류·결제수단·`월 예산` relation·`위시리스트` relation(←Ledger). 중복 키 = 거래일+금액+Name | `db-requirements.md` §2-b |
 
