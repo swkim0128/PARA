@@ -22,8 +22,8 @@
 **이미 갖춰진 것**: `VIBE_HUB_TOOL=agy`(~/.zshrc.local) · 규칙 주입 경로 작동(`~/.gemini/GEMINI.md` 관리 블록 = 정본 AGENTS.md + agy-tail, `~/.agents/AGENTS.md` 심링크) · 프로젝트 규칙(`para/GEMINI.md` → `@AGENTS.md`) · 스킬 53개(`~/.agents/skills`) · MCP 7종(notionMCP·google-calendar·context7·github·playwright·browsermcp·sequential-thinking) · SOP 워크플로우 4종 · 권한 시드.
 
 **보완 필요 (전환 전)**
-1. **훅 0개 — 최대 갭.** Claude는 훅 9개로 규칙을 결정론적 집행 중(작업로그 자동기록·컨텍스트 가드·설정 가드·서브에이전트 우선 가드 등) + para 훅으로 **NEXT-SESSION 브리핑 자동 주입**. agy는 `hooks.json` 미구현(파일 부재 확인) → 전환 시 전부 지시문 의존으로 후퇴(= 규칙 승격 원칙 위반).
-2. **서브에이전트 미구현**(SubagentSpec = v2 후보). 위임이 `vibe delegate`(tmux pane)뿐 → multi-dispatch 등 백그라운드 에이전트 전제 스킬이 깨짐.
+1. **훅 미배치 — 최대 갭이나 agy 지원은 확인됨(2026-08-09 실측).** agy 1.1.10 바이너리에 훅 엔진 구현 확인 — 이벤트 5종(PreToolUse·PostToolUse·PreInvocation·PostInvocation·Stop), `~/.agents/hooks.json`(전역)·`<ws>/.agents/hooks.json`. **즉 지원 여부가 아니라 "우리 훅 9종의 이식"이 남은 일.** 제약 2건: ⓐ **SessionStart 이벤트 없음** → 브리핑 주입은 `PreInvocation` + `invocationNum==1` 에뮬레이션 ⓑ Claude의 `type:"agent"` 훅(commit PHP LSP 게이트)은 agy 미지원(command 전용)이라 셸 재작성. 입출력 스키마도 달라(camelCase, `decision`/`injectSteps`) 어댑터 계층 필요. 상세 = vibe-ai-config `antigravity/README.md` 검증 이력(`5a7302a`).
+2. ~~서브에이전트 미구현~~ → **정정(2026-08-09)**: `run_subagent`·`SubagentSpec`·`KillSubagent` 및 멀티에이전트 오케스트레이터(owl) 구현 확인. README의 "v2 후보" 기술이 agy 1.1.0 기준으로 낡았던 것. 남은 일은 위임 규율(CLAUDE-delegation.md)의 agy 이식뿐.
 3. **스킬 3개 누락**: `notion-project-creator`(개인관리 도메인 — 확인 필요) · `skill-backup` · `update-vibe-commands`(Claude 전용 성격, 무시 가능).
 4. **install.sh 문구 불일치**: 실행 로그의 "antigravity 어댑터 미구현 — skip(P3/P4)"과 실제 배포 상태(스킬 53개 존재)가 어긋남 → 배포 경로 확정 후 문구 정리(재설치 시 누락 위험).
 5. **MCP 실호출 미검증**: notionMCP는 `mcp-remote` OAuth → 토큰 만료 시 재인증 필요. 전환 전 agy에서 Notion·GCal 1회 실호출 검증.
