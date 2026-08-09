@@ -22,7 +22,9 @@
 - 뱅크샐러드 드롭 폴더 생성됨: `~/Documents/banksalad/` (볼트 밖 — 금융 데이터 git 제외).
 - **8/6 노션 DB 구성 업데이트 완료** (`db-requirements.md` 신설 — 업무컴 작성분 미접근으로 개인컴 재작성): ① 예산 실체 발견 — 이미 2-DB 체계(🏦 Household Ledger 월 페이지 + 🧺 Ledger 지출 트랜잭션, 카테고리 12종·실행 status) 운영 중, 도메인 문서(03.예산.md)의 "동적 검색+마크다운 표+7종"은 실체와 전면 불일치 ② 스키마 적용: Ingredients `보유 중`(재고 SoT)·Ledger `가맹점`+`출처` 추가 ③ **예산 3-DB 체계 구축(사용자 요구 확정)**: 🏦 Household Ledger(메인 예산, `거래내역` relation+`가계부금액` rollup 신설) + 💳 거래내역(뱅크샐러드 원본, 신설 `collection://f6f2513b-...`) + 🧺 Ledger(**위시리스트 역할 — 사용자 정정**, `매핑 거래` relation 신설; 최초 신설했던 별도 Wish List DB와 Ledger `가맹점`·`출처`는 정정에 따라 폐기/롤백) ④ ids.md에 예산 3-DB 등록 + 동적 검색 기술 폐기 ⑤ 재고 백필은 대상 0건(주간 relation이 placeholder `_` 뿐) ⑥ DB 잠금(UI Lock)은 MCP 스키마 변경을 막지 않음 확인(재조회 검증).
 - **8/6 저녁 추가 진행**: ① 예산 3-DB 확정(메인=🏦 HL / 원본=💳 거래내역 / 위시=🧺 Ledger) + HL↔Ledger 관계 절단 ② **7월 뱅크샐러드 import 완료**(122건, 원본 합계 일치 검증) ③ HL 표시 값 복원 — rollup 4종(수입금·변동지출·고정지출·예산외지출)+총지출, 깨진 수식 3종 재정의, 고정 12건 백필. 상세: `db-requirements.md` S6~S15. 뱅샐 파일: `~/Documents/banksalad/2025-08-02~2026-08-02.xlsx`(1년치 — 나머지 11개월 import는 보류).
-- **다음 행동: ① 03.예산.md 전면 재작성(3-DB·거래내역 파이프라인 기준) + 02.식단.md '보유 중' 반영 ② notion-budget·notion-diet-manager 스킬을 실스키마 기준으로 갱신(pane %14 위임분 검증과 병합) ③ 나머지 월(2025-08~2026-06, 2026-08) import 여부 결정 ④ 실보유 식재료 입력 받아 보유 중 체크 ⑤ 7월 HL 페이지 BasicLedgerPrice(기본예산) 입력(남은금액 계산용).**
+- **8/7(금) 업무컴에서 전월 일괄 import 완료** — 거래내역 총 1,911건, **이체 포함 방침 확정**. 개인컴 6월 import는 중복 방지로 취소. 미해소: 6월 지출 1건 13,160원 차이(개인컴 8/2 export 대비). 상세 `db-requirements.md` S16.
+- **8/9 설정**: personal overlay 의 `model` 고정(`claude-fable-5[1m]`) 제거 — 업무컴과 동일하게 Claude Code 기본 모델(현 Opus 5 1M)을 따른다 (vibe-ai-config `7832457`, install.sh 재생성·검증 완료).
+- **다음 행동: ① 03.예산.md 전면 재작성(3-DB·거래내역 파이프라인·이체 포함 방침 기준) + 02.식단.md '보유 중' 반영 ② notion-budget·notion-diet-manager 스킬을 실스키마 기준으로 갱신(pane %14 위임분 검증과 병합) ③ 전월 거래의 `고정` 백필(현재 7월만 완료 — 6월 이전은 미분류) ④ HL 월 페이지별 BasicLedgerPrice 확인(7월 0원) ⑤ 6월 1건 차이 추적 여부 결정.**
 
 ---
 
