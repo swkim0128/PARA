@@ -15,6 +15,22 @@
 - GitHub PAT 재발급(개인컴 AI 작업환경 잔여 액션)은 **진행하지 않기로 결정(2026-08-06)**.
 - **8/6 설정 구성 감사 + 정리 완료**: ① `~/.claude/.omc*` 잔재 3건 삭제(8/2 정리 때 누락분 — 이제 OMC 흔적 진짜 0) ② 레거시 `~/.claude/config.json`(구식 MCP 설정) 삭제 ③ 고아 마켓플레이스 디렉토리(`affaan-m-everything-claude-code `) 삭제 ④ `plane-mcp@cc-claude`를 settings.base → work overlay로 이동(개인컴에서 조용한 로드 실패 해소) ⑤ allow 중복 패턴 18건 정리(88→70) ⑥ git 로컬 파괴성 명령(restore·checkout --·stash drop/clear·reset --hard) ask 승격(git * allow·push 무확인은 유지) — vibe-ai-config `d8c85a6`·`57471f5`, `./install.sh personal` 재생성 완료. **업무컴 후속: 다음 `git pull` + `./install.sh work` 시 자동 반영(plane-mcp는 work overlay 경유 유지).**
 
+## 🔀 agy 메인 전환 준비 — 설정 점검 결과 (2026-08-09, 전환은 보류)
+
+> 방침: 개인컴 메인 도구를 Claude Code → **agy(Antigravity)** 로 전환한다. **지금 전환하지 않고**, agy 설정이 갖춰진 뒤 실행한다.
+
+**이미 갖춰진 것**: `VIBE_HUB_TOOL=agy`(~/.zshrc.local) · 규칙 주입 경로 작동(`~/.gemini/GEMINI.md` 관리 블록 = 정본 AGENTS.md + agy-tail, `~/.agents/AGENTS.md` 심링크) · 프로젝트 규칙(`para/GEMINI.md` → `@AGENTS.md`) · 스킬 53개(`~/.agents/skills`) · MCP 7종(notionMCP·google-calendar·context7·github·playwright·browsermcp·sequential-thinking) · SOP 워크플로우 4종 · 권한 시드.
+
+**보완 필요 (전환 전)**
+1. **훅 0개 — 최대 갭.** Claude는 훅 9개로 규칙을 결정론적 집행 중(작업로그 자동기록·컨텍스트 가드·설정 가드·서브에이전트 우선 가드 등) + para 훅으로 **NEXT-SESSION 브리핑 자동 주입**. agy는 `hooks.json` 미구현(파일 부재 확인) → 전환 시 전부 지시문 의존으로 후퇴(= 규칙 승격 원칙 위반).
+2. **서브에이전트 미구현**(SubagentSpec = v2 후보). 위임이 `vibe delegate`(tmux pane)뿐 → multi-dispatch 등 백그라운드 에이전트 전제 스킬이 깨짐.
+3. **스킬 3개 누락**: `notion-project-creator`(개인관리 도메인 — 확인 필요) · `skill-backup` · `update-vibe-commands`(Claude 전용 성격, 무시 가능).
+4. **install.sh 문구 불일치**: 실행 로그의 "antigravity 어댑터 미구현 — skip(P3/P4)"과 실제 배포 상태(스킬 53개 존재)가 어긋남 → 배포 경로 확정 후 문구 정리(재설치 시 누락 위험).
+5. **MCP 실호출 미검증**: notionMCP는 `mcp-remote` OAuth → 토큰 만료 시 재인증 필요. 전환 전 agy에서 Notion·GCal 1회 실호출 검증.
+6. statusLine/사용량: claude-dashboard는 Claude 전용 — agy-hud 대체 여부 확인.
+
+**권고 순서**: ① hooks.json 최소 3종(브리핑 주입·작업로그·Bash 체이닝 가드) 구현 → ② agy 실기 검증 1회 → ③ install.sh 정합 정리 → ④ 실사용 전환(허브 변수는 이미 agy).
+
 ## 🆕 신규 프로젝트 — 노션 루틴 3종 업그레이드 (2026-08-02 착수)
 
 - 위치: `01.Projects/노션_루틴_업그레이드/` — `requirements.md`(§0 아키텍처 + 일정 R1-6·예산 B1-4·식단 D1-2, 설계 4결정 확정) + `diagnosis.md`(진단 + 진행 추적) + `design.md`(3계층 아키텍처 + 기능 설계).
