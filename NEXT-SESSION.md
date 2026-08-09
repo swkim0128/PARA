@@ -76,6 +76,8 @@
   - 🚨 **MCP DSL 은 `status` 타입 필터를 조용히 버린다** — `FILTER "Status" = "In progress"` 를 넣어도 `advancedFilter.filters: []` 로 저장됨. **`select` 필터는 정상**(`타입=지출` 반영 확인). UI 에서 직접 걸면 `simpleFilters` 로 정상 저장되므로, status 필터가 필요한 뷰는 **생성만 MCP·필터는 UI** 로 분담한다.
   - **숫자 카드는 폐기**(status 필터 불가로 전체 개수만 표시). 도넛 2종은 사용자가 UI 에서 `To-do + In progress` 그룹 필터를 걸어 활성만 남김.
   - 실데이터(2026-08-09): Projects 108건 중 활성 16(Backlog 6·Paused 5·In progress 3·Planning 2), Tasks 556건 중 활성 3(In progress 2·Not started 1). **누적 Done(86·529)은 지표가 아니라 아카이브 크기** — 필터 없이는 도넛이 Done 덩어리 하나가 되어 무의미.
+- 🚨 **노션 차트 Y축(집계 대상)은 `number` 를 반환하는 속성만 선택 가능** (2026-08-09 규명). 수식이라서 안 되는 게 아니라 **반환 타입**이 갈림 — HL 에서 `AllLeftAmount`(수식·number 반환)는 선택되고 `AllExpenditurePrice`·`총지출`·`LeftExpenditure`(포맷 문자열 반환)는 선택 불가. 거래내역 `총지출액`도 같은 이유로 불가.
+  - **지출 음수 문제 해결**: 뱅크샐러드 import 로 지출이 음수 저장(지출 1,175건 합계 −22,830,555). 차트에 부호 반전·절대값 옵션이 없어 데이터 쪽에서 해결 — 거래내역에 **`지출액` 수식 신설(`abs(prop("금액"))`)** 후 차트 집계 대상으로 지정. 기존 계산(HL rollup 4종·수식)은 건드리지 않아 영향 0.
 - **다음 행동: `Week` 탭 구성 여부 결정** — 홈에서 DB 링크드 뷰를 보는 것까지 허용되는지 사용자 확인 필요(진입 페이지 Food·Budge 와 중복 우려). Task 도넛은 조각 2개뿐이라 숫자 카드/리스트 대체 검토.
 
 ### 🎯 도구 목적별 재배치 — 2026-08-09 확정
