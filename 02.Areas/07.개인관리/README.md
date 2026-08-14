@@ -4,6 +4,9 @@
 >
 > **아키텍처 원칙 — 개인관리가 도메인(상위), 노션은 현재 선택된 저장소 어댑터(하위).**
 > 이 폴더의 도메인 문서(`0X.*.md`)가 저장소 중립 규칙의 단일 정본(SoT)이다. 스킬(vibe-ai-config `notion-*`)은 도메인 문서를 인용하고 **저장소 조작 절차(어댑터)만** 자체 보유한다. 스킬 없는 환경은 도메인 문서 + 어댑터 문서로 직접 수행한다. 저장소(노션) 교체 시에도 도메인 규칙 층은 불변 — [adapters/](adapters/notion/README.md) 층만 교체한다.
+>
+> 🚨 **예외 — 식단(2026-08-14)**: **업무컴에는 개인 볼트를 두지 않으므로**, 볼트 없이도 작업이 가능해야 하는 식단 도메인은 **스킬(`notion-diet-manager`)이 규칙 정본**이고 [[02.식단]]은 포인터 문서다. 규칙이 바뀌면 스킬을 고친다. 스킬은 `~/.agents/skills` 가 universal 정본이고 Claude 는 이를 심링크하므로, **한 번 배포하면 Claude·agy 양쪽에서 동일하게 읽힌다.**
+> 다른 도메인도 볼트 미동기 환경에서 쓰게 되면 같은 전환이 필요하다 — 그때는 이 표의 「도메인 정본」 열을 함께 갱신할 것.
 
 ## 매핑 레지스트리 (기능 → 환경별 수단) — 이 표가 중심
 
@@ -11,7 +14,7 @@
 |---|---|---|---|
 | 일정 | [[04.일정]] | notion-weekly-schedule · notion-weekly-routine · notion-weekly-retrospective · gws-cal-to-notion | 도메인 문서 + Notion·GCal MCP |
 | 예산 | [[03.예산]] | notion-budget | 도메인 문서 + Notion MCP |
-| 식단 | [[02.식단]] | notion-diet-manager | 도메인 문서 + Notion MCP |
+| 식단 | ⚠️ **스킬 내부**(`notion-diet-manager/references/db-schema.md`) — [[02.식단]]은 포인터 | notion-diet-manager | **스킬** + Notion MCP |
 | 다이어리 | [[01.다이어리]] | notion-diary | 도메인 문서 + Notion MCP |
 
 ## 도메인 라우팅
