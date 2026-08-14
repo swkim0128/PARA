@@ -26,7 +26,12 @@
 2. ~~서브에이전트 미구현~~ → **정정(2026-08-09)**: `run_subagent`·`SubagentSpec`·`KillSubagent` 및 멀티에이전트 오케스트레이터(owl) 구현 확인. README의 "v2 후보" 기술이 agy 1.1.0 기준으로 낡았던 것. 남은 일은 위임 규율(CLAUDE-delegation.md)의 agy 이식뿐.
 3. **스킬 3개 누락**: `notion-project-creator`(개인관리 도메인 — 확인 필요) · `skill-backup` · `update-vibe-commands`(Claude 전용 성격, 무시 가능).
 4. **install.sh 문구 불일치**: 실행 로그의 "antigravity 어댑터 미구현 — skip(P3/P4)"과 실제 배포 상태(스킬 53개 존재)가 어긋남 → 배포 경로 확정 후 문구 정리(재설치 시 누락 위험).
-5. **MCP 실호출 미검증**: notionMCP는 `mcp-remote` OAuth → 토큰 만료 시 재인증 필요. 전환 전 agy에서 Notion·GCal 1회 실호출 검증.
+5. 🚨 **MCP 실호출 시도 → 실패 확인(2026-08-14)**. `agy -p '…'` 로 읽기 전용 테스트를 돌렸으나 **5분 타임아웃, 응답 0바이트**. 로그(`~/.gemini/antigravity-cli/cli.log`) 원인: `MCP: 1 server(s) still connecting after 5m0s: notionMCP` → `Print mode: timed out after 1494 polls (printed=0)`.
+   - **구조적 취약점 — MCP 하나가 안 붙으면 print 모드가 통째로 멈춘다.** 다른 MCP 6종과 모델·규칙 로드는 정상이었는데도 아무 작업을 못 했다. **agy 를 메인으로 전환하기 전 반드시 해결해야 하는 급소.**
+   - 원인: `notionMCP` = `npx -y mcp-remote https://mcp.notion.com/mcp`(OAuth). 인증 캐시 `~/.mcp-auth/` 최신이 **mcp-remote-0.1.37 / 2026-02-22** 뿐 — `npx -y` 가 매번 최신 버전을 받으므로 버전 상승과 함께 캐시가 무효화됐다.
+   - **해결(사용자 작업 필요)**: 터미널에서 `npx -y mcp-remote https://mcp.notion.com/mcp` 1회 실행 → 브라우저 인증 → 토큰 캐시 후 Ctrl+C. 그다음 agy 재테스트.
+   - 대안: 인증 전까지 `~/.gemini/config/mcp_config.json` 에서 notionMCP 를 잠시 빼면 agy 자체(규칙·훅·스킬) 검증은 가능.
+6. 🐛 **`vibe delegate` 가 agy 를 지원하지 않는다** — 실제 허용값은 `claude|gemini|codex`. 그런데 `para/AGENTS.md` 는 `--tool agy|claude|gemini|codex` 로 기술 → **문서와 CLI 불일치.** agy 위임을 쓰려면 delegate 스크립트에 agy 를 추가하거나 문서를 정정해야 한다.
 6. statusLine/사용량: claude-dashboard는 Claude 전용 — agy-hud 대체 여부 확인.
 
 **권고 순서**: ① hooks.json 최소 3종(브리핑 주입·작업로그·Bash 체이닝 가드) 구현 → ② agy 실기 검증 1회 → ③ install.sh 정합 정리 → ④ 실사용 전환(허브 변수는 이미 agy).
