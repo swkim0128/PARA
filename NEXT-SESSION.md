@@ -31,6 +31,13 @@
 
 **권고 순서**: ① hooks.json 최소 3종(브리핑 주입·작업로그·Bash 체이닝 가드) 구현 → ② agy 실기 검증 1회 → ③ install.sh 정합 정리 → ④ 실사용 전환(허브 변수는 이미 agy).
 
+## ⚙️ 설정 확인 — 2026-08-14 (업무컴 설정 반영 후)
+
+- 상태: 모델 `null`(기본 = Opus 5 1M) · 권한 allow 70/ask 10 · 스킬 58개 · 훅 이벤트 5종 / **스크립트 13종** · statusLine claude-dashboard(버전 와일드카드) · vibe-ai-config clean.
+- 업무컴에서 들어온 커밋 3개: `88d286c` **curl-terminal-guard**(에이전트 Bash 직접 `curl` 차단) · `3cc4836` **notion-diet-manager 갱신**(노션 식단 DB 구조 변경 반영 + Foods 재료 백필 훅) · `0a1c480` delegation 중복 pane 생성 금지.
+- ⚠️ **식단 DB 구조가 바뀌었다**(`3cc4836`) — 8/9 조사 결과(Diet/Foods/Ingredients 3-DB, `보유 중` 52건 중 0건 → "운영 미개시" 판단)가 낡았을 수 있다. **식단 작업 전 `notion-diet-manager` 스킬 문서를 먼저 확인할 것.**
+- **`bash-chain-guard` Claude 배선은 사용자 판단으로 보류(2026-08-14)** — agy 는 배선됨. Bash 체이닝 금지는 당분간 지시문(AGENTS.md)으로만 강제.
+
 ## 🪝 도구 무관 훅 3종 (2026-08-09 완료)
 
 - 정본 `vibe-ai-config/shared/hooks/` — 코어 3종(`briefing-inject`·`activity-log`·`bash-chain-guard`) + shim 2종(claude/agy) + `manifest.json` + `test.sh`. 커밋 `1b2071d`.
