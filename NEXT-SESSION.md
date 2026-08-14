@@ -31,7 +31,8 @@
    - 원인: `notionMCP` = `npx -y mcp-remote https://mcp.notion.com/mcp`(OAuth). 인증 캐시 `~/.mcp-auth/` 최신이 **mcp-remote-0.1.37 / 2026-02-22** 뿐 — `npx -y` 가 매번 최신 버전을 받으므로 버전 상승과 함께 캐시가 무효화됐다.
    - **해결(사용자 작업 필요)**: 터미널에서 `npx -y mcp-remote https://mcp.notion.com/mcp` 1회 실행 → 브라우저 인증 → 토큰 캐시 후 Ctrl+C. 그다음 agy 재테스트.
    - 대안: 인증 전까지 `~/.gemini/config/mcp_config.json` 에서 notionMCP 를 잠시 빼면 agy 자체(규칙·훅·스킬) 검증은 가능.
-6. 🐛 **`vibe delegate` 가 agy 를 지원하지 않는다** — 실제 허용값은 `claude|gemini|codex`. 그런데 `para/AGENTS.md` 는 `--tool agy|claude|gemini|codex` 로 기술 → **문서와 CLI 불일치.** agy 위임을 쓰려면 delegate 스크립트에 agy 를 추가하거나 문서를 정정해야 한다.
+6. ✅ **agy 자체 검증은 통과(2026-08-14, notionMCP 임시 제거 후)**. `agy -p` 로 읽기 전용 작업 정상 완주 — ① **식단 정본을 스스로 찾아냄**(`~/.agents/skills/notion-diet-manager/references/db-schema.md`) → 오늘 확정한 "스킬이 정본" 구조가 agy 에서 작동 확인 ② 핵심 규칙 3개 정확 요약(요일×끼니 표 정본·`보유 중` 단일 정본·`구분` 필수) ③ **GEMINI.md 관리 블록의 AGENTS.md 규칙 인용**(절대 금지·3대 자가 검증) → 규칙 주입 경로 정상. **즉 막힌 것은 notionMCP 하나뿐이고, 규칙·스킬·작업 수행은 정상이다.**
+7. 🐛 **`vibe delegate` 가 agy 를 지원하지 않는다** — 실제 허용값은 `claude|gemini|codex`. 그런데 `para/AGENTS.md` 는 `--tool agy|claude|gemini|codex` 로 기술 → **문서와 CLI 불일치.** agy 위임을 쓰려면 delegate 스크립트에 agy 를 추가하거나 문서를 정정해야 한다.
 6. statusLine/사용량: claude-dashboard는 Claude 전용 — agy-hud 대체 여부 확인.
 
 **권고 순서**: ① hooks.json 최소 3종(브리핑 주입·작업로그·Bash 체이닝 가드) 구현 → ② agy 실기 검증 1회 → ③ install.sh 정합 정리 → ④ 실사용 전환(허브 변수는 이미 agy).
@@ -54,7 +55,11 @@
 ## 🪝 도구 무관 훅 3종 (2026-08-09 완료)
 
 - 정본 `vibe-ai-config/shared/hooks/` — 코어 3종(`briefing-inject`·`activity-log`·`bash-chain-guard`) + shim 2종(claude/agy) + `manifest.json` + `test.sh`. 커밋 `1b2071d`.
-- **검증**: shellcheck 무경고 + `test.sh` 13/13(양 하네스 계약 전수). **agy 배선 완료**(`~/.agents/hooks.json`, install.sh 가 자동 생성). **Claude 배선은 보류** — briefing·activity 는 기존 훅과 중복이라, 신규 가치가 있는 `bash-chain-guard` 만 `settings.base.json` 에 추가하면 됨(절차는 `shared/hooks/README.md`, `ask` 모드로 시작 권장).
+- **검증**: shellcheck 무경고 + `test.sh` 13/13(양 하네스 계약 전수). **Claude 배선은 보류** — briefing·activity 는 기존 훅과 중복이라, 신규 가치가 있는 `bash-chain-guard` 만 `settings.base.json` 에 추가하면 됨(절차는 `shared/hooks/README.md`, `ask` 모드로 시작 권장).
+- 🚨 **~~agy 배선 완료~~ → 거짓이었음(2026-08-14 실측 정정).** `~/.agents/hooks.json` 은 install.sh 가 정상 생성하지만 **agy 가 그 파일을 읽지 않는다.** agy 로그: `hooks_manager.go:53] loaded 0 named hooks from **0 hooks.json file(s)**` — 파싱 실패가 아니라 **파일 미발견**. 2026-08-06 로그에도 동일 → 처음부터 한 번도 로드된 적 없다.
+  - 증거 보강: 실기 테스트에서 체이닝 명령(`echo "test1" && echo "test2"`)이 **exit 0 정상 실행**(차단 없음), `activity-log` 출력 디렉토리 `~/.local/share/vibe-hooks/activity/` **미생성**. 훅 3종 전부 미작동.
+  - **`antigravity/README.md` 의 "customization root = 전역 `~/.agents/hooks.json`" 기술도 오류.** 실제 경로 미규명 — agy 가 MCP 를 `~/.gemini/config/mcp_config.json` 에서 읽는 것을 보면 `~/.gemini/config/hooks.json` 이 유력 후보. 워크스페이스 `<ws>/.agents/hooks.json` 도 미검증.
+  - **다음 진단**: 후보 경로 3곳(`~/.gemini/config/hooks.json` · `~/.gemini/hooks.json` · `<ws>/.agents/hooks.json`)에 동시 배치 후 agy 1회 실행 → 로그의 `loaded N named hooks from M hooks.json file(s)` 로 판별. 경로 확정 후 `generate-agy-hooks.sh` 출력 위치를 고칠 것.
 - MCP 실측 제약: agy 에 SessionStart 없음(PreInvocation+invocationNum==1 로 에뮬), `type:"agent"` 훅 미지원.
 
 ## 🏠 노션 홈 대시보드 (2026-08-09 진행 중)
