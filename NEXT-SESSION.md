@@ -4,7 +4,15 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-08-06** (OMC 제거 후속 4건 전부 마감 — 설정 정비 완결)
+**최종 갱신: 2026-08-14**
+
+## 🔜 다음 세션 착수 지점 (2026-08-14 인계)
+
+1. **agy 훅 검증** — `~/.gemini/config/hooks.json` 배치는 끝. agy 실행 후 `tail -5 ~/.gemini/antigravity-cli/cli.log` 에서 `loaded 3 named hooks from 1 hooks.json file(s)` 확인 → 체이닝 명령 `deny` 확인.
+2. **notionMCP 연결 검증** — `mcp-remote@0.1.37` 버전 고정 적용됨(0.1.38 로 올라가며 인증 캐시 무효화된 것이 원인). 30초 내 붙으면 성공, `still connecting` 반복이면 `npx -y mcp-remote@0.1.37 https://mcp.notion.com/mcp` 로 재인증.
+3. **agy pane 띄우기** — `cmux` 로 pane 생성 + `tmux send-keys` 로 `agy`. (`tmux split-window` 는 deny, `vibe delegate` 는 agy 미지원)
+4. **문서·스크립트 정정 4건** — `generate-agy-hooks.sh` 출력 경로 · `antigravity/README.md` customization root 오기 · `para/AGENTS.md` 의 `--tool agy` 오기 · `vibe delegate` 에 agy 추가 여부 결정.
+5. 미착수: `03.예산.md` 전면 재작성(구버전 절 3개), Pulse 차트 UI 마무리(숫자 정밀도·월 그룹), Project `작업 현황` 기본 뷰 지정, HL `총지출` 수식 값 확인.
 
 ## 🔧 2026-08-02 설정 정비 상태 (Claude Code 재시작 직전 저장)
 
@@ -59,7 +67,15 @@
 - 🚨 **~~agy 배선 완료~~ → 거짓이었음(2026-08-14 실측 정정).** `~/.agents/hooks.json` 은 install.sh 가 정상 생성하지만 **agy 가 그 파일을 읽지 않는다.** agy 로그: `hooks_manager.go:53] loaded 0 named hooks from **0 hooks.json file(s)**` — 파싱 실패가 아니라 **파일 미발견**. 2026-08-06 로그에도 동일 → 처음부터 한 번도 로드된 적 없다.
   - 증거 보강: 실기 테스트에서 체이닝 명령(`echo "test1" && echo "test2"`)이 **exit 0 정상 실행**(차단 없음), `activity-log` 출력 디렉토리 `~/.local/share/vibe-hooks/activity/` **미생성**. 훅 3종 전부 미작동.
   - **`antigravity/README.md` 의 "customization root = 전역 `~/.agents/hooks.json`" 기술도 오류.** 실제 경로 미규명 — agy 가 MCP 를 `~/.gemini/config/mcp_config.json` 에서 읽는 것을 보면 `~/.gemini/config/hooks.json` 이 유력 후보. 워크스페이스 `<ws>/.agents/hooks.json` 도 미검증.
-  - **다음 진단**: 후보 경로 3곳(`~/.gemini/config/hooks.json` · `~/.gemini/hooks.json` · `<ws>/.agents/hooks.json`)에 동시 배치 후 agy 1회 실행 → 로그의 `loaded N named hooks from M hooks.json file(s)` 로 판별. 경로 확정 후 `generate-agy-hooks.sh` 출력 위치를 고칠 것.
+  - ✅ **경로 규명 완료(2026-08-14, agy 바이너리 문자열 분석)**: 전역 customization root = **`~/.gemini/config/`**. 바이너리 내장 문서에 `**Global Configuration**: ~/.gemini/config/mcp_config.json` · `3. **Global Discovery**: ~/.gemini/config/` 로 명시. **`.agents/` 는 `skills/`·`plugins/`·`skills.json` 전용**이며 hooks.json 과 짝지어진 문자열이 없다 → 그래서 **스킬 53개는 정상 작동했고 훅만 죽어 있었다.**
+    - **조치**: `~/.gemini/config/hooks.json` 배치 완료(`~/.agents/hooks.json` 은 삭제하지 않고 남김). **검증 미완** — agy 재실행 후 로그에 `loaded 3 named hooks from 1 hooks.json file(s)` 가 찍히는지, 체이닝 명령이 `deny` 되는지 확인 필요.
+    - **후속 수정 대상**: ① `shared/hooks/generate-agy-hooks.sh` 출력 경로를 `~/.gemini/config/hooks.json` 으로 ② `antigravity/README.md` 의 "customization root = 전역 `~/.agents/hooks.json`" 오기 정정 ③ 8/9 의 "agy 배선 완료" 기록도 이 정정에 맞춰 이미 수정함.
+
+## 🖥 패널 생성 경로 (2026-08-14 확인)
+
+- **`tmux split-window` 는 권한 `deny`** (`tmux new-session*`·`tmux new -s*` 도 deny). 에이전트가 직접 pane 을 못 만든다.
+- **allow**: `cmux:*` · `~/.config/vibe-tools/claude-delegate.sh *` · `claude-send.sh *` · `tmux send-keys:*` · list/capture/display-message 계열.
+- ⇒ **agy pane 생성 정식 경로 = `cmux` 로 pane 생성 후 `tmux send-keys` 로 `agy` 입력**(2단계). `vibe delegate` 는 agy 미지원이라 쓸 수 없다. **미시도 — 다음 세션에서 이 경로로 검증할 것.**
 - MCP 실측 제약: agy 에 SessionStart 없음(PreInvocation+invocationNum==1 로 에뮬), `type:"agent"` 훅 미지원.
 
 ## 🏠 노션 홈 대시보드 (2026-08-09 진행 중)
