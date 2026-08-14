@@ -10,9 +10,10 @@
 
 1. **agy 훅 검증** — `~/.gemini/config/hooks.json` 배치는 끝. agy 실행 후 `tail -5 ~/.gemini/antigravity-cli/cli.log` 에서 `loaded 3 named hooks from 1 hooks.json file(s)` 확인 → 체이닝 명령 `deny` 확인.
 2. **notionMCP 연결 검증** — `mcp-remote@0.1.37` 버전 고정 적용됨(0.1.38 로 올라가며 인증 캐시 무효화된 것이 원인). 30초 내 붙으면 성공, `still connecting` 반복이면 `npx -y mcp-remote@0.1.37 https://mcp.notion.com/mcp` 로 재인증.
-3. **agy pane 띄우기** — `cmux` 로 pane 생성 + `tmux send-keys` 로 `agy`. (`tmux split-window` 는 deny, `vibe delegate` 는 agy 미지원)
-4. **문서·스크립트 정정 4건** — `generate-agy-hooks.sh` 출력 경로 · `antigravity/README.md` customization root 오기 · `para/AGENTS.md` 의 `--tool agy` 오기 · `vibe delegate` 에 agy 추가 여부 결정.
-5. 미착수: `03.예산.md` 전면 재작성(구버전 절 3개), Pulse 차트 UI 마무리(숫자 정밀도·월 그룹), Project `작업 현황` 기본 뷰 지정, HL `총지출` 수식 값 확인.
+3. **agy pane 띄우기** — ✅ `vibe delegate <프로젝트> --tool agy ["메시지"]` 로 가능(2026-08-14 `vibe.sh` 에 agy 지원 추가 — vibe-ai-config `c8892e4` 로 자동 커밋됨). `cmux` + `tmux send-keys` 2단계 우회는 더 이상 불필요. **실제 pane 기동은 미검증 — 다음 세션에서 1회 실행 확인할 것.**
+4. **문서·스크립트 정정 2건** — `generate-agy-hooks.sh` 출력 경로 · `antigravity/README.md` customization root 오기. (~~`vibe delegate` agy 추가~~ · ~~`settings.local.json` 죽은 경로~~ 완료 — 다만 delegate 기본값은 여전히 `claude` 라 `para/AGENTS.md` 의 "agy(기본)" 표기는 아직 불일치)
+5. 🔧 **tmux-suite 재사용성 리팩토링 (사용자 지시로 별건 분리 — 2026-08-14)** — 원칙은 `shared/rules/AGENTS.md` §2 에 반영 완료("재사용성 = 추상화 추가가 아니라 종속 제거"). 대상: ① `vibe.sh:41`(`start`)·`:556`(`resume`) 의 `claude` 하드코딩 → `VIBE_HUB_TOOL`/`--tool` 로 (`main:154` 는 이미 적용됨) ② `vibe reap` → `reap-idle-claude.sh` Claude 전용 ③ `claude-{send,delegate,switch,skills}.sh` 네이밍·도구 종속 ④ 위치 이관 `claude/plugins/tmux-suite/` → `shared/`(`CLAUDE.md:53`·`marketplace.json`·aliases·스킬 참조 동반 수정 필요, 계획 먼저).
+6. 미착수: `03.예산.md` 전면 재작성(구버전 절 3개), Pulse 차트 UI 마무리(숫자 정밀도·월 그룹), Project `작업 현황` 기본 뷰 지정, HL `총지출` 수식 값 확인.
 
 ## 🔧 2026-08-02 설정 정비 상태 (Claude Code 재시작 직전 저장)
 
@@ -40,7 +41,7 @@
    - **해결(사용자 작업 필요)**: 터미널에서 `npx -y mcp-remote https://mcp.notion.com/mcp` 1회 실행 → 브라우저 인증 → 토큰 캐시 후 Ctrl+C. 그다음 agy 재테스트.
    - 대안: 인증 전까지 `~/.gemini/config/mcp_config.json` 에서 notionMCP 를 잠시 빼면 agy 자체(규칙·훅·스킬) 검증은 가능.
 6. ✅ **agy 자체 검증은 통과(2026-08-14, notionMCP 임시 제거 후)**. `agy -p` 로 읽기 전용 작업 정상 완주 — ① **식단 정본을 스스로 찾아냄**(`~/.agents/skills/notion-diet-manager/references/db-schema.md`) → 오늘 확정한 "스킬이 정본" 구조가 agy 에서 작동 확인 ② 핵심 규칙 3개 정확 요약(요일×끼니 표 정본·`보유 중` 단일 정본·`구분` 필수) ③ **GEMINI.md 관리 블록의 AGENTS.md 규칙 인용**(절대 금지·3대 자가 검증) → 규칙 주입 경로 정상. **즉 막힌 것은 notionMCP 하나뿐이고, 규칙·스킬·작업 수행은 정상이다.**
-7. 🐛 **`vibe delegate` 가 agy 를 지원하지 않는다** — 실제 허용값은 `claude|gemini|codex`. 그런데 `para/AGENTS.md` 는 `--tool agy|claude|gemini|codex` 로 기술 → **문서와 CLI 불일치.** agy 위임을 쓰려면 delegate 스크립트에 agy 를 추가하거나 문서를 정정해야 한다.
+7. ~~🐛 **`vibe delegate` 가 agy 를 지원하지 않는다**~~ → **해결(2026-08-14)**: `vibe.sh` delegate 의 도구 화이트리스트에 `agy` 추가(설치 확인 + 미설치 시 명확한 오류), 오류·usage·help 문구를 `agy|claude|gemini|codex` 로 정정, 메시지 프롬프트의 하드코딩 "claude" → 선택 도구명으로 치환. `bash -n`·`shellcheck -S warning` 통과. **남은 불일치**: 기본값은 여전히 `claude` 인데 `para/AGENTS.md` 는 "agy(기본)" 로 기술.
 6. statusLine/사용량: claude-dashboard는 Claude 전용 — agy-hud 대체 여부 확인.
 
 **권고 순서**: ① hooks.json 최소 3종(브리핑 주입·작업로그·Bash 체이닝 가드) 구현 → ② agy 실기 검증 1회 → ③ install.sh 정합 정리 → ④ 실사용 전환(허브 변수는 이미 agy).
@@ -75,7 +76,8 @@
 
 - **`tmux split-window` 는 권한 `deny`** (`tmux new-session*`·`tmux new -s*` 도 deny). 에이전트가 직접 pane 을 못 만든다.
 - **allow**: `cmux:*` · `~/.config/vibe-tools/claude-delegate.sh *` · `claude-send.sh *` · `tmux send-keys:*` · list/capture/display-message 계열.
-- ⇒ **agy pane 생성 정식 경로 = `cmux` 로 pane 생성 후 `tmux send-keys` 로 `agy` 입력**(2단계). `vibe delegate` 는 agy 미지원이라 쓸 수 없다. **미시도 — 다음 세션에서 이 경로로 검증할 것.**
+  - ✅ 2026-08-14: 이 allow 들이 가리키던 `~/.config/vibe-tools/*.sh` 가 실재하지 않아 죽은 룰이었음 → `tmux-suite/install.sh` 에 [4/4] 공용경로 심링크 배포 단계를 추가하고 실행, 9개 링크 생성으로 **살아남**. 비대화형 `zsh -c ~/.config/vibe-tools/vibe.sh ...` 동작 실증 완료(같은 명령을 `vibe` alias 로 부르면 여전히 `command not found` — 의도된 차이).
+- ⇒ **agy pane 생성 정식 경로 = `vibe delegate <프로젝트> --tool agy ["메시지"]`** (2026-08-14 지원 추가). `cmux` + `tmux send-keys` 2단계 우회는 폴백으로만. **실제 기동 미검증 — 다음 세션에서 1회 확인할 것.**
 - MCP 실측 제약: agy 에 SessionStart 없음(PreInvocation+invocationNum==1 로 에뮬), `type:"agent"` 훅 미지원.
 
 ## 🏠 노션 홈 대시보드 (2026-08-09 진행 중)
