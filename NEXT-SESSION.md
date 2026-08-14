@@ -1,6 +1,6 @@
 # 🖥️ NEXT-SESSION — 개인 컴 작업 브리핑
 
-> **이 파일은 세션 간 인수인계 SoT다.** 개인 컴에서 에이전트(agy 메인 허브·구현, Claude Code/Gemini 보조·조사) 세션을 열면
+> **이 파일은 세션 간 인수인계 SoT다.** 개인 컴에서 에이전트(Claude Code 허브·구현, Codex/Gemini 보조·조사) 세션을 열면
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
@@ -8,9 +8,15 @@
 
 ## 🔜 다음 세션 착수 지점 (2026-08-14 인계)
 
-1. **agy 훅 검증** — `~/.gemini/config/hooks.json` 배치는 끝. agy 실행 후 `tail -5 ~/.gemini/antigravity-cli/cli.log` 에서 `loaded 3 named hooks from 1 hooks.json file(s)` 확인 → 체이닝 명령 `deny` 확인.
-2. **notionMCP 연결 검증** — `mcp-remote@0.1.37` 버전 고정 적용됨(0.1.38 로 올라가며 인증 캐시 무효화된 것이 원인). 30초 내 붙으면 성공, `still connecting` 반복이면 `npx -y mcp-remote@0.1.37 https://mcp.notion.com/mcp` 로 재인증.
-3. **agy pane 띄우기** — ✅ `vibe delegate <프로젝트> --tool agy ["메시지"]` 로 가능(2026-08-14 `vibe.sh` 에 agy 지원 추가 — vibe-ai-config `c8892e4` 로 자동 커밋됨). `cmux` + `tmux send-keys` 2단계 우회는 더 이상 불필요. **실제 pane 기동은 미검증 — 다음 세션에서 1회 실행 확인할 것.**
+0. 🚨 **[방침 전환 2026-08-14 19시] agy 허브 계획 철회 → Claude Code 허브 복귀 + Codex(ChatGPT Plus) 편입.** 사용자 판단 — agy 실사용 품질이 Claude Code 대비 떨어짐(Flash 모델·토큰 만료). Google AI Pro 축소, ChatGPT Plus 결제로 전환. `para/AGENTS.md` §도구 분업 갱신 완료.
+   - **허브를 Codex 로 주지 않는 이유(기록)**: Codex CLI 는 PreToolUse/PostToolUse 훅이 없어 `bash-chain-guard` 류 결정론적 강제가 불가 — AGENTS.md 「규칙 승격 원칙」이 무력화된다. 조사·2nd opinion 위임 대상으로만 편입. ⚠️ 이 훅 미지원 판단은 실측 미검증(모델 학습 시점 기준) — 다음 세션에서 `codex --version` + 훅 지원 여부 확인 필요.
+   - **남은 실행 항목**: ① `~/.zshrc.local:4` + `vibe-dotfiles/zsh/zshrc.local.template:5` 의 `VIBE_HUB_TOOL="agy"` → `"claude"` ② Codex 어댑터 보강(`vibe-ai-config/codex/` 는 현재 AGENTS.md 심링크 + MCP 1종뿐 — MCP 를 agy 수준 7종으로) ③ Google AI Pro 다운그레이드(사용자 직접) ④ agy 관련 미완 항목(아래 3·4번, §agy 메인 전환 준비) 정리·아카이브.
+1. ✅ **agy 훅 검증 완료(2026-08-14 18:36)** — 별도 테스트 없이 실사용 중 입증됨. agy 가 체이닝(`||`) 명령을 시도하자 pane 에 `⚠ Tool call denied by pre-tool hook: 셸 체이닝 '||' 이 감지됐습니다. AGENTS.md 절대 금지 항목` 출력 → `bash-chain-guard` 정상 작동.
+2. ✅ **notionMCP — 검증 완료(2026-08-14)**
+   - **인증 및 통신 검증**: `mcp-remote@0.1.37` 단독 및 JSON-RPC 표준 핸드셰이크(`initialize`, `notifications/initialized`, `tools/list`, `tools/call` for `notion-search`) 100% 정상 작동 확인 (Notion MCP 1.2.0, 툴 28개 완사).
+   - **실제 검색 검증**: `notion-search` 툴로 "Home" 검색 시 사용자 노션 워크스페이스의 실제 페이지(`3b7a2519...`, `ca2881fa...` 등)를 정확하게 탐색 및 반환함.
+   - **agy 연결 시 타임아웃 이슈 해소**: npx 웜업 및 OAuth 토큰 처리 완료 후 정상 통신 확인됨.
+3. **agy pane 띄우기** — ✅ `vibe delegate <프로젝트> --tool agy ["메시지"]` 로 가능(2026-08-14 `vibe.sh` 에 agy 지원 추가 — vibe-ai-config `c8892e4` 로 자동 커밋됨). `cmux` + `tmux send-keys` 2단계 우회는 더 이상 불필요. ✅ **실기동 검증 완료(2026-08-14 18:06)** — pane `%16`, title `agy:para`, main-vertical 50/50, Antigravity CLI 1.1.13 · GEMINI.md 1건 · MCP 2건 로드 확인. ⚠️ 단 agy 화면에 **`Quota unavailable: Antigravity token expired`** — 실사용 전 토큰 재인증 필요.
 4. **문서·스크립트 정정 2건** — `generate-agy-hooks.sh` 출력 경로 · `antigravity/README.md` customization root 오기. (~~`vibe delegate` agy 추가~~ · ~~`settings.local.json` 죽은 경로~~ 완료 — 다만 delegate 기본값은 여전히 `claude` 라 `para/AGENTS.md` 의 "agy(기본)" 표기는 아직 불일치)
 5. 🔧 **tmux-suite 재사용성 리팩토링 (사용자 지시로 별건 분리 — 2026-08-14)** — 원칙은 `shared/rules/AGENTS.md` §2 에 반영 완료("재사용성 = 추상화 추가가 아니라 종속 제거"). 대상: ① `vibe.sh:41`(`start`)·`:556`(`resume`) 의 `claude` 하드코딩 → `VIBE_HUB_TOOL`/`--tool` 로 (`main:154` 는 이미 적용됨) ② `vibe reap` → `reap-idle-claude.sh` Claude 전용 ③ `claude-{send,delegate,switch,skills}.sh` 네이밍·도구 종속 ④ 위치 이관 `claude/plugins/tmux-suite/` → `shared/`(`CLAUDE.md:53`·`marketplace.json`·aliases·스킬 참조 동반 수정 필요, 계획 먼저).
 6. 미착수: `03.예산.md` 전면 재작성(구버전 절 3개), Pulse 차트 UI 마무리(숫자 정밀도·월 그룹), Project `작업 현황` 기본 뷰 지정, HL `총지출` 수식 값 확인.
@@ -24,9 +30,11 @@
 - GitHub PAT 재발급(개인컴 AI 작업환경 잔여 액션)은 **진행하지 않기로 결정(2026-08-06)**.
 - **8/6 설정 구성 감사 + 정리 완료**: ① `~/.claude/.omc*` 잔재 3건 삭제(8/2 정리 때 누락분 — 이제 OMC 흔적 진짜 0) ② 레거시 `~/.claude/config.json`(구식 MCP 설정) 삭제 ③ 고아 마켓플레이스 디렉토리(`affaan-m-everything-claude-code `) 삭제 ④ `plane-mcp@cc-claude`를 settings.base → work overlay로 이동(개인컴에서 조용한 로드 실패 해소) ⑤ allow 중복 패턴 18건 정리(88→70) ⑥ git 로컬 파괴성 명령(restore·checkout --·stash drop/clear·reset --hard) ask 승격(git * allow·push 무확인은 유지) — vibe-ai-config `d8c85a6`·`57471f5`, `./install.sh personal` 재생성 완료. **업무컴 후속: 다음 `git pull` + `./install.sh work` 시 자동 반영(plane-mcp는 work overlay 경유 유지).**
 
-## 🔀 agy 메인 전환 준비 — 설정 점검 결과 (2026-08-09, 전환은 보류)
+## 🔀 ~~agy 메인 전환 준비~~ — **철회(2026-08-14)**, 조사 기록으로만 보존
 
-> 방침: 개인컴 메인 도구를 Claude Code → **agy(Antigravity)** 로 전환한다. **지금 전환하지 않고**, agy 설정이 갖춰진 뒤 실행한다.
+> ⛔ **이 절의 방침은 2026-08-14 폐기됐다** (위 착수 지점 0번 참조). 아래 내용은 agy 하네스 실측 조사 기록으로만 남긴다 — 훅 엔진·서브에이전트·MCP 취약점 분석은 다른 도구 평가 시 재사용 가치가 있다.
+>
+> ~~방침: 개인컴 메인 도구를 Claude Code → **agy(Antigravity)** 로 전환한다. **지금 전환하지 않고**, agy 설정이 갖춰진 뒤 실행한다.~~
 
 **이미 갖춰진 것**: `VIBE_HUB_TOOL=agy`(~/.zshrc.local) · 규칙 주입 경로 작동(`~/.gemini/GEMINI.md` 관리 블록 = 정본 AGENTS.md + agy-tail, `~/.agents/AGENTS.md` 심링크) · 프로젝트 규칙(`para/GEMINI.md` → `@AGENTS.md`) · 스킬 53개(`~/.agents/skills`) · MCP 7종(notionMCP·google-calendar·context7·github·playwright·browsermcp·sequential-thinking) · SOP 워크플로우 4종 · 권한 시드.
 
@@ -79,6 +87,9 @@
   - ✅ 2026-08-14: 이 allow 들이 가리키던 `~/.config/vibe-tools/*.sh` 가 실재하지 않아 죽은 룰이었음 → `tmux-suite/install.sh` 에 [4/4] 공용경로 심링크 배포 단계를 추가하고 실행, 9개 링크 생성으로 **살아남**. 비대화형 `zsh -c ~/.config/vibe-tools/vibe.sh ...` 동작 실증 완료(같은 명령을 `vibe` alias 로 부르면 여전히 `command not found` — 의도된 차이).
 - ⇒ **agy pane 생성 정식 경로 = `vibe delegate <프로젝트> --tool agy ["메시지"]`** (2026-08-14 지원 추가). `cmux` + `tmux send-keys` 2단계 우회는 폴백으로만. **실제 기동 미검증 — 다음 세션에서 1회 확인할 것.**
 - MCP 실측 제약: agy 에 SessionStart 없음(PreInvocation+invocationNum==1 로 에뮬), `type:"agent"` 훅 미지원.
+- ✅ **agy 스킬 정본 직결(2026-08-14)** — agy 스킬 탐색이 `~/.agents/skills` **복사본**을 보던 구조를 `~/.gemini/config/skills.json` 선언으로 **vibe-ai-config/skills 직결**로 전환. 탐색이 `<root>/<스킬>/SKILL.md` 1단계 평면이라 중첩 그룹 17개를 entries 로 펼쳐야 하는데, 손 관리 대신 `antigravity/generate-agy-skills-json.sh` 가 스캔·생성하고 루트 `install.sh` [3/5] antigravity 분기에서 자동 실행된다(hooks 생성기와 같은 패턴). 스펙 근거: `agy-customizations/docs/json_configs.md`.
+  - 검증: agy 재시작 후 "`ps` 스킬 실제 로드 경로" 질의 → `/Users/eunsol/Project/vibe-ai-config/skills/work/tracking/ps/SKILL.md` 응답(신규 세션·도구 호출 없이 메타데이터에서 즉답 → 선언이 실제 반영됨).
+  - ⏭️ **미정리(사용자 판단으로 보류)**: `sync-skills-to-agents.sh` 의 agy 복사 구간과 `~/.agents/skills` 복사본 53개는 그대로 둠. 중복 로드 여부 관찰 후 별건 제거.
 
 ## 🏠 노션 홈 대시보드 (2026-08-09 진행 중)
 

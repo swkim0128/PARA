@@ -1,8 +1,9 @@
 # 개인 컴 멀티 AI CLI 작업 환경 설계 (A안 — 확정)
 
 - 작성일: 2026-07-17
-- 상태: 구현 완료 (2026-07-17) — 잔여: GitHub PAT 재발급(사용자), Codex 편입(보류)
+- 상태: 구현 완료 (2026-07-17) — 잔여: GitHub PAT 재발급(사용자, 2026-08-06 진행 안 하기로 결정), **Codex 편입(2026-08-14 착수 확정)**
 - 관련 레포: para(본 볼트), vibe-ai-config, vibe-dotfiles, ~/.gemini
+- **이력**: 2026-07-21 본 설계를 뒤집고 agy(Antigravity) 허브로 전환 → **2026-08-14 철회, 본 설계(Claude Code 허브)로 복귀**. 사유는 agy 실사용 품질 미달(Flash 모델·토큰 만료). 동시에 §6 비범위였던 Codex 어댑터 채우기가 구독 확정(ChatGPT Plus)으로 착수 항목이 됨.
 
 ## 1. 배경과 목표
 
@@ -15,8 +16,8 @@
 
 | 항목 | 결정 |
 | --- | --- |
-| 구독 플랜 | Claude Pro/Max(회사 팀 플랜 경유) + Gemini AI Pro/Ultra |
-| Codex | **보류** — 자리만 예약, 나중에 `--tool codex`로 편입 |
+| 구독 플랜 | Claude Pro/Max(회사 팀 플랜 경유) + ~~Gemini AI Pro/Ultra~~ → **ChatGPT Plus**(2026-08-14 전환: Google AI Pro 축소) |
+| Codex | ~~보류~~ → **편입 확정(2026-08-14)** — `--tool codex` 는 `vibe delegate` 가 도구 무관 구조라 이미 동작. 남은 일은 `vibe-ai-config/codex/` 어댑터(MCP) 채우기 |
 | 허브 도구 | **Claude Code** (vibe/cmux 위임 인프라·notion-suite·훅이 전부 Claude 기반). 단, Claude 접근이 회사 팀 플랜 의존이라 **허브 역할은 교체 가능하게 설계** (§3.3) |
 | Gemini 역할 | **작업 성격별 분업** — 조사·대량 컨텍스트(1M) 분석·문서화·웹 검색 |
 | agy(Antigravity) | 보조로 전환 — 브라우저 실검증·IDE형 대량 분석 시 사용 |
@@ -30,9 +31,11 @@
 | --- | --- | --- |
 | 작업 관리·노션 루틴·위임 지휘 | Claude Code | `vibe main` → para 허브 pane |
 | 구현·커밋·코드리뷰·오케스트레이션 | Claude Code | `vibe delegate <프로젝트>` |
-| 조사·대량 분석·문서화·웹 검색 | Gemini CLI | `vibe delegate <프로젝트> --tool gemini` (신규) |
-| 브라우저 실검증·IDE 작업 | agy (Antigravity) | GUI 직접 실행 (tmux 밖) |
-| (예약) 알고리즘·리뷰 세컨드 오피니언 | Codex CLI | `--tool codex` (추후) |
+| 대량 컨텍스트(1M) 분석·웹 검색 | Gemini CLI | `vibe delegate <프로젝트> --tool gemini` |
+| 조사·2nd opinion·보조 구현 | Codex CLI | `vibe delegate <프로젝트> --tool codex` (2026-08-14 편입) |
+| ~~브라우저 실검증·IDE 작업~~ | ~~agy (Antigravity)~~ | 보류(2026-08-14) |
+
+> ⚠️ **Codex 에는 허브를 맡기지 않는다.** Codex CLI 는 PreToolUse/PostToolUse 훅이 없어 `bash-chain-guard` 류 결정론적 강제가 걸리지 않는다 — AGENTS.md 「규칙 승격 원칙」(지시문 → 훅으로 승격)이 무력화되므로 위임 대상으로만 쓴다. (훅 미지원은 실측 미검증 — 확인 필요)
 
 **Single-Writer 원칙 유지**: 하나의 레포에는 동시에 한 도구만 Write. Gemini pane과 Claude pane이 같은 레포를 잡지 않도록 위임 시 허브가 점유 상태(`git status` dirty 여부)를 확인한다.
 
@@ -87,6 +90,6 @@ Claude Code 접근은 회사 팀 플랜에 의존하므로, 팀 플랜 이탈 �
 
 ## 6. 비범위 (YAGNI)
 
-- Codex 어댑터(`vibe-ai-config/codex/`) 채우기 — 구독 확정 후 별도 작업. 단, Claude 팀 플랜 이탈 시 허브 교체 시나리오(§3.3)의 첫 작업으로 승격됨.
+- ~~Codex 어댑터(`vibe-ai-config/codex/`) 채우기 — 구독 확정 후 별도 작업.~~ → **2026-08-14 범위로 승격**(ChatGPT Plus 구독 확정). 현재 `codex/` 는 AGENTS.md 심링크 + MCP 1종(`sequential-thinking`)뿐 — agy 가 쓰던 7종 수준으로 `~/.codex/config.toml` 을 채우는 것이 다음 작업.
 - Gemini용 위임 자동화 훅·서브에이전트 매핑 — pane 수동 위임으로 시작, 필요해지면 추가.
 - launchd 자동화 신규 추가 없음 (기존 3종 유지).
