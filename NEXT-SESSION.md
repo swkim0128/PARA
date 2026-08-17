@@ -241,11 +241,11 @@
     - 성공 시: `docs/election_type_codes.md`의 sgTypecode 미검증 8개(1,2,4,5,6,7,8,9) 검증 → parsed 데이터 생성 → README §7 변경 이력 기록
     - 여전히 INFO-03이면: 상태만 이 파일에 기록하고 다음 순위로.
 
-## 🟡 3순위 — Spring 프레임워크 개념·원리 조사 (`Planning`)
+## 🗄️ ~~3순위 — Spring 프레임워크 개념·원리 조사~~ → **아카이브(2026-08-17)**
 
-- 위치: `01.Projects/Spring_프레임워크_개념_원리_조사/`
-- 현황: 학습 범위 5개 영역(Core IoC/DI/AOP, MVC, Boot, Security, Data) 정의만 됨. 폴더 안 자료는 CQRS/Outbox 뿐(saga-pattern과 중복) — 정작 Spring 자료 0개.
-- **다음 행동: Spring Core(IoC/DI) 정리 노트 1편 작성 착수** → status를 In progress로.
+- 위치 이동: `01.Projects/` → **`04.Archives/Spring_프레임워크_개념_원리_조사/`** · 노션 `Canceled` + `ParaType=Archive`
+- 사유: 2026-02-01 생성 후 6.5개월간 Spring 산출물 0건. 폴더에 있던 CQRS/Outbox 문서 6건은 `saga-pattern/` 과 동일 내용의 오배치여서 삭제(원본은 `saga-pattern/` 03~08 에 보존).
+- 재개 시: 새 프로젝트로 시작할 것. 학습 범위 5개 영역(Core IoC/DI/AOP · MVC · Boot · Security · Data) 정의는 아카이브 README 에 남아 있어 출발점으로 재사용 가능.
 
 ## ✅ 완료 — 개인컴 AI 작업환경 업그레이드 (2026-07-17, 메인 도구: agy)
 
