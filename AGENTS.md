@@ -77,7 +77,7 @@ para/
 - 각 리소스 주제는 메인 개요 파일을 가짐 (예: `알고리즘 정리.md`, `Javascript 정리.md`).
 - Excalidraw 다이어그램은 `.excalidraw.md` 확장자 사용.
 
-<!-- 유지보수 메모(컨텍스트에 주입되지 않음): 루트에 용도 없는 git 추적 잔여물 — `--help/`, `test-diff.md`, `test-file.md`, `download.html`(0바이트). 정리 대상이나 방치해도 무해. -->
+<!-- 유지보수 메모(컨텍스트에 주입되지 않음): 루트 잔여물은 2026-08-17 정리 완료(--help/, test-diff.md, test-file.md, download.html, prompt.md, .playwright-mcp/). gdrive/·Clippings/·out/ 는 Drive 동기화·Obsidian 클리퍼 관련이라 의도적으로 남겨둠. -->
 
 ## 🔔 세션 시작 규칙 (개인 컴 필수)
 

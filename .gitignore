@@ -194,3 +194,6 @@ $RECYCLE.BIN/
 ### Google Drive 동기화 임시 파일
 .tmp.driveupload/
 .tmp.drivedownload/
+
+### Playwright MCP 디버그 로그 — 2026-08-17 추적 해제(재생성 방지)
+.playwright-mcp/
