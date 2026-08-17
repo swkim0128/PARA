@@ -2,11 +2,11 @@
 
 ## 🔗 Notion 연동
 
-> Notion `Projects` DB → PARA 단방향 동기화. 직접 편집 금지 — 다음 동기화 시 덮어쓰기됨.
-> Last synced: 2026-05-19
+> ⚠️ **2026-08-17 방향 전환** — 옛 "Notion → PARA 단방향, 직접 편집 금지" 규약은 폐기됐다. 이제 **볼트가 실질 SoT**이고 노션은 상태 인덱스이며, 이 문서는 직접 편집한다. 규칙 정본 → `02.Areas/07.개인관리/05.프로젝트.md`
+> 자동 동기화는 2026-05-19 이후 정지 상태 — 아래 값은 수동 갱신한다.
 
 - **Notion ID**: [PRO-117](https://www.notion.so/30fa25196d34801ba390f77a870e1def)
-- **Status**: In progress
+- **Status**: Paused _(2026-08-17 정정 — 산출물이 2026-02-26 이후 정지)_
 - **Priority**: 중간
 - **ParaType**: Project
 - **Start Date**: 2026-02-22

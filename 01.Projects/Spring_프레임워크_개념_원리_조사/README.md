@@ -5,8 +5,10 @@ Spring 프레임워크의 핵심 개념과 동작 원리 학습
 
 ## 상태
 
-> Notion `Projects` DB → PARA 단방향 동기화. 직접 편집 금지 — 다음 동기화 시 덮어쓰기됨.
-> Last synced: 2026-05-19
+> ⚠️ **2026-08-17 방향 전환** — 옛 "Notion → PARA 단방향, 직접 편집 금지" 규약은 폐기됐다. 이제 **볼트가 실질 SoT**이고 노션은 상태 인덱스이며, 이 문서는 직접 편집한다. 규칙 정본 → `02.Areas/07.개인관리/05.프로젝트.md`
+> 자동 동기화는 2026-05-19 이후 정지 상태 — 아래 값은 수동 갱신한다.
+>
+> 📌 **2026-08-17 정리**: 이 폴더에 있던 문서 6건은 `saga-pattern/` 과 동일한 CQRS·Transactional Outbox 자료였다(오배치). 원본이 `saga-pattern/` 에 03~08 번호로 보존돼 있어 중복분을 삭제했다. **Spring 프레임워크 자체 자료는 아직 0건**이다.
 
 - **Notion ID**: [PRO-115](https://www.notion.so/2faa25196d348193af9ffa044552ce7f)
 - **Status**: Planning
