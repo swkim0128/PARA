@@ -32,10 +32,12 @@
 | 작업 관리·노션 루틴·위임 지휘 | Claude Code | `vibe main` → para 허브 pane |
 | 구현·커밋·코드리뷰·오케스트레이션 | Claude Code | `vibe delegate <프로젝트>` |
 | 대량 컨텍스트(1M) 분석·웹 검색 | Gemini CLI | `vibe delegate <프로젝트> --tool gemini` |
-| 조사·2nd opinion·보조 구현 | Codex CLI | `vibe delegate <프로젝트> --tool codex` (2026-08-14 편입) |
+| 조사·2nd opinion·보조 구현 | Codex CLI | `vibe delegate <프로젝트> --tool codex` (2026-08-14 편입). 훅·서브에이전트 지원 확인(2026-08-17) — 허브 후보이기도 함 |
 | ~~브라우저 실검증·IDE 작업~~ | ~~agy (Antigravity)~~ | 보류(2026-08-14) |
 
-> ⚠️ **Codex 에는 허브를 맡기지 않는다.** Codex CLI 는 PreToolUse/PostToolUse 훅이 없어 `bash-chain-guard` 류 결정론적 강제가 걸리지 않는다 — AGENTS.md 「규칙 승격 원칙」(지시문 → 훅으로 승격)이 무력화되므로 위임 대상으로만 쓴다. (훅 미지원은 실측 미검증 — 확인 필요)
+> ✅ **Codex 훅 미지원 판단은 오판 — 2026-08-17 실측으로 철회.** `codex-cli 0.147.0` 은 훅 11종(`PreToolUse`·`PermissionRequest`·`PostToolUse`·`SessionStart`·`SessionEnd`·`UserPromptSubmit`·`SubagentStart/Stop`·`Stop`·`Pre/PostCompact`)을 지원하며 차단 규약(exit 2 + stderr, `permissionDecision:deny`)·출력 필드명이 Claude Code 와 거의 동일하다. 설정은 `~/.codex/hooks.json`이고 훅마다 `trusted_hash` 신뢰 계층이 추가로 있다(Claude 에는 없는 계층). 서브에이전트(`spawnAgent`·`default_subagent_model`)·스킬·플러그인·마켓플레이스도 지원하고, `.claude/` 설정 임포트 모듈(`external-agent-migration`)이 내장돼 있다.
+>
+> 따라서 **Codex 를 위임 전용으로 묶는 구조적 근거는 없다.** 현재 Claude 허브 유지는 스킬 57개·플러그인 15개·`vibe` 인프라의 전환 비용 판단일 뿐이며, 필요해지면 재검토 가능한 사안이다. (실사용 검증은 `codex login` 이후 — 현재 미인증)
 
 **Single-Writer 원칙 유지**: 하나의 레포에는 동시에 한 도구만 Write. Gemini pane과 Claude pane이 같은 레포를 잡지 않도록 위임 시 허브가 점유 상태(`git status` dirty 여부)를 확인한다.
 

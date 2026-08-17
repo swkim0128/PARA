@@ -9,8 +9,10 @@
 ## 🔜 다음 세션 착수 지점 (2026-08-14 인계)
 
 0. 🚨 **[방침 전환 2026-08-14 19시] agy 허브 계획 철회 → Claude Code 허브 복귀 + Codex(ChatGPT Plus) 편입.** 사용자 판단 — agy 실사용 품질이 Claude Code 대비 떨어짐(Flash 모델·토큰 만료). Google AI Pro 축소, ChatGPT Plus 결제로 전환. `para/AGENTS.md` §도구 분업 갱신 완료.
-   - **허브를 Codex 로 주지 않는 이유(기록)**: Codex CLI 는 PreToolUse/PostToolUse 훅이 없어 `bash-chain-guard` 류 결정론적 강제가 불가 — AGENTS.md 「규칙 승격 원칙」이 무력화된다. 조사·2nd opinion 위임 대상으로만 편입. ⚠️ 이 훅 미지원 판단은 실측 미검증(모델 학습 시점 기준) — 다음 세션에서 `codex --version` + 훅 지원 여부 확인 필요.
-   - **남은 실행 항목**: ① `~/.zshrc.local:4` + `vibe-dotfiles/zsh/zshrc.local.template:5` 의 `VIBE_HUB_TOOL="agy"` → `"claude"` ② Codex 어댑터 보강(`vibe-ai-config/codex/` 는 현재 AGENTS.md 심링크 + MCP 1종뿐 — MCP 를 agy 수준 7종으로) ③ Google AI Pro 다운그레이드(사용자 직접) ④ agy 관련 미완 항목(아래 3·4번, §agy 메인 전환 준비) 정리·아카이브.
+   - ✅ **[정정 2026-08-17] "Codex 는 훅이 없어 허브 불가" 는 오판이었다.** `codex-cli 0.147.0` 실측 — 훅 11종(`PreToolUse`·`PermissionRequest`·`PostToolUse`·`SessionStart`·`SessionEnd`·`UserPromptSubmit`·`SubagentStart/Stop`·`Stop`·`Pre/PostCompact`) 지원, 차단 규약(exit 2 + stderr, `permissionDecision:deny`)·출력 필드명이 Claude Code 와 거의 동일. 설정 `~/.codex/hooks.json`, 훅마다 `trusted_hash` 신뢰 계층(Claude 에 없는 계층). 서브에이전트·스킬·플러그인·`.claude/` 설정 임포트 모듈도 존재.
+     - **현재 Claude 허브 유지 근거는 "구조적 제약" 이 아니라 "전환 비용"**(스킬 57개·플러그인 15개·`vibe` 인프라). 필요해지면 재검토 가능한 사안으로 성격이 바뀌었다.
+     - ⚠️ 실사용 검증은 미완 — `codex doctor` 가 `✗ auth no Codex credentials` 를 보고한다. **`codex login` 이 선행되어야** 훅·서브에이전트 실기동 확인이 가능하다.
+   - **남은 실행 항목**: ① ~~`VIBE_HUB_TOOL` → claude~~ **완료(2026-08-14, `~/.zshrc.local` + vibe-dotfiles `a9cc68a`)** ② Codex 어댑터 보강(`vibe-ai-config/codex/` 는 현재 AGENTS.md 심링크 + MCP 1종뿐 — MCP 를 agy 수준 7종으로). 훅 지원이 확인됐으므로 `~/.codex/hooks.json` 에 `bash-chain-guard` 이식도 함께 검토 ③ Google AI Pro 다운그레이드(사용자 직접) ④ agy 관련 미완 항목(아래 3·4번, §agy 메인 전환 준비) 정리·아카이브.
 1. ✅ **agy 훅 검증 완료(2026-08-14 18:36)** — 별도 테스트 없이 실사용 중 입증됨. agy 가 체이닝(`||`) 명령을 시도하자 pane 에 `⚠ Tool call denied by pre-tool hook: 셸 체이닝 '||' 이 감지됐습니다. AGENTS.md 절대 금지 항목` 출력 → `bash-chain-guard` 정상 작동.
 2. ✅ **notionMCP — 검증 완료(2026-08-14)**
    - **인증 및 통신 검증**: `mcp-remote@0.1.37` 단독 및 JSON-RPC 표준 핸드셰이크(`initialize`, `notifications/initialized`, `tools/list`, `tools/call` for `notion-search`) 100% 정상 작동 확인 (Notion MCP 1.2.0, 툴 28개 완사).
