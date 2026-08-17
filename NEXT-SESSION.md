@@ -41,7 +41,7 @@
 **보완 필요 (전환 전)**
 1. **훅 미배치 — 최대 갭이나 agy 지원은 확인됨(2026-08-09 실측).** agy 1.1.10 바이너리에 훅 엔진 구현 확인 — 이벤트 5종(PreToolUse·PostToolUse·PreInvocation·PostInvocation·Stop), `~/.agents/hooks.json`(전역)·`<ws>/.agents/hooks.json`. **즉 지원 여부가 아니라 "우리 훅 9종의 이식"이 남은 일.** 제약 2건: ⓐ **SessionStart 이벤트 없음** → 브리핑 주입은 `PreInvocation` + `invocationNum==1` 에뮬레이션 ⓑ Claude의 `type:"agent"` 훅(commit PHP LSP 게이트)은 agy 미지원(command 전용)이라 셸 재작성. 입출력 스키마도 달라(camelCase, `decision`/`injectSteps`) 어댑터 계층 필요. 상세 = vibe-ai-config `antigravity/README.md` 검증 이력(`5a7302a`).
 2. ~~서브에이전트 미구현~~ → **정정(2026-08-09)**: `run_subagent`·`SubagentSpec`·`KillSubagent` 및 멀티에이전트 오케스트레이터(owl) 구현 확인. README의 "v2 후보" 기술이 agy 1.1.0 기준으로 낡았던 것. 남은 일은 위임 규율(CLAUDE-delegation.md)의 agy 이식뿐.
-3. **스킬 3개 누락**: `notion-project-creator`(개인관리 도메인 — 확인 필요) · `skill-backup` · `update-vibe-commands`(Claude 전용 성격, 무시 가능).
+3. ~~**스킬 3개 누락**~~: `notion-project-creator` → **2026-08-17 폐기 완료** (타깃 DB `2a9a2519…` 가 404 부재 + `notion-project-manager` 와 기능 중복 + universal 정본 미배포 고아. 볼트 `02.Areas/Claude-Skills/notion-project-creator/` 에 이력 보존). `skill-backup` · `update-vibe-commands` 는 Claude 전용 성격이라 무시 가능.
 4. **install.sh 문구 불일치**: 실행 로그의 "antigravity 어댑터 미구현 — skip(P3/P4)"과 실제 배포 상태(스킬 53개 존재)가 어긋남 → 배포 경로 확정 후 문구 정리(재설치 시 누락 위험).
 5. 🚨 **MCP 실호출 시도 → 실패 확인(2026-08-14)**. `agy -p '…'` 로 읽기 전용 테스트를 돌렸으나 **5분 타임아웃, 응답 0바이트**. 로그(`~/.gemini/antigravity-cli/cli.log`) 원인: `MCP: 1 server(s) still connecting after 5m0s: notionMCP` → `Print mode: timed out after 1494 polls (printed=0)`.
    - **구조적 취약점 — MCP 하나가 안 붙으면 print 모드가 통째로 멈춘다.** 다른 MCP 6종과 모델·규칙 로드는 정상이었는데도 아무 작업을 못 했다. **agy 를 메인으로 전환하기 전 반드시 해결해야 하는 급소.**
