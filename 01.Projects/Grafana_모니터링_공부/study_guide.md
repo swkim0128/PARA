@@ -8,7 +8,6 @@
 - **Notion ID**: [PRO-110](https://www.notion.so/2cba25196d34812eac25ffcc700233c3)
 - **Status**: Paused _(2026-08-17 정정 — 산출물이 2026-02-22 이후 정지)_
 - **Priority**: 높음
-- **ParaType**: Project
 - **Tags**: 개인, 공부
 - **Start Date**: 2025-12-17
 - **End Date**: _(미정)_

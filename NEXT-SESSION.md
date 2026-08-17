@@ -25,7 +25,8 @@
 - **도구 분업 전환** — agy 허브 철회 → Claude Code 허브 복귀, Codex(ChatGPT Plus) 편입. `VIBE_HUB_TOOL` 을 `~/.zshrc.local` + `vibe-dotfiles/zsh/zshrc.local.template` 양쪽에서 `claude` 로 (vibe-dotfiles `a9cc68a`).
 - **`AGENTS.md` 작성법 정규화** — Claude Code 공식 기준(200줄 이하·개요/디렉터리/명령어 필수)에 맞춰 재편. 139줄, 함정 절 신설, VERIFY 수단 명시.
 - **개인관리에 프로젝트 도메인 등재** — `05.프로젝트.md` 신설(범위 경계·볼트↔노션 1:1·상태 판정 규칙), `ids.md` 에 Projects·Tasks·Sprint 등재로 스킬 ID 하드코딩 규칙 위반 해소(vibe-ai-config `356d726`).
-- **노션 Projects DB 최신화 + 트리아지** — 볼트에만 있던 3건 신규 등록, 활성 16건 → 8건으로 정리(아카이브 7·Done 1·Paused 정정 2), 태그·`ParaType` 결손 전량 보정.
+- **노션 Projects DB 최신화 + 트리아지** — 볼트에만 있던 3건 신규 등록, 활성 16건 → 8건으로 정리(아카이브 7·Done 1·Paused 정정 2), 태그 결손 전량 보정.
+- **`ParaType` 속성 삭제** — `Status` 와 중복(93건 중 92건 일치)이고 옵션 `Area`·`Resource` 는 Projects DB 에서 사용 0건이었다. **아카이브 판정은 `Status ∈ (Done, Canceled)` 로 일원화.** 근거·스냅샷 → `01.Projects/노션_루틴_업그레이드/paratype-removal-20260817.md`
 - **스킬 정리** — `notion-project-creator` 폐기(타깃 DB 404 + 기능 중복 + 고아), `notion-project-manager` 를 `ids.md` 인용으로 전환.
 - **볼트 정리** — `TASKS.md`·`dashboard.html` 아카이브(노션 DB 와 이중 관리 해소), Spring 프로젝트 아카이브, 루트 잔여물 6건 제거, 옛 "Notion → PARA 단방향" 헤더 5곳 폐기.
 

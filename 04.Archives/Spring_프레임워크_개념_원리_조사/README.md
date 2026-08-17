@@ -15,7 +15,6 @@ Spring 프레임워크의 핵심 개념과 동작 원리 학습
 - **Notion ID**: [PRO-115](https://www.notion.so/2faa25196d348193af9ffa044552ce7f)
 - **Status**: Canceled _(2026-08-17 아카이브)_
 - **Priority**: 중간
-- **ParaType**: Archive
 - **Tags**: 개인, 공부
 - **Start Date**: 2026-02-01
 - **End Date**: 2026-08-17

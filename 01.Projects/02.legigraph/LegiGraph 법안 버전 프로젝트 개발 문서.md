@@ -6,7 +6,6 @@
 - **Notion ID**: [PRO-73](https://www.notion.so/83e67ee556a44be9b257fea9b3fd9ffa) (노션 페이지명: `법안 git graph (legigraph)` ↔ 볼트 폴더: `01.Projects/02.legigraph/`)
 - **Status**: Paused
 - **Priority**: 중간
-- **ParaType**: Project
 - **Tags**: 개인, 사이드 프로젝트
 - **Start Date**: 2024-12-23
 - **End Date**: _(미정)_

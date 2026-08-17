@@ -8,7 +8,6 @@
 - **Notion ID**: [PRO-117](https://www.notion.so/30fa25196d34801ba390f77a870e1def)
 - **Status**: Paused _(2026-08-17 정정 — 산출물이 2026-02-26 이후 정지)_
 - **Priority**: 중간
-- **ParaType**: Project
 - **Start Date**: 2026-02-22
 - **End Date**: _(미정)_
 - **노션 본문 상태**: 템플릿만 (실제 학습 자료는 본 폴더 13개 MD 파일이 SoT)
