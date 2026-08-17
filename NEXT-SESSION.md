@@ -4,24 +4,39 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-08-14**
+**최종 갱신: 2026-08-17**
 
-## 🔜 다음 세션 착수 지점 (2026-08-14 인계)
+## 🔜 다음 세션 착수 지점 (2026-08-17 인계)
 
-0. 🚨 **[방침 전환 2026-08-14 19시] agy 허브 계획 철회 → Claude Code 허브 복귀 + Codex(ChatGPT Plus) 편입.** 사용자 판단 — agy 실사용 품질이 Claude Code 대비 떨어짐(Flash 모델·토큰 만료). Google AI Pro 축소, ChatGPT Plus 결제로 전환. `para/AGENTS.md` §도구 분업 갱신 완료.
-   - ✅ **[정정 2026-08-17] "Codex 는 훅이 없어 허브 불가" 는 오판이었다.** `codex-cli 0.147.0` 실측 — 훅 11종(`PreToolUse`·`PermissionRequest`·`PostToolUse`·`SessionStart`·`SessionEnd`·`UserPromptSubmit`·`SubagentStart/Stop`·`Stop`·`Pre/PostCompact`) 지원, 차단 규약(exit 2 + stderr, `permissionDecision:deny`)·출력 필드명이 Claude Code 와 거의 동일. 설정 `~/.codex/hooks.json`, 훅마다 `trusted_hash` 신뢰 계층(Claude 에 없는 계층). 서브에이전트·스킬·플러그인·`.claude/` 설정 임포트 모듈도 존재.
-     - **현재 Claude 허브 유지 근거는 "구조적 제약" 이 아니라 "전환 비용"**(스킬 57개·플러그인 15개·`vibe` 인프라). 필요해지면 재검토 가능한 사안으로 성격이 바뀌었다.
-     - ⚠️ 실사용 검증은 미완 — `codex doctor` 가 `✗ auth no Codex credentials` 를 보고한다. **`codex login` 이 선행되어야** 훅·서브에이전트 실기동 확인이 가능하다.
-   - **남은 실행 항목**: ① ~~`VIBE_HUB_TOOL` → claude~~ **완료(2026-08-14, `~/.zshrc.local` + vibe-dotfiles `a9cc68a`)** ② Codex 어댑터 보강(`vibe-ai-config/codex/` 는 현재 AGENTS.md 심링크 + MCP 1종뿐 — MCP 를 agy 수준 7종으로). 훅 지원이 확인됐으므로 `~/.codex/hooks.json` 에 `bash-chain-guard` 이식도 함께 검토 ③ Google AI Pro 다운그레이드(사용자 직접) ④ agy 관련 미완 항목(아래 3·4번, §agy 메인 전환 준비) 정리·아카이브.
-1. ✅ **agy 훅 검증 완료(2026-08-14 18:36)** — 별도 테스트 없이 실사용 중 입증됨. agy 가 체이닝(`||`) 명령을 시도하자 pane 에 `⚠ Tool call denied by pre-tool hook: 셸 체이닝 '||' 이 감지됐습니다. AGENTS.md 절대 금지 항목` 출력 → `bash-chain-guard` 정상 작동.
-2. ✅ **notionMCP — 검증 완료(2026-08-14)**
-   - **인증 및 통신 검증**: `mcp-remote@0.1.37` 단독 및 JSON-RPC 표준 핸드셰이크(`initialize`, `notifications/initialized`, `tools/list`, `tools/call` for `notion-search`) 100% 정상 작동 확인 (Notion MCP 1.2.0, 툴 28개 완사).
-   - **실제 검색 검증**: `notion-search` 툴로 "Home" 검색 시 사용자 노션 워크스페이스의 실제 페이지(`3b7a2519...`, `ca2881fa...` 등)를 정확하게 탐색 및 반환함.
-   - **agy 연결 시 타임아웃 이슈 해소**: npx 웜업 및 OAuth 토큰 처리 완료 후 정상 통신 확인됨.
-3. **agy pane 띄우기** — ✅ `vibe delegate <프로젝트> --tool agy ["메시지"]` 로 가능(2026-08-14 `vibe.sh` 에 agy 지원 추가 — vibe-ai-config `c8892e4` 로 자동 커밋됨). `cmux` + `tmux send-keys` 2단계 우회는 더 이상 불필요. ✅ **실기동 검증 완료(2026-08-14 18:06)** — pane `%16`, title `agy:para`, main-vertical 50/50, Antigravity CLI 1.1.13 · GEMINI.md 1건 · MCP 2건 로드 확인. ⚠️ 단 agy 화면에 **`Quota unavailable: Antigravity token expired`** — 실사용 전 토큰 재인증 필요.
-4. **문서·스크립트 정정 2건** — `generate-agy-hooks.sh` 출력 경로 · `antigravity/README.md` customization root 오기. (~~`vibe delegate` agy 추가~~ · ~~`settings.local.json` 죽은 경로~~ 완료 — 다만 delegate 기본값은 여전히 `claude` 라 `para/AGENTS.md` 의 "agy(기본)" 표기는 아직 불일치)
-5. 🔧 **tmux-suite 재사용성 리팩토링 (사용자 지시로 별건 분리 — 2026-08-14)** — 원칙은 `shared/rules/AGENTS.md` §2 에 반영 완료("재사용성 = 추상화 추가가 아니라 종속 제거"). 대상: ① `vibe.sh:41`(`start`)·`:556`(`resume`) 의 `claude` 하드코딩 → `VIBE_HUB_TOOL`/`--tool` 로 (`main:154` 는 이미 적용됨) ② `vibe reap` → `reap-idle-claude.sh` Claude 전용 ③ `claude-{send,delegate,switch,skills}.sh` 네이밍·도구 종속 ④ 위치 이관 `claude/plugins/tmux-suite/` → `shared/`(`CLAUDE.md:53`·`marketplace.json`·aliases·스킬 참조 동반 수정 필요, 계획 먼저).
-6. 미착수: `03.예산.md` 전면 재작성(구버전 절 3개), Pulse 차트 UI 마무리(숫자 정밀도·월 그룹), Project `작업 현황` 기본 뷰 지정, HL `총지출` 수식 값 확인.
+1. 🔴 **Codex 편입 마무리** — 도구 전환에서 유일하게 남은 인프라 작업
+   - [ ] **`codex login`** ← **선행 필수.** `codex doctor` 가 `✗ auth no Codex credentials` 를 보고한다. 이게 안 되면 아래 둘 다 막힌다.
+   - [ ] **Codex 어댑터 MCP 보강** — `vibe-ai-config/codex/` 는 현재 `AGENTS.md` 심링크 + `~/.codex/config.toml` 의 MCP 1종(`sequential-thinking`)뿐. agy 가 쓰던 7종(notionMCP·google-calendar·context7·github·playwright·browsermcp·sequential-thinking) 수준으로 이식.
+   - [ ] **`bash-chain-guard` Codex 이식 검토** — `shared/hooks/` 가 core + shim 구조라 `shims/codex.sh` 하나만 추가하면 된다. Codex 의 이벤트명·출력 필드명이 Claude 와 거의 같아 `shims/claude.sh` 를 거의 복제 가능.
+   - **실측 근거(2026-08-17)**: `codex-cli 0.147.0` 은 훅 11종(`PreToolUse`·`PermissionRequest`·`PostToolUse`·`SessionStart`·`SessionEnd`·`UserPromptSubmit`·`SubagentStart/Stop`·`Stop`·`Pre/PostCompact`)·서브에이전트·스킬·플러그인을 지원한다. 차단 규약(exit 2 + stderr, `permissionDecision:deny`)이 Claude Code 와 거의 동일하고 설정은 `~/.codex/hooks.json`, 훅마다 `trusted_hash` 신뢰 계층이 추가로 있다. `.claude/` 설정 임포트 모듈(`external-agent-migration`)도 내장.
+   - ⚠️ **"Codex 는 훅이 없다" 던 이전 기록은 오판이었다 — 인용하지 말 것.** Claude 허브 유지는 **전환 비용** 판단(스킬 57개·플러그인 15개·`vibe` 인프라)이지 구조적 제약이 아니다.
+2. 🟡 **Google AI Pro 다운그레이드** — 사용자 직접(웹). agy 이탈에 따른 정리.
+3. 🟢 **진행 중 프로젝트 2건** — `개인컴 AI 작업환경 업그레이드`(위 1번이 그 잔여 작업) · `노션 루틴 업그레이드`(Phase 2·3 잔여). 나머지 6건은 Paused/Planning/Backlog.
+4. 🔧 **tmux-suite 재사용성 리팩토링** — 원칙은 `shared/rules/AGENTS.md` §2 에 반영 완료("재사용성 = 추상화 추가가 아니라 종속 제거"). 대상: ① `vibe.sh:41`(`start`)·`:556`(`resume`) 의 `claude` 하드코딩 → `VIBE_HUB_TOOL`/`--tool` 로 (`main:154` 는 이미 적용됨) ② `vibe reap` → `reap-idle-claude.sh` Claude 전용 ③ `claude-{send,delegate,switch,skills}.sh` 네이밍·도구 종속 ④ 위치 이관 `claude/plugins/tmux-suite/` → `shared/`(`CLAUDE.md:53`·`marketplace.json`·aliases·스킬 참조 동반 수정 필요, 계획 먼저).
+5. 미착수: `03.예산.md` 전면 재작성(구버전 절 3개), Pulse 차트 UI 마무리(숫자 정밀도·월 그룹), Project `작업 현황` 기본 뷰 지정, HL `총지출` 수식 값 확인.
+6. 🧹 남은 정리 후보: `03.Resources` 번호 결번(12·16·22) · `vibe-ai-config/skills/work/tracking/task-review/SKILL.md:8` 의 `TASKS.md` 언급(아카이브됨).
+
+## ✅ 2026-08-14~17 완료 (커밋 10건)
+
+- **도구 분업 전환** — agy 허브 철회 → Claude Code 허브 복귀, Codex(ChatGPT Plus) 편입. `VIBE_HUB_TOOL` 을 `~/.zshrc.local` + `vibe-dotfiles/zsh/zshrc.local.template` 양쪽에서 `claude` 로 (vibe-dotfiles `a9cc68a`).
+- **`AGENTS.md` 작성법 정규화** — Claude Code 공식 기준(200줄 이하·개요/디렉터리/명령어 필수)에 맞춰 재편. 139줄, 함정 절 신설, VERIFY 수단 명시.
+- **개인관리에 프로젝트 도메인 등재** — `05.프로젝트.md` 신설(범위 경계·볼트↔노션 1:1·상태 판정 규칙), `ids.md` 에 Projects·Tasks·Sprint 등재로 스킬 ID 하드코딩 규칙 위반 해소(vibe-ai-config `356d726`).
+- **노션 Projects DB 최신화 + 트리아지** — 볼트에만 있던 3건 신규 등록, 활성 16건 → 8건으로 정리(아카이브 7·Done 1·Paused 정정 2), 태그·`ParaType` 결손 전량 보정.
+- **스킬 정리** — `notion-project-creator` 폐기(타깃 DB 404 + 기능 중복 + 고아), `notion-project-manager` 를 `ids.md` 인용으로 전환.
+- **볼트 정리** — `TASKS.md`·`dashboard.html` 아카이브(노션 DB 와 이중 관리 해소), Spring 프로젝트 아카이브, 루트 잔여물 6건 제거, 옛 "Notion → PARA 단방향" 헤더 5곳 폐기.
+
+## 🗄️ agy(Antigravity) — 철회(2026-08-14), 기록만 보존
+
+> 아래는 agy 하네스 실측 기록이다. **방침은 폐기됐으니 작업 지시로 읽지 말 것.** 다른 도구 평가 시 참고 가치가 있어 남긴다.
+
+1. `bash-chain-guard` 정상 작동 확인(2026-08-14 18:36) — agy 가 `||` 체이닝을 시도하자 pane 에 `⚠ Tool call denied by pre-tool hook` 출력.
+2. notionMCP 검증 완료 — `mcp-remote@0.1.37` JSON-RPC 핸드셰이크 정상, `notion-search` 실검색 성공(Notion MCP 1.2.0, 툴 28개).
+3. `vibe delegate <프로젝트> --tool agy` 실기동 확인(pane `%16`, Antigravity CLI 1.1.13). 단 `Quota unavailable: Antigravity token expired`.
+4. 미해결로 남긴 것: `generate-agy-hooks.sh` 출력 경로(`~/.agents/hooks.json` vs agy 가 읽는 `~/.gemini/config/hooks.json`) · `antigravity/README.md` customization root 오기.
 
 ## 🔧 2026-08-02 설정 정비 상태 (Claude Code 재시작 직전 저장)
 
