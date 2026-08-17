@@ -117,7 +117,8 @@ para/
 - `NEXT-SESSION.md` — **실사용 SoT.** 세션 간 인수인계 브리핑. 여기부터 읽는다.
 - `01.Projects/` — 진행 중 프로젝트 노트 (프로젝트별 상세 체크리스트·진행내역)
 - `.claude/work-log/YYYY-MM-DD.md` — 작업 로그. 작업 완료 직후 당일 파일에 append.
-- `TASKS.md` · `dashboard.html` — ⚠️ **2026-05 이후 갱신 정지.** 현행 작업 상태를 여기서 읽지 말 것 (`NEXT-SESSION.md` + `01.Projects/` 가 실제 상태). 되살리기 전까지는 참고용 이력.
+- 프로젝트 상태 인덱스 — 노션 `Projects` DB. 규칙 정본 `02.Areas/07.개인관리/05.프로젝트.md`
+- ~~`TASKS.md` · `dashboard.html`~~ — **2026-08-17 아카이브**(`04.Archives/TASKS-dashboard/`). 2026-05-19 이후 갱신 정지 + 노션 DB 와 이중 관리라 폐기했다.
 
 ## ⚠️ 이 볼트의 함정 (모르면 틀리는 것들)
 

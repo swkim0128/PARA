@@ -53,7 +53,7 @@
 Claude Code 접근은 회사 팀 플랜에 의존하므로, 팀 플랜 이탈 시 agy 또는 Codex가 메인이 될 수 있다. 이에 대비해 **허브를 특정 도구에 하드코딩하지 않는다**:
 
 1. **허브 도구 파라미터화**: `vibe main`도 delegate와 동일하게 도구 선택을 지원 (`VIBE_HUB_TOOL` 환경변수, 기본 `claude`). 허브 교체 = 환경변수 1줄 변경.
-2. **SoT는 도구 무관 파일로 유지**: 작업 인수인계(NEXT-SESSION.md·TASKS.md), 규칙 정본(vibe-ai-config/shared/ — coding-partner.md·SOP 5종), 개인관리 SOP(02.Areas/07.개인관리/)는 전부 마크다운이라 어떤 도구든 읽고 이어받을 수 있음. Claude 전용 스킬(notion-suite 등)이 없어도 SOP 폴백 경로가 이미 정의돼 있음.
+2. **SoT는 도구 무관 파일로 유지**: 작업 인수인계(NEXT-SESSION.md — ~~TASKS.md~~ 는 2026-08-17 아카이브), 규칙 정본(vibe-ai-config/shared/ — coding-partner.md·SOP 5종), 개인관리 SOP(02.Areas/07.개인관리/)는 전부 마크다운이라 어떤 도구든 읽고 이어받을 수 있음. Claude 전용 스킬(notion-suite 등)이 없어도 SOP 폴백 경로가 이미 정의돼 있음.
 3. **어댑터 구조 활용**: vibe-ai-config의 shared → 어댑터(claude-config / antigravity / codex) 빌드 구조가 이미 존재. 허브 교체 시 해당 어댑터를 채우는 것이 유일한 추가 작업 (Codex 어댑터 채우기가 그 시나리오의 첫 단계).
 
 ## 4. 구현 항목 (4건)
