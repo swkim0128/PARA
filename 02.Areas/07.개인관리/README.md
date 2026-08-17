@@ -16,6 +16,7 @@
 | 예산 | [[03.예산]] | notion-budget | 도메인 문서 + Notion MCP |
 | 식단 | ⚠️ **스킬 내부**(`notion-diet-manager/references/db-schema.md`) — [[02.식단]]은 포인터 | notion-diet-manager | **스킬** + Notion MCP |
 | 다이어리 | [[01.다이어리]] | notion-diary | 도메인 문서 + Notion MCP |
+| 프로젝트 | [[05.프로젝트]] | notion-project-manager | 도메인 문서 + Notion MCP |
 
 ## 도메인 라우팅
 
@@ -25,6 +26,7 @@
 | 먹었어·식재료·장 봤어 | [[02.식단]] |
 | ~원·지출·구매·카드·잔액·위시리스트 | [[03.예산]] |
 | 일정·주간 일지·슬롯·회고·KPT | [[04.일정]] |
+| 프로젝트·태스크·사이드 프로젝트·공부 진행 | [[05.프로젝트]] |
 
 ## 메타 룰 (전 도메인 공통)
 

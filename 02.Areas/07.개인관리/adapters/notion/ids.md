@@ -14,6 +14,9 @@
 | Foods | `collection://8b14c31d-85b4-411d-a1ed-538222261d09` | 음식 마스터 DB | 스킬 `notion-diet-manager` references/db-schema.md |
 | 🏦 Household Ledger | `collection://17f03db9-14ee-4379-bd14-f47194444f87` | 월간 예산 페이지 DB — 제목 `YYYY년 MM월 지출`, 예산·입금·저축 속성 + `거래내역` relation·`가계부금액` rollup(2026-08-06 신설). 구 Ledger relation·rollup은 2026-08-06 절단(수식 재정의 잔여) | 2026-08-06 실스키마 조사 (`01.Projects/노션_루틴_업그레이드/db-requirements.md`) |
 | 🧺 Ledger | `collection://7391b842-ef1c-42c5-a7ca-d82068dbaccd` | 지출 트랜잭션 + **위시리스트** DB — 실행 status(아직여유/실행고민/실행예정→실행완료/지출완료/실행취소)가 wish 후보→구매 라이프사이클 담당. `매핑 거래` relation(2026-08-06 신설)으로 거래내역과 연결 | 2026-08-06 실스키마 조사 (`db-requirements.md` §2-b) |
+| Projects | `collection://96403fef-b550-4912-bd53-79b9fac19c99` | 프로젝트 목록 — ⚠️ **업무·개인 공용 DB**. 개인관리 도메인 범위는 `개인` 태그 항목뿐이고 `다나와` 태그는 과거 경험정리용 아카이브(수정 금지). 상세 [[05.프로젝트]] | 2026-08-17 실조회 (기존 스킬 `notion-project-manager` references/db-schema.md 에서 이관) |
+| Tasks | `collection://e07d34e3-3534-4ddf-95f8-cbdd2c312e43` | 개별 태스크 DB — `Project` relation 으로 Projects 에 연결 | 위와 동일 |
+| Sprint | `collection://d1c2758f-9d07-439a-b891-172cb1471393` | 스프린트 DB (선택 사용) — 상태 `Current`/`Next`/`Future`/`Last`/`Past` | 위와 동일 |
 | 💳 거래내역 | `collection://f6f2513b-0caa-4fb2-b831-ccc5ea8a04d5` | 뱅크샐러드 가계부 원본 DB (2026-08-06 신설) — 거래일·금액·타입·대분류·소분류·결제수단·`월 예산` relation·`위시리스트` relation(←Ledger). 중복 키 = 거래일+금액+Name | `db-requirements.md` §2-b |
 
 ## ID 없음 (동적 검색 도메인)
