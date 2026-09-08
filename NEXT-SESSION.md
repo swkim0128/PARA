@@ -34,7 +34,7 @@
 - 부수 수정 ✅ `shims/claude.sh` deny 가 `continue:false`(턴 중단)였던 것을 `permissionDecision:"deny"`(도구 차단)로(`efacc0c`). 위임 pane 이 가드에 걸릴 때마다 턴이 죽어 3회 재주입한 원인. Claude 즉시 라이브. 상세 [[.claude/work-log/2026-09-09]].
 
 **다음 세션 착수 (업무 컴 또는 개인 컴)**
-1. `vibe-ai-config` `git pull` → `./install.sh <env>`(업무 컴 `work` / 개인 컴 `personal`). 개인 컴 install-state 는 `head=f923200`(9/8) 로 뒤처져 있음 — Codex 드리프트 훅 배선·status 스냅샷 갱신을 위해 재실행 필요.
+1. **업무 컴**: `vibe-ai-config` `git pull` → `./install.sh work` → `diff status/personal.md status/work.md`. 개인 컴은 9/9 01:24 `install.sh personal` 완료(`head=efacc0c`, Codex 드리프트 훅 무출력 확인, `status/personal.md` `2a29cdf` 푸시).
 2. **P3** `vibe-dotfiles/AGENTS.md` 신설 → **P4** 리허설(계획서 참조).
 3. 이월: `.claude/settings.json` 327행 `statusLine` 파이프 정리 검토 · 8/29 이월 위험 2건(Stop 훅 auto-push · activity-logger 마스킹).
 
@@ -42,7 +42,7 @@
 - Codex 훅 재신뢰: `/hooks` → `Active` 열 확인 → `t` (hooks.json 이 9/9 두 번 바뀜 → 전 항목 미신뢰 상태)
 - `codex mcp login notion` (9/9 `invalid_token` 실측)
 - `vibe-ai-config` `stash@{0}` 드롭(스냅샷 잔여, 재생성으로 대체됨)
-- ⚠️ 9/9 01:16 위임 pane %18 프롬프트에 `install.sh work 재실행해서 배포 반영해` 가 **미전송**으로 남아 있었음. 개인 컴 env 는 `personal` — `work` 로 돌리면 오버레이가 갈린다.
+- 위임 pane %18 의 Claude TUI 가 01:16 이후 **입력·리사이즈 무반응**(프로세스 생존, 화면 정지). 미전송 `install.sh work` 문구는 무시하고 메인이 `install.sh personal` 직접 실행. 세션 재개 시 %18 은 닫고(`vibe reap`) 필요하면 새로 위임.
 
 **Q&A 9/9**: 훅 설정의 `|` — `matcher`(213·235·255행)는 정규식 OR 로 **필수**. 327행 `statusLine` 의 파이프는 claude-dashboard 플러그인 원본 명령(기존, 가드 대상 아님) — 정리 원하면 다음 세션 검토.
 
