@@ -15,4 +15,4 @@
 
 ## 🔔 세션 브리핑 자동 주입
 
-- `NEXT-SESSION.md` 는 `.claude/settings.json` 의 SessionStart 훅이 자동으로 컨텍스트에 주입한다 — 별도 Read 없이 브리핑이 이미 로드된 상태로 세션이 시작된다.
+- `NEXT-SESSION.md` **상단 80줄**은 전역 공통 훅 `briefing-inject`(정본 `vibe-ai-config/shared/hooks/`, Claude·Codex 공통)가 SessionStart 에 자동 주입한다 — 별도 Read 없이 착수 지점이 로드된 상태로 시작된다. 2026-09-09 까지는 이 볼트의 `.claude/settings.json` 이 파일 **전체**(49KB)를 `cat` 했는데, 볼트 함정("통째로 Read 금지")과 어긋나고 공통 훅과 중복돼 제거했다.

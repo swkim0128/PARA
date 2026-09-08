@@ -91,6 +91,7 @@ para/
 ## 🤖 도구 분업 & 위임
 
 - **분업**: Claude Code = 허브(작업 관리·위임 지휘)·메인 구현·코드리뷰 / Codex = 조사·2nd opinion·보조 구현 / Gemini CLI = 대량 컨텍스트(1M) 분석·웹 검색 / agy(Antigravity) = 보류(2026-08-14 이탈).
+- **전환 결정 (2026-09-03)**: 개인 컴은 **Codex = 메인 · Claude Code = 서브**로 간다. Codex 사용량(5시간·주간 한도)이 소진되면 Claude Code 로 폴백하는 순서다. **발효 조건 = Codex 하네스 설정 이식 완료** (공통 정본 심링크 + Codex 어댑터 층 + 훅·권한 강제 재현). 발효 시 `VIBE_HUB_TOOL=codex` 로 전환하고 이 절의 「분업」·「위임 기본값」을 함께 갱신한다. 그때까지는 아래 기존 기본값이 유효하다.
 - **Claude 허브를 유지하는 이유**: 스킬·플러그인 자산과 `vibe` 위임 인프라가 Claude 기반이라는 **전환 비용** 때문이지, 다른 도구의 구조적 제약 때문이 아니다. (전환 이력은 `01.Projects/개인컴_AI_작업환경_업그레이드/design.md`)
 - **Codex 능력 — 실측 정정(2026-08-17)**: ~~훅 미지원~~은 **오판이었다.** `codex-cli 0.147.0` 은 훅 11종(`PreToolUse`·`PermissionRequest`·`PostToolUse`·`SessionStart`·`SessionEnd`·`UserPromptSubmit`·`SubagentStart/Stop`·`Stop`·`Pre/PostCompact`)과 서브에이전트·스킬·플러그인을 지원한다. 차단 규약(exit 2 + stderr, `permissionDecision:deny`)과 출력 필드명이 Claude Code 와 거의 동일하고, 설정은 `~/.codex/hooks.json`, 훅마다 `trusted_hash` 신뢰 계층이 추가로 있다. Claude 설정(`settings.json`·`hooks.json`·`CLAUDE.md`·`.mcp.json`) 임포트 경로도 내장돼 있다.
 - **허브 도구 설정**: `vibe main` 은 `VIBE_HUB_TOOL` 환경변수(기본 `claude`)로 메인 도구를 결정한다. 어댑터 교체 시나리오는 위 `design.md` §3.3 참조.

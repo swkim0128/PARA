@@ -4,7 +4,58 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-08-29**
+**최종 갱신: 2026-09-09**
+
+## 🔜 다음 세션 착수 지점 (2026-09-09 P2 완료 — Claude 메인 유지, 업무 컴 이어받기)
+
+> 운영 결정: **모델 사용량 때문에 Claude Code 메인 유지.** Codex 는 서브로 동등 설정만 준비한다.
+> 계획 정본: [[01.Projects/개인컴_AI_작업환경_업그레이드/codex-claude-동등설정-계획]] · **훅 정본 = `shared/hooks/`** 로 확정(사용자 결정 9/9).
+
+**P0 완료**
+- 0-1 `VIBE_HUB_TOOL` → `claude` 원복 — template(git 클린)·`~/.zshrc.local`·tmux 전역 셋 다 확인.
+- 0-2 `install_codex_config` 재작성 후 라이브 배포(`3630ec6`). tomllib 검증: 루트 fallback `["CLAUDE.md"]`, `projects` 클린, model·MCP 보존, `strict-config 0 fail`. 백업 `~/.codex/config.toml.bak.20260909-001111`.
+
+**P0 사용자 단계 (에이전트 수행 불가)**
+- 0-3 훅 신뢰 — `[hooks.state]` 는 소실 상태 그대로. Codex TUI `/hooks` 에서 `Active` 열 확인 후 필요 시 `t`. **추정 복원·자동 승인 금지.**
+- 0-4 `vibe-ai-config` 미푸시 **6건**(`ffb1cb2`·`e3c6d20`·`0384432`·`3630ec6` + 2) 푸시 판단 · `stash@{0}` 드롭 판단 · para 미커밋 커밋.
+
+**P1 진행 (9/9, `d558fdc`)**
+- 1-1 ✅ MCP 정본 통합 — `codex/mcp.toml` 폐기, `claude/mcp.base.json` 하나(+`.codexOnly.notion`). `codex mcp list` == 정본 집합 확인.
+- 1-2 ✅ allow 100건 → `~/.codex/rules/vibe.rules` 생성(`gen-rules.py`, 105건). `execpolicy check` 16케이스 통과.
+- 1-3 ✅ **rules 가 `prompt/forbidden` 지원 + 샌드박스 내부 실행도 차단(실측)** → `permission-guard.sh` 훅 폐기. fail-open 소멸.
+- 1-4 ✅ **전부 배선(사용자 결정 1번, `50d8632`)** — 코어 5종(briefing-inject·activity-log·bash-chain-guard·curl-terminal-guard·prompt-gates) × Claude·Codex. Claude `settings.json` 재생성·즉시 반영. **`bash-chain-guard` 활성 → 체이닝 Bash deny**(배선 직후 Claude 자신의 멀티라인 호출부터 차단됨 — 정상). para 프로젝트 훅(`cat NEXT-SESSION.md` 전체 49KB)은 공통 `briefing-inject`(상단 80줄)로 대체·제거.
+- 사용자 단계: **notion OAuth 미완료**(9/9 `invalid_token` 실측) → `codex mcp login notion` · 훅 신뢰(`/hooks` `t`) · 미푸시 8건 · `stash@{0}`.
+
+**P2 완료 (9/9, `4bfd042`·`3212054`·`efacc0c` — 전부 푸시)**
+- 2-1 ✅ `claude/CLAUDE-commands.md` → `shared/commands.md`(도구 무관 정본). Claude 는 `@~/.claude/shared-commands.md`, Codex 는 생성물에 concat.
+- 2-2 ✅ `install_codex_agents` — `~/.codex/AGENTS.md` = 공통 규칙 + 레지스트리 + `codex/AGENTS.tail.md` **생성**(심링크 대체, 15,023B/32KiB). 레포 `codex/AGENTS.md` 심링크 제거.
+- 2-3 ✅ harness-reminder → `prompt-gates` 3번째 게이트(`VIBE_HOOK_HARNESS` 로 Claude/Codex 문구 분기). Claude `hooks/harness-reminder.sh` 폐기, `settings.json` 재생성.
+- 2-4 ✅ `codex/hooks/config-drift-check.sh` — 생성물 3종(AGENTS.md·vibe.rules·hooks.json)을 정본에서 재생성해 sha 비교(`3212054`). **재생성 로직은 install.sh 복제본** — install.sh 생성 규칙을 바꾸면 훅도 같이.
+- 부수 수정 ✅ `shims/claude.sh` deny 가 `continue:false`(턴 중단)였던 것을 `permissionDecision:"deny"`(도구 차단)로(`efacc0c`). 위임 pane 이 가드에 걸릴 때마다 턴이 죽어 3회 재주입한 원인. Claude 즉시 라이브. 상세 [[.claude/work-log/2026-09-09]].
+
+**다음 세션 착수 (업무 컴 또는 개인 컴)**
+1. `vibe-ai-config` `git pull` → `./install.sh <env>`(업무 컴 `work` / 개인 컴 `personal`). 개인 컴 install-state 는 `head=f923200`(9/8) 로 뒤처져 있음 — Codex 드리프트 훅 배선·status 스냅샷 갱신을 위해 재실행 필요.
+2. **P3** `vibe-dotfiles/AGENTS.md` 신설 → **P4** 리허설(계획서 참조).
+3. 이월: `.claude/settings.json` 327행 `statusLine` 파이프 정리 검토 · 8/29 이월 위험 2건(Stop 훅 auto-push · activity-logger 마스킹).
+
+**사용자 단계 (누적, 에이전트 불가)**
+- Codex 훅 재신뢰: `/hooks` → `Active` 열 확인 → `t` (hooks.json 이 9/9 두 번 바뀜 → 전 항목 미신뢰 상태)
+- `codex mcp login notion` (9/9 `invalid_token` 실측)
+- `vibe-ai-config` `stash@{0}` 드롭(스냅샷 잔여, 재생성으로 대체됨)
+- ⚠️ 9/9 01:16 위임 pane %18 프롬프트에 `install.sh work 재실행해서 배포 반영해` 가 **미전송**으로 남아 있었음. 개인 컴 env 는 `personal` — `work` 로 돌리면 오버레이가 갈린다.
+
+**Q&A 9/9**: 훅 설정의 `|` — `matcher`(213·235·255행)는 정규식 OR 로 **필수**. 327행 `statusLine` 의 파이프는 claude-dashboard 플러그인 원본 명령(기존, 가드 대상 아님) — 정리 원하면 다음 세션 검토.
+
+<details><summary>2026-09-08 중단 인계 (완료 처리됨)</summary>
+
+
+- 사용자 요청으로 구현·검증 중단. Claude 1번 패널(%1)도 중단 확인. 자동 재개하지 않는다.
+- 완료: 개인 `vibe-dotfiles/zsh/zshrc.local.template` 및 `~/.zshrc.local`의 `VIBE_HUB_TOOL=codex`. 새 zsh에서 personal/codex, tmux 전역 codex 확인. 문법·diff 검사 통과. dotfiles 변경은 미커밋.
+- **미완**: `vibe-ai-config/install.sh`의 `install_codex_tui` 배포 결함. fallback 키가 프로젝트 테이블 하위에 들어가 root에서 None. 배포 후 hooks.state 소실도 관측했으며 원인 확정·보존 검증 필요.
+- Claude가 `codex/config-root.toml`을 만들고 `codex/tui.toml`을 수정하다 중단. 구현·배포 완료 아님. 다음 행동은 현 diff 확인 후 root 키 배치와 사용자 설정 보존·멱등성 검증. 훅 신뢰를 임의 복원/승인하지 않는다.
+- 상세: [[.claude/work-log/2026-09-08]]. 기존 아래 브리핑은 과거 기록이다.
+
+</details>
 
 ## 🔜 다음 세션 착수 지점 (2026-08-29 인계)
 
