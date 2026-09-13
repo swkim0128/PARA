@@ -197,3 +197,7 @@ $RECYCLE.BIN/
 
 ### Playwright MCP 디버그 로그 — 2026-08-17 추적 해제(재생성 방지)
 .playwright-mcp/
+
+# Git worktrees
+.worktrees/
+worktrees/

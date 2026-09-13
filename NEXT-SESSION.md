@@ -6,6 +6,54 @@
 
 **최종 갱신: 2026-09-13**
 
+## 🔜 다음 세션 착수 지점 — 카페 작업 종료·집에서 재개 (2026-09-13 저녁, **최신**)
+
+9/13 카페에서 Claude Code(Opus/Fable)로 작업. 아래 두 갈래가 열려 있다. 이 절이 아래 모든 과거 브리핑보다 우선한다.
+
+### A. vibe-ai-config 배치 개선 — Phase 1·2·3 완료, **전부 미커밋**
+
+계획 정본 [[01.Projects/개인컴_AI_작업환경_업그레이드/shared-배치-개선계획-20260913]] (근거 감사 4건 · Phase 별 verify 게이트 · 결정 §9).
+
+- **HEAD = `c99a80d` 그대로. 미커밋 47개 파일**(프로필 수정 + Phase 1 + Phase 3 + Phase 2·3-C 누적). 커밋·푸시는 사용자 판단.
+- 완료: **Phase 1**(mcp.base.json·delegate-pane-guard → shared, 사문 훅 격리, gitignore 키 보호, preamble 로더 디커플링, references → shared) · **Phase 3**(git-guard 출력형식, pane 도구판정, auto-version-bump 안전가드, readonly-allow 모순제거) · **Phase 2**(sops Codex 배포, install-sync-check 코어승격, drift/smoke/test Codex 커버리지, 문서 허위 정정) · **3-C**(analyze 훅 19개→단일 static-checks.js, **처음으로 발화 시작**).
+- 검증 최종: `test.sh` PASS=22 FAIL=0 · `smoke-hooks.sh` 26건 실패 0(rc=127 소멸) · `install.sh personal` ❌0·멱등 · `drift-report` 드리프트 없음 · `codex --profile routine mcp list` exit 0.
+- **남은 것: Phase 5 → 6 → 4** (계획서 §5·§6·§4). 착수 전 §9 결정 잔여 확인.
+
+**🔴 재개 시 먼저 볼 것 2가지**
+1. **Stop 훅이 꺼져 있다.** `vibe-ai-config/.claude/settings.json`·`.codex/hooks.json` 에서 `Stop` 블록 제거 상태(백업 `.phase1-bak` 2개). 9/13 사고(세션 종료마다 자동 커밋·push → 깨진 HEAD 3커밋, `reset --soft` 로 수습) 재발 방지용. **3-D 수정이 끝나 복원 조건은 충족** — Phase 5·6·4 종료 후 백업에서 되살릴 것. 계획서 §7-A.
+2. **Codex `/hooks` 재신뢰 미완**(사용량 부족으로 보류). 바뀐 것: `~/.codex/hooks.json`(delegate-pane-guard·install-sync-check 신규 → 인덱스 밀림) · 플러그인 `task-mgmt/hooks.json`. TUI `/hooks` `Active` 열 확인 후 `t`. **추정 복원·자동 승인 금지.**
+
+**주의**: 이 레포에 에이전트 pane 을 띄우면 Stop 훅이 돈다(현재는 꺼둠). 확인은 para cwd 에서 `git -C` 로. 메모리 [[vibe-ai-config-stop-hook-trap]].
+**미완 부수**: `~/.agents/hooks.json` 이 3건만 반영(agy 미설치라 install 이 생성 스킵) — 필요 시 `bash shared/hooks/generate-agy-hooks.sh`. analyze 플러그인 캐시는 손으로 동기화해둔 상태라 **재설치하면 되돌아간다**(푸시 전까지).
+
+### B. 🏠 집 정리 (PRO-129) — **집에서 사진 촬영부터**
+
+노션 페이지는 9/12 생성 완료(완료기준 7·Phase 1~4·물품목록 19행·위시리스트 대조 8건·구매예정 4+1·후보링크 11). **체크박스 전부 미완** — 구조만 짜인 상태.
+
+- **다음 한 걸음**: 구역별 사진 5장 촬영·업로드 → 입구 전경 / 책상·서랍 / 침대·침대아래 / 옷장·행거 / 바닥·임시적치물. 각 구역 전경 1장 + 근접 1~3장, 서랍·수납함은 **열린 상태**, 치수 필요한 곳은 줄자·기준물체 함께.
+- **사진 분석 가능**: Claude Code 는 `Read` 도구로 이미지 직독 · Codex 는 `codex -i <파일>`(초기 프롬프트 첨부). 사진은 `06.Temp_Images/집정리/` 에 두고 경로를 주면 물품 추출 → 노션 「사진 기반 물품 인벤토리」 표에 기재.
+- **한계 준수**: 가려진 것·서랍 안쪽·겹친 것은 놓친다. 추출 결과는 `확인 필요` 로 두고 **사진만으로 처분·구매 확정 금지**. 치수는 반드시 줄자 실측(수납함 구매가 걸림).
+- 미해결: 후보/구매예정 링크 **15개가 전부 `품목 확인 필요`**(단축 링크만) — 10월 프라이데이 전 해소 필요. 10월 프라이데이 정확한 날짜 미확인.
+
+### C. 기타 이월
+
+- 볼트 ↔ 노션 동기화 누락: `집 정리`(PRO-129)·`벌크업`(PRO-128) 둘 다 `01.Projects/` 폴더 없음. 규칙(05.프로젝트.md)대로 폴더를 만들지, "노션 단독 관리" 예외를 명문화할지 판단 필요.
+- para 볼트 미커밋: `NEXT-SESSION.md`·`work-log/2026-09-13.md`·계획서·감사노트. `para-work backup` 은 사용자 판단.
+- 열린 pane: `%1`(이 세션 claude)·`%2`·`%3`(zsh). Codex pane `%5`·`%6` 은 종료됨.
+
+---
+
+## 🔜 다음 세션 착수 지점 — Claude Code로 설정 수정 인계 (2026-09-13, 위 절로 대체됨)
+
+사용자 요청으로 Codex 분석을 종료하고 **Claude Code를 다시 실행해 설정을 업데이트**한다. 아래 과거 브리핑보다 이 절과 [[01.Projects/개인컴_AI_작업환경_업그레이드/codex-이식기능-감사-20260913]]을 우선한다.
+
+1. ~~**프로필 오류부터 수정**~~ ✅ 9/13 17:1x Claude 완료 — 정본 `codex/model-profiles/<name>.config.toml` 분리 · `install.sh` purge+별도 배포 · `--profile routine|review|deep mcp list` 3개 exit 0 실측 · 사용자 설정 tomllib 무손실 · 미커밋. **신규**: shared/claude/codex 배치 감사 → 개선 계획 [[01.Projects/개인컴_AI_작업환경_업그레이드/shared-배치-개선계획-20260913]] (P0 4건 즉시 가능 · 결정 필요 5건 §7). (원문) `codex --profile routine mcp list`는 exit 1. 설치기가 넣은 구형 `[profiles.*]`가 현재 CLI의 별도 `*.config.toml` 형식과 충돌한다. routine/review/deep 모두 실패. 이전 “배포·검증 완료” 판정을 철회한다. `vibe-ai-config` 정본·설치기 수정 후 실제 프로필 로드 3개와 사용자 설정 보존을 검증할 것.
+2. **위임 기본값 정합화:** 허브는 환경변수로 Codex지만 `vibe delegate` 스크립트 기본값은 Claude. 문서의 Codex 기본 위임 설명과 다르다.
+3. **에이전트·훅 실동작 검증:** 이식 에이전트 4개는 정의 존재만 확인. 공통 훅 6개는 배선·신뢰 항목만 확인. 기존 계약 16/16은 Claude/agy 중심이며 Codex 전체 검증이 아니다. 스모크 15건은 `timeout` 부재로 미실행.
+4. 현재 기본 모델은 **astra/low**. 사용량 한도 소진 시 Claude로 이어가는 운영 결정은 유효하지만 자동 전환 장치는 없다. DB/네트워크 경고는 접근 제한 여부부터 확인하며 손상·서비스 불통으로 단정하지 않는다.
+
+저장소 인계: `vibe-ai-config`는 감사 시점 `13d561f`·`c99a80d` 미푸시, `status/personal.md` 수정, 기존 `.codex/` 비추적. 기존 변경 보존·격리 작업. 집 정리(PRO-129)는 사진 인벤토리 준비 완료·사진 업로드 대기. 이번 세션에서 커밋·푸시하지 않는다.
+
 ## 🔜 다음 세션 착수 지점 (2026-09-13 **Codex 메인 전환 확정·진행 중** — 다음 세션은 Codex 허브로 연다)
 
 > **⚡ 인계(9/13 12:2x, 사용자 요청으로 Claude 종료)**: 토글 확정됨. 완료 = `~/.zshrc.local`·tmux 전역 `VIBE_HUB_TOOL=codex` · para `AGENTS.md` 분업·위임 기본값 절 갱신. **Codex pane 에서 진행 중이던 위임 2건** — 결과는 각 레포 `git log` 로 확인:
