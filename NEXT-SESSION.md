@@ -4,12 +4,16 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-09-09**
+**최종 갱신: 2026-09-13**
 
-## 🔜 다음 세션 착수 지점 (2026-09-09 P2 완료 — Claude 메인 유지, 업무 컴 이어받기)
+## 🔜 다음 세션 착수 지점 (2026-09-13 P4 리허설 완주 — Codex 메인 전환 **가능**, 토글 확정은 사용자 결정 대기)
 
-> 운영 결정: **모델 사용량 때문에 Claude Code 메인 유지.** Codex 는 서브로 동등 설정만 준비한다.
-> 계획 정본: [[01.Projects/개인컴_AI_작업환경_업그레이드/codex-claude-동등설정-계획]] · **훅 정본 = `shared/hooks/`** 로 확정(사용자 결정 9/9).
+> 운영 결정(9/9): 모델 사용량 때문에 Claude Code 메인 유지 → **9/13 재점검: 설정·훅·rules·MCP·위임 전부 Codex 에서 동작 실측(R1~R11·R13 ✅)**. 남은 것은 토글 확정 결정과 R12 육안뿐. Codex 사용량 여유 `5h 80% · weekly 97%`(9/13 12:09).
+> 계획 정본: [[01.Projects/개인컴_AI_작업환경_업그레이드/codex-claude-동등설정-계획]] §4-1 체크리스트 · 상세 [[.claude/work-log/2026-09-13]].
+
+**9/13 요약** — 블로커 3건(드리프트·훅 미신뢰·notion OAuth) 해소 + 발견 수정 3건: `hooks.json` `_note` 키 0.153.4 거부(`c9f9227`) · Codex 가 관리 구획 안에 `[hooks.state]` 를 써서 install 이 막히던 구조(`226d109`, **9/8 소실 사고 원인**) · `vibe` 가 Codex 셸에 없던 것(`f311099`, `~/.local/bin/vibe`). Codex `0.154.0` 으로 올라감(위임 pane 이 업데이트 프롬프트를 눌러버림 — 재발 주의).
+
+**토글 확정 시 할 일(한 세션)**: ① `~/.zshrc.local` + `vibe-dotfiles/zsh/zshrc.local.template` `VIBE_HUB_TOOL=codex`(dotfiles 는 위임) ② para `AGENTS.md` 「도구 분업·위임 기본값」 절 갱신 ③ `status/<env>.md` 에 Codex 섹션(4-2) ④ R12 `vibe main` 육안 ⑤ 업무 컴 `install.sh work` 재실행(`f311099` 심링크·`226d109` 반영).
 
 **P0 완료**
 - 0-1 `VIBE_HUB_TOOL` → `claude` 원복 — template(git 클린)·`~/.zshrc.local`·tmux 전역 셋 다 확인.
@@ -39,10 +43,10 @@
 3. 이월: `.claude/settings.json` 327행 `statusLine` 파이프 정리 검토 · 8/29 이월 위험 2건(Stop 훅 auto-push · activity-logger 마스킹).
 
 **사용자 단계 (누적, 에이전트 불가)**
-- Codex 훅 재신뢰: `/hooks` → `Active` 열 확인 → `t` (hooks.json 이 9/9 두 번 바뀜 → 전 항목 미신뢰 상태)
-- `codex mcp login notion` (9/9 `invalid_token` 실측)
+- ~~Codex 훅 재신뢰~~ ✅ 9/13 (`[hooks.state]` 6건) · ~~`codex mcp login notion`~~ ✅ 9/13
+- **토글 확정 여부 결정** (위 「토글 확정 시 할 일」)
 - `vibe-ai-config` `stash@{0}` 드롭(스냅샷 잔여, 재생성으로 대체됨)
-- 위임 pane %18 의 Claude TUI 가 01:16 이후 **입력·리사이즈 무반응**(프로세스 생존, 화면 정지). 미전송 `install.sh work` 문구는 무시하고 메인이 `install.sh personal` 직접 실행. 세션 재개 시 %18 은 닫고(`vibe reap`) 필요하면 새로 위임.
+- 리허설 pane %20(Codex) 정리 — `vibe reap`
 
 **Q&A 9/9**: 훅 설정의 `|` — `matcher`(213·235·255행)는 정규식 OR 로 **필수**. 327행 `statusLine` 의 파이프는 claude-dashboard 플러그인 원본 명령(기존, 가드 대상 아님) — 정리 원하면 다음 세션 검토.
 

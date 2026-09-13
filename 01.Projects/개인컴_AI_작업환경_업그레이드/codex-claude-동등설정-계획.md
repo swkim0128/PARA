@@ -80,6 +80,28 @@ project: 개인컴_AI_작업환경_업그레이드
 | 4-1 | `VIBE_HUB_TOOL=codex` 로 **임시** 토글 → `vibe main` 이 Codex 허브를 띄우고 위임·peek·개인관리(Notion MCP) 가 동작하는지 체크리스트 | 체크리스트 전항 ✅ 후 `claude` 원복 |
 | 4-2 | `status/<env>.md` 스냅샷에 Codex 섹션(rules 수·hooks Active·AGENTS 생성본 해시) 추가 | 두 머신 스냅샷 `diff` 로 판별 가능 |
 
+#### 4-1 리허설 체크리스트 (2026-09-13 작성 — 전항 ✅ 전에는 토글 확정 금지)
+
+전제(9/13 실측 완료): `install.sh personal` head `0720742` 드리프트 0 · `hooks.json` `_note→description`(`c9f9227`) · `/hooks` 6건 신뢰(`[hooks.state]` 6 해시) · notion OAuth 로그인 완료.
+
+| # | 항목 | 방법 | 결과 |
+|---|---|---|---|
+| R1 | `vibe` 가 Codex 비대화형 셸에서 실행됨 | Codex 에서 `vibe cast` | ✅ 9/13 `f311099` — `~/.local/bin/vibe → vibe.sh` 심링크(tmux-suite install 5단계) + vibe.sh 심링크 실경로 해석. Codex 셸 `vibe cast` 정상 |
+| R2 | 위임 pane 생성 | Codex 에서 `vibe delegate <경로> --tool claude "…"` → pane 생성·메시지 주입 | ✅ 9/13 새 Codex 세션(0.154.0)에서 `vibe cast` 정상 응답 |
+| R3 | `TMUX` 환경 전달 | Codex Bash 에서 `tmux display-message -p '#{pane_id}'` | ✅ `TMUX=/private/tmp/tmux-501/default,…` · pane `%4` 전달 확인 |
+| R4 | SessionStart `briefing-inject` | Codex 새 세션 첫 응답이 NEXT-SESSION 착수 지점을 인용 | ✅ 새 세션에 `# NEXT-SESSION — 개인 컴 작업 브리핑` 주입 확인 |
+| R5 | SessionStart `config-drift-check` | 정본 1줄 교란 → 새 세션에 경보 → 원복 | ✅ 9/9 교란→경보→원복 실측 + 9/13 재배포 후 무출력 |
+| R6 | PreToolUse `bash-chain-guard` | Codex 에 `echo a && echo b` 실행 요청 → 차단 문구 | ✅ `echo a && echo b` → “셸 체이닝 '&&' 감지” 차단 |
+| R7 | PreToolUse `curl-terminal-guard` | curl 터미널 출력 요청 → 차단 | ✅ `curl -sI` → “curl 을 에이전트 셸로 직접 실행할 수 없습니다” 차단 |
+| R8 | UserPromptSubmit `prompt-gates` | 구현 요청 프롬프트에 게이트 문구 주입 | ✅ 프롬프트에 `🧭 하네스 3단계 — 구현 의도 감지` 주입 |
+| R9 | PostToolUse `activity-log` | `~/.local/share/vibe-hooks/` 에 Codex 행 기록 | ✅ `~/.local/share/vibe-hooks/activity/2026-09-13.jsonl` 에 `harness:codex` 행 기록 |
+| R10 | rules | `sudo ls` → forbidden · `git push` → prompt · `git status` → allow (런타임) | ✅ sudo ls=forbidden · git push=prompt · git status=allow |
+| R11 | 개인관리 루틴 | Codex 에서 notion MCP 로 이번 주 일지 페이지 조회 1회 | ✅ Diary DB 에서 `[week 37] 09.09 ~ 09.18 일지` 조회 |
+| R12 | `VIBE_HUB_TOOL=codex vibe main` | Codex 허브 기동 + 상태줄 five-hour/weekly 표시 | ⏳ 사용자 육안 — 토글 확정 시 수행 |
+| R13 | `install.sh` 재실행 안전 | Codex 가 `[hooks.state]` 를 관리 구획 안에 쓴 상태에서 install 통과 + 해시 보존 | ✅ 9/13 `226d109` — 구획 안 외부 테이블을 END 뒤로 보존 이동, hooks.state 6건 유지, doctor 0 warn |
+
+토글 확정 시 함께: `AGENTS.md`(para) 「도구 분업·위임 기본값」 절 · `vibe-dotfiles/zsh/zshrc.local.template` · 4-2 스냅샷.
+
 ## 3. 동등화 불가 — 문서로만 남기는 것
 
 | 항목 | 사유 |
