@@ -6,7 +6,12 @@
 
 **최종 갱신: 2026-09-13**
 
-## 🔜 다음 세션 착수 지점 (2026-09-13 P4 리허설 완주 — Codex 메인 전환 **가능**, 토글 확정은 사용자 결정 대기)
+## 🔜 다음 세션 착수 지점 (2026-09-13 **Codex 메인 전환 확정·진행 중** — 다음 세션은 Codex 허브로 연다)
+
+> **⚡ 인계(9/13 12:2x, 사용자 요청으로 Claude 종료)**: 토글 확정됨. 완료 = `~/.zshrc.local`·tmux 전역 `VIBE_HUB_TOOL=codex` · para `AGENTS.md` 분업·위임 기본값 절 갱신. **Codex pane 에서 진행 중이던 위임 2건** — 결과는 각 레포 `git log` 로 확인:
+> - `%4` (vibe-ai-config): [A] `status/<env>.md` 스냅샷에 Codex 섹션(4-2) · [B] Codex 기동 시 업데이트 프롬프트 억제(config 키 실측 → 없으면 vibe.sh settle 보정) · `install.sh personal` · 커밋 2건(push 안 함 → **다음 세션이 push**).
+> - `%21` (vibe-dotfiles): `zsh/zshrc.local.template` `VIBE_HUB_TOOL` 기본값 `codex` 커밋 1건(push 안 함 → **다음 세션이 push**).
+> - 잔여: R12 `vibe main` 육안(새 tmux 세션에서 Codex 허브 기동 확인) · 업무 컴 `install.sh work` 재실행 · 리허설 pane %20 정리(`vibe reap`).
 
 > 운영 결정(9/9): 모델 사용량 때문에 Claude Code 메인 유지 → **9/13 재점검: 설정·훅·rules·MCP·위임 전부 Codex 에서 동작 실측(R1~R11·R13 ✅)**. 남은 것은 토글 확정 결정과 R12 육안뿐. Codex 사용량 여유 `5h 80% · weekly 97%`(9/13 12:09).
 > 계획 정본: [[01.Projects/개인컴_AI_작업환경_업그레이드/codex-claude-동등설정-계획]] §4-1 체크리스트 · 상세 [[.claude/work-log/2026-09-13]].

@@ -90,12 +90,12 @@ para/
 
 ## 🤖 도구 분업 & 위임
 
-- **분업**: Claude Code = 허브(작업 관리·위임 지휘)·메인 구현·코드리뷰 / Codex = 조사·2nd opinion·보조 구현 / Gemini CLI = 대량 컨텍스트(1M) 분석·웹 검색 / agy(Antigravity) = 보류(2026-08-14 이탈).
-- **전환 결정 (2026-09-03)**: 개인 컴은 **Codex = 메인 · Claude Code = 서브**로 간다. Codex 사용량(5시간·주간 한도)이 소진되면 Claude Code 로 폴백하는 순서다. **발효 조건 = Codex 하네스 설정 이식 완료** (공통 정본 심링크 + Codex 어댑터 층 + 훅·권한 강제 재현). 발효 시 `VIBE_HUB_TOOL=codex` 로 전환하고 이 절의 「분업」·「위임 기본값」을 함께 갱신한다. 그때까지는 아래 기존 기본값이 유효하다.
-- **Claude 허브를 유지하는 이유**: 스킬·플러그인 자산과 `vibe` 위임 인프라가 Claude 기반이라는 **전환 비용** 때문이지, 다른 도구의 구조적 제약 때문이 아니다. (전환 이력은 `01.Projects/개인컴_AI_작업환경_업그레이드/design.md`)
+- **분업 (2026-09-13 발효)**: 개인 컴은 **Codex = 허브(작업 관리·위임 지휘)·메인 구현** / Claude Code = 서브·폴백(Codex 5시간·주간 한도 소진 시) + 코드리뷰·스킬 자산 실행 / Gemini CLI = 대량 컨텍스트(1M) 분석·웹 검색 / agy(Antigravity) = 보류(2026-08-14 이탈).
+- **전환 이력**: 2026-09-03 결정 → 9/9 사용량 사유로 보류 → **9/13 발효**. 발효 조건이던 Codex 하네스 이식(공통 정본 생성 `~/.codex/AGENTS.md` · rules 105건 · 훅 6종 신뢰 · MCP 정본 통합 · `vibe` PATH 노출)을 P4 리허설 R1~R11·R13 로 실측 완료(`01.Projects/개인컴_AI_작업환경_업그레이드/codex-claude-동등설정-계획.md` §4-1). 두 도구는 같은 정본(`vibe-ai-config/shared/`)을 먹으므로 되돌리는 것도 `VIBE_HUB_TOOL` 한 줄이다.
+- **Codex 운영 함정**: ① 훅은 `hooks.json` 이 바뀌면 그 항목만 **조용히 미신뢰**로 떨어진다 — TUI `/hooks` `Active` 열이 진실, 사용자가 `t`. ② Codex 는 `config.toml` 끝에 자기 테이블을 append 한다 — `install.sh` 가 관리 구획 밖으로 보존 이동(`226d109`). ③ 기동 직후 **업데이트 프롬프트**가 뜨면 위임 주입 메시지가 메뉴를 눌러버린다(9/13 실사고).
 - **Codex 능력 — 실측 정정(2026-08-17)**: ~~훅 미지원~~은 **오판이었다.** `codex-cli 0.147.0` 은 훅 11종(`PreToolUse`·`PermissionRequest`·`PostToolUse`·`SessionStart`·`SessionEnd`·`UserPromptSubmit`·`SubagentStart/Stop`·`Stop`·`Pre/PostCompact`)과 서브에이전트·스킬·플러그인을 지원한다. 차단 규약(exit 2 + stderr, `permissionDecision:deny`)과 출력 필드명이 Claude Code 와 거의 동일하고, 설정은 `~/.codex/hooks.json`, 훅마다 `trusted_hash` 신뢰 계층이 추가로 있다. Claude 설정(`settings.json`·`hooks.json`·`CLAUDE.md`·`.mcp.json`) 임포트 경로도 내장돼 있다.
-- **허브 도구 설정**: `vibe main` 은 `VIBE_HUB_TOOL` 환경변수(기본 `claude`)로 메인 도구를 결정한다. 어댑터 교체 시나리오는 위 `design.md` §3.3 참조.
-- **위임 기본값**: 메인 구현/작업은 `claude`(기본), 조사·2nd opinion 은 `--tool codex`, 대량 컨텍스트 분석은 `--tool gemini`. `vibe delegate` 는 도구명을 그대로 실행하는 도구 무관 구조라 PATH 에 있으면 동작한다.
+- **허브 도구 설정**: `vibe main` 은 `VIBE_HUB_TOOL` 환경변수로 메인 도구를 결정한다 — 개인 컴 **`codex`**(`~/.zshrc.local` · `vibe-dotfiles/zsh/zshrc.local.template` · tmux 전역 셋 다 9/13 전환). 어댑터 교체 시나리오는 `01.Projects/개인컴_AI_작업환경_업그레이드/design.md` §3.3 참조.
+- **위임 기본값**: 메인 구현/작업은 `codex`(기본), 코드리뷰·스킬 기반 작업·Codex 한도 소진 시 폴백은 `--tool claude`, 대량 컨텍스트 분석은 `--tool gemini`. `vibe delegate` 는 도구명을 그대로 실행하는 도구 무관 구조라 PATH 에 있으면 동작한다(`vibe` 자체도 `~/.local/bin/vibe` 로 PATH 에 있음 — 비대화형 셸 포함).
 - **Single-Writer 원칙**: 하나의 레포에 동시에 한 도구만 Write. 위임 전 대상 레포의 dirty 여부를 확인한다.
 - **화면 구성**: 노트북 단독 = main-vertical(허브 좌 50% + 위임 pane 우측 스택, 3개째부터 cmux 승격) / 외장 모니터 = 장기 프로젝트를 `cmux-proj` 워크스페이스로 분리 배치.
 
