@@ -4,9 +4,42 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-09-13**
+**최종 갱신: 2026-09-19**
 
-## 🔜 다음 세션 착수 지점 — 카페 작업 종료·집에서 재개 (2026-09-13 저녁, **최신**)
+## 🔜 다음 세션 착수 지점 — Archify·Jev 도입 착수 (2026-09-19, **최신**)
+
+이 절이 아래 모든 과거 브리핑보다 우선한다. 상세는 [[.claude/work-log/2026-09-19]].
+
+### A. Archify · Jev 도입 — **계획 확정 · Codex 에서 실행** 🔴 진행 중
+
+계획 정본 [[01.Projects/개인컴_AI_작업환경_업그레이드/archify-jev-도입계획-20260919]] (조사 완료 · Phase A~C · verify 게이트 2개 · 결정 5건 §6).
+
+- **사용자 결정(9/19)**: 두 기술 다 도입. **실행은 Codex 에서 먼저 한다.**
+- **다음 한 걸음 = A-1** — `v2.16.0` 태그(개발판 `main` 아님)를 스크래치패드에 격리 클론 → `git describe --tags` 확인 · `node archify/bin/archify.mjs --help` exit 0 · `du -sh` 로 벤더링 용량 측정. **정본과 `~/.agents/skills` 는 건드리지 않는다.**
+- 🔴 **중단 게이트 2개** — A-3(생성된 모든 엣지를 소스 `파일:줄` 과 대조, 근거 없는 엣지 0건) · C-4(슬랙 멘션 골든셋 30건에서 Jev 가 현행 Opus 보다 정확도 낮으면 편입 안 함).
+- **C-1 은 사용자 단계** — console.typesafe.ai/settings/keys 에서 키 발급 시도(대기자 명단이면 등록만). 발급되면 Keychain `vibe-ai-config.typesafe.api-key` 로 저장. Phase A·B 와 병렬이라 키가 없어도 Archify 는 막히지 않는다.
+- 조사 요약: Archify = 렌더러+검증기(분석은 에이전트가 함) · 런타임 의존성 0 · 외부 통신은 업데이트 확인 1건뿐(`ARCHIFY_UPDATE_CHECK_DISABLED=1` 로 차단) · `visual-check` 는 로컬 Chrome 을 CDP 로 구동. Jev = SDK 실재(PyPI 0.7.0 / npm 0.6.0) · `jev-latest`→`jev-1.13.0` · 64k/요청, state 32k · Choice 255개.
+
+
+### B. Instapaper MCP — 배포까지 완료, **사용자 단계만 남음**
+
+Codex 가 오전에 하다 사용량 한도로 멈춘 것을 Claude Code 로 완주했다. Codex 전용 MCP 이며 **기본 비활성으로 배포**된 상태다.
+
+- 실측 완료: 래퍼 심링크 · `~/.codex/config.toml` 관리 구획(`enabled` = 불리언 `false`) · `codex mcp list` exit 0 · `install.sh personal` 멱등 · 더미 자격증명 stdio 핸드셰이크(도구 **26개**) · Keychain 가드 exit 1.
+- 수정 1건: 래퍼 SC2155 — Keychain 항목이 없어도 빈 값으로 기동되던 것을 사유+등록 명령 출력 후 `exit 1` 로.
+- **발견**: MCP 본체는 인증 실패해도 죽지 않고 계속 서비스한다 → 승인 전에 켜면 "붙어는 있는데 전 호출 실패" 상태. 그래서 활성화 전 인증 확인 절차를 `docs/instapaper-mcp.md` 에 추가했다.
+
+**🔴 다음 한 걸음 (사용자 단계)**
+1. Instapaper 개발자 API 승인 신청·수령 (https://www.instapaper.com/api) — consumer key·secret
+2. Keychain 4개 항목 등록 (`docs/instapaper-mcp.md` 의 `security add-generic-password` 4줄) — **현재 전부 미등록**
+3. 인증 확인 `~/.codex/instapaper-mcp.sh < /dev/null` → `Failed to authenticate` 없으면 통과
+4. `INSTAPAPER_MCP_ENABLED=true ./install.sh personal` → Codex 재시작
+
+**미결**: vibe-ai-config 미커밋 그대로(Phase 1·2·3 + Instapaper 가 한 워킹트리에 섞여 있음 — 커밋·푸시는 사용자 판단). 위임 pane `%10` 열려 있음.
+
+---
+
+## 🔜 카페 작업 종료·집에서 재개 (2026-09-13 저녁, 위 절로 대체됨)
 
 9/13 카페에서 Claude Code(Opus/Fable)로 작업. 아래 두 갈래가 열려 있다. 이 절이 아래 모든 과거 브리핑보다 우선한다.
 
