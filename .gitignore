@@ -201,3 +201,9 @@ $RECYCLE.BIN/
 # Git worktrees
 .worktrees/
 worktrees/
+
+### 집 내부 사진 — 2026-09-24 추적 해제
+# 이 레포는 공개(swkim0128/PARA)다. 06.Temp_Images 의 기존 첨부는 작업·공부
+# 화면 캡처지만, 이 폴더는 집 내부를 찍은 사진이라 성격이 다르다.
+# 볼트에는 남기고 공개 저장소에는 올리지 않는다.
+06.Temp_Images/집정리/
