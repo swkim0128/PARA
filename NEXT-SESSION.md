@@ -4,20 +4,124 @@
 > 가장 먼저 이 파일을 읽고 최상위 작업의 "다음 행동"부터 이어서 진행한다.
 > 작업 단위가 끝나면 해당 항목의 상태·다음 행동을 갱신하고 저장한다 (obsidian-git이 자동 백업).
 
-**최종 갱신: 2026-09-19**
+**최종 갱신: 2026-09-23**
 
-## 🔜 다음 세션 착수 지점 — Archify·Jev 도입 착수 (2026-09-19, **최신**)
+## 🔜 다음 세션 착수 지점 — 작업별 모델 선택·Jev 연동 (2026-09-23)
 
-이 절이 아래 모든 과거 브리핑보다 우선한다. 상세는 [[.claude/work-log/2026-09-19]].
+- 상세: [[작업별-모델-라우팅-20260923]]. `vibe-ai-config` 정본에 작업별 모델 실행기와 Jev 선택 연결 구현. `vibe run`으로 새 작업 시작 시 적용하며 전역 기본 모델은 유지한다.
+- 분류: routine=Luna/low, implement=Terra/medium, review=Sol/medium, deep=Astra/high. 사전 작업 매핑 우선, 미등록 요청은 명시한 비민감 요약으로 선택적 Jev 분류.
+- 검증: SDK 모의 HTTP 포함 테스트 통과, 실제 launcher dry-run·정적 검증 통과. 실서비스 Jev 및 Codex 모델 응답은 미검증.
+- 🚫 **Jev 는 무기한 대기 (2026-09-23 확정)**: typesafe.ai 가입·로그인이 막혀 키 발급 자체가 불가하다. 재개 시점은 외부에 달려 있다. 코드는 키 부재 시 로컬 기본값으로 안전 강등되므로 **제거하지 않고 휴면 상태로 존치**한다. 실호출 검증 하네스는 준비돼 있고 키만 들어오면 4케이스를 한 번에 돌린다.
+- 그 결과 **로컬 규칙 분류가 주 경로로 승격**됐다. Jev 는 선택적 보강으로 내린다.
+- 남은 범위: 기존 TUI의 매 입력 자동 전환은 미구현(설계·실현가능성은 확인됨 — 노트 참조). 생성 AGENTS 배포·커밋·푸시는 하지 않음.
+- 다음 행동: 로컬 분류기의 과매칭 수정 마무리 → 커밋·배포 판단. 매 입력 자동 라우팅은 `codex --remote` + `turn/start` 가로채는 프록시로 **TUI 재작성 없이** 가능하다(노트에 실측 근거·정정 3건).
+- 아래 개인관리·웹 리서치 프로젝트 상태와 기존 미커밋 파일은 보존했다.
 
-### A. Archify · Jev 도입 — **계획 확정 · Codex 에서 실행** 🔴 진행 중
+## 🔜 다음 세션 착수 지점 — 노션 프로젝트 확인 후 웹 리서치 엔진 테스트 대기 (2026-09-23, 최신)
+
+### 노션 Projects DB 확인 결과
+
+개인 태그 프로젝트를 조회하고 사용자가 알려준 진행 상황을 관련 태스크에 반영했다.
+
+| 우선 검토 | 프로젝트 | 노션 상태 | 우선순위 | 종료일 | 판단 |
+|---|---|---|---|---|---|
+| 1 | [[집 정리]] | In progress | 높음 | 2026-10-31 | 바닥 정리 완료. 책상·부엌 짐 정리 진행 중 |
+| 2 | [[벌크업]] | In progress | 높음 | 2026-11-23 | 식단 기록 재가동·7일 기준선·장보기/보충제 태스크가 기한 경과 |
+| 3 | [[2026 하반기 지출 예산 및 가용 금액 계획]] | In progress | 높음 | 2026-12-01 | 하반기 예정 지출·가용 금액 산정. 블랙프라이데이는 하위 구매 시점 |
+| 4 | [[대구 본가 4박 5일 (9/22~9/26)]] | Planning | 중간 | 2026-09-26 | 현재 진행 중인 일정으로 종료일 임박 |
+| 5 | [[웹 리서치 자동화 엔진]] | Planning | 중간 | 미지정 | 테스트는 이 프로젝트 확인 후 진행. 열린 태스크 행은 조회되지 않음 |
+| 6 | [[overnight_worker launchd 설정]] | In progress | 낮음 | 미지정 | 우선순위 낮은 진행 항목 |
+
+### 웹 리서치 자동화 엔진(PRO-132) 다음 행동
+
+- 쿠팡 쓰기 테스트 및 실행기 TODO는 **노션 프로젝트 확인 이후로 보류**한다.
+- 노션 프로젝트 상태는 `Planning` 그대로 둔다. 구현 산출물의 존재만으로 상태를 추정해 변경하지 않는다.
+- 테스트 재개 시 순서: 쿠팡 쓰기 테스트 결과 확인 → `recipes/coupang.yaml`의 검증·원복 필드 확정 → 실행기 TODO 2개(YAML→JSON 빌드, `buildReplScript`) 처리.
+- 기존 안전 규칙(상태 사전 확인 없는 토글 금지, 원복·외부 상태 검증 필수)은 유지한다.
+
+### 현재 개인 프로젝트 작업
+
+- `집 정리`: 노션 태스크 `1회차 — 바닥 정리`를 `Done`으로 변경했다. 기존 통합 태스크는 `책상·부엌 짐 정리 실행`으로 바꾸고 `In progress`로 전환했다.
+- `2026 하반기 지출 예산 및 가용 금액 계획`: 프로젝트 제목을 하반기 범위로 정정했다. 블랙프라이데이는 하위 구매 시점으로 유지하고, 태스크는 `2026 예정 지출 품목·가용 금액 정리`로 정정했다.
+- 11월까지 관리 기준: 9~11월 수입금, 예정 지출 품목·금액·결제월, 고정생활비를 확정한 뒤 가용 금액을 계산한다. 목적저축 100만원은 우선 확보하고 비상금 344만원은 분리 보존한다.
+- 수입금은 월 2,845,000원으로 동일하며 9~11월 총수입 기준은 8,535,000원이다. 다음 작업은 리프트업 수납침대·인덕션·에어프라이어·수면안대·의류의 예상 금액과 결제월을 확정하는 것이다.
+- 이번 달 확정 실지출은 PT 330,000원 + 레이저 제모 358,000원 + 치아교정 검증 100,000원 = 788,000원이다. 치아교정 총 예상비용 5,300,000원에 검증 비용이 포함되므로 향후 잔여 치료비는 약 5,200,000원이다.
+- 최신 운영 기준: 월 수입 2,845,000원 중 1,630,000원은 고정·변동 운영 예산, 300,000원·150,000원·100,000원은 일반 저축, 블랙프라이데이 목적자금 1,000,000원은 11월 16일까지 별도 확보한다. 예정 품목은 예산 외 지출로 구매 가능 여부를 판정한다.
+- 11월까지 예정 지출: 월 운영예산 9~11월 합계 4,890,000원, 예산 외 확정·계획 항목 약 6,900,000원(축의금 700,000원 + 교정 잔여 5,200,000원 + 블랙프라이데이 1,000,000원). 구매 후보 7종은 금액 미정으로 별도 판정한다.
+- 10월 1일 교정치과 방문 예정. 당일 교정비 일부 결제 가능성이 있으므로 결제액·분할납부·다음 결제일을 확인한 뒤 11월 현금흐름을 갱신한다.
+
+### PARA 동기화 범위
+
+- 이 브리핑과 오늘 작업 로그에 노션 조회 결과, 집 정리 진행 상태, 블랙프라이데이 품목 정리 태스크를 반영했다.
+- 로컬 미커밋 파일(`Jev` 자료·집 정리 이미지·`nvim.log`·기존 작업 로그)은 이번 동기화에서 건드리지 않는다.
+
+## 🔜 다음 세션 착수 지점 — 웹 자동화 엔진 A축 (2026-09-20 새벽, **최신**)
+
+**이 절이 아래 모든 과거 브리핑보다 우선한다.** 상세는 [[.claude/work-log/2026-09-19]] (자정 넘겼지만 연속 세션이라 같은 파일).
+
+> 🤝 **도구 전환**: 2026-09-20 새벽 Claude Code → **Codex 로 인계**. 아래 「Codex 인계 메모」를 먼저 읽을 것.
+
+### A. 웹 리서치 자동화 엔진 (PRO-132) — A축 recipe 3종 + 실행기 스켈레톤 🔴 진행 중
+
+**신규 레포 `~/Project/web-research-engine`** (2026-09-20 생성, 커밋 `bad6b31`, **리모트 없음·미푸시**).
+노션 정본 [PRO-132](https://app.notion.com/p/3e0a25196d348147bac3fb522e522232) — 유스케이스·A/B 축 분리·실측 결과가 전부 기재돼 있다.
+
+**핵심 판단(이미 내려짐 — 되돌리려면 근거부터 볼 것)**
+- 유스케이스 3건 중 2건(찜·장바구니, 위시 등록)은 **스케줄 반복 대상이 아니다** → 엔진을 **A축(온디맨드 액션) / B축(무인 반복 조사)** 으로 분리. 노션 문서의 기존 Phase 1~5 는 **B축 계획**이다.
+- **유스케이스 3(상품정보 → 노션 위시)은 이미 구현돼 있다** — `notion-budget` 스킬의 「상품 페이지 → 위시 등록」 절. **재개발 금지**, 연결만 하면 된다.
+- **A축에 raw CDP 직접 구현은 불필요.** Aside 브라우저가 그 역할을 한다. raw CDP 는 B축(launchd 무인 실행)에서만 값을 한다.
+- `chrome-devtools-mcp` 는 이 세션에서 **연결 실패**했다(메인 Chrome 이 9222 를 열고 `DevToolsActivePort` 도 있는데 못 찾는다고 함 — **원인 미규명**). 그래서 Aside 로 전환했다.
+
+**완료**
+- recipe 포맷 **v0.3** 확정 (`docs/recipe-format.md`). **모든 필드가 실측된 실패 양상 하나에 대응한다** — 근거는 `docs/findings-2026-09-20.md`. 3사이트가 모든 축에서 달라서 검증에 최소 3개가 필요했다.
+- **스마트스토어**(`aria-pressed`) · **오늘의집**(접근성 이름 토글) 쓰기 테스트 **완주·원복 확인**. 186→187→186 / 102→101.
+- 실행기 스켈레톤 `src/run-recipe.mjs` — recipe 로드 + **안전 게이트** + 실행 계획 출력. `node --check` 통과.
+
+**🔴 다음 한 걸음**
+1. **쿠팡 쓰기 테스트 결과 확인** — 인계 시점에 Aside 에서 **실행 중이었다**(상품 페이지 여는 중, **찜 클릭 전**). 결과를 확인해 `recipes/coupang.yaml` 의 `revert.same_element: UNKNOWN` 과 `verify` 를 확정할 것. 진행 로그: `/private/tmp/claude-501/-Users-eunsol-Project-para/26be54c3-*/tasks/b232ra64g.output`
+2. **실행기 TODO 2개** — ①YAML→JSON 빌드 단계(런타임 의존성 0 원칙 때문에 파서 미도입) ②`buildReplScript()` 미구현. ⚠️ **`aside repl "..."` 은 호출마다 새 세션이라 `page`·`const` 가 유지되지 않는다** — 한 액션의 전 과정을 **단일 REPL 호출용 JS** 로 생성해야 한다. 여기가 다음 구현 지점이다.
+3. `notion-budget` 위시 등록과의 연결 지점 정의 (유스케이스 3)
+
+**🚫 타협 금지 안전 규칙** (`README.md`·실행기 게이트에 집행됨)
+- **상태를 모르는 토글은 실행하지 않는다.** 찜은 토글이라 이미 찜된 대상을 다시 누르면 **해제된다** — "찜해줘" 가 "찜 해제" 로 조용히 뒤집힌다. 쿠팡이 실제로 이 케이스다(`state.by: external_list`, `fragility: HIGH`).
+- `revert` 없는 액션은 자동화 대상에서 제외 · 로그인은 추측 금지(미로그인이면 사용자에게 요청) · 성공 판정은 "눌렀다" 가 아니라 "상태 재조회에서 보인다".
+- **`login_gate` 에 사용자명 문자열을 기대값으로 하드코딩하지 않는다** — 사이트마다 표시 체계가 다르다(쿠팡=실명 / 오늘의집=닉네임, **같은 계정**). 지표는 개인 영역의 존재 여부로 잡는다.
+
+### 🤝 Codex 인계 메모
+
+- **Single-Writer**: 이 세션(Claude Code)은 종료한다. `web-research-engine` 과 `para` 양쪽 다 Codex 가 단독 Write 로 이어받는다.
+- **레포 상태** — `web-research-engine`: 커밋 `bad6b31` 1개, 워킹트리 clean, **리모트 미설정**(푸시하려면 원격 생성 필요). `para`: 미커밋 다수(`para-work backup` 은 사용자 판단). `vibe-ai-config`: 커밋 `0101c3a` **미푸시** + Instapaper 9건 미커밋.
+- **열린 pane**: `%7`(이 세션 claude, 종료 예정) · `%3`(zsh) · `%12`(claude, vibe-ai-config — Phase 5·6·4 완료 후 유휴).
+- **Aside 세션이 쿠팡 쓰기 테스트를 돌고 있다.** 완료되면 스스로 찜을 해제하도록 지시돼 있다. 중간에 죽었으면 `wish-web.coupang.com/wishInitView.pang` 에서 `국내산 애플민트, 10g, 1개` 가 남아 있는지 확인하고 있으면 해제할 것.
+
+### B. 이월 — 어제 완료분
+
+- **vibe-ai-config 배치 개선 Phase 1~6 전부 완료** (`0101c3a` 미푸시). 사용자 판단 대기 6건은 아래 A절 참조.
+- **Jev 개인 전용 분리 완료** (`feat/jev-personal` 브랜치, 커밋 `8988aff` 미푸시).
+- **Archify 개념 설명 완료** — 코드 로직 표현 가능 여부 조사까지 끝. 결론: 부분적으로 가능하며 코드 `파일:줄` 근거(`sources`) 기재는 `architecture` 타입 전용.
+- 🔴 **정리 대기(사용자가 내일 진행하기로 함)**: `rm -rf ~/.cache/web-research-engine` (149M, Claude 가 만든 Chrome 디버그 프로필 — Aside 채택으로 불필요해짐).
+
+---
+
+## 🔜 이전 착수 지점 — Archify·Jev 도입 (2026-09-19, 위 절로 대체됨)
+
+상세는 [[.claude/work-log/2026-09-19]].
+
+### A. Archify · Jev 도입 — **Archify 개인 배포됨(미커밋) · Jev 개인 전용 분리 커밋 완료** 🔴 진행 중
 
 계획 정본 [[01.Projects/개인컴_AI_작업환경_업그레이드/archify-jev-도입계획-20260919]] (조사 완료 · Phase A~C · verify 게이트 2개 · 결정 5건 §6).
 
-- **사용자 결정(9/19)**: 두 기술 다 도입. **실행은 Codex 에서 먼저 한다.**
-- **다음 한 걸음 = A-1** — `v2.16.0` 태그(개발판 `main` 아님)를 스크래치패드에 격리 클론 → `git describe --tags` 확인 · `node archify/bin/archify.mjs --help` exit 0 · `du -sh` 로 벤더링 용량 측정. **정본과 `~/.agents/skills` 는 건드리지 않는다.**
+- **사용자 결정(9/19)**: Archify는 개인·업무 공통 로컬 도구로 배포. **Jev는 개인 데이터 전용이며, 업무 설정·업무 데이터에는 연결하지 않는다.**
+- **완료(A-1~A-4)** — `/private/tmp/archify-v2.16.0`에 안정 태그를 격리 clone(`git describe`=`v2.16.0`)했고 CLI help exit 0·벤더 후보 7.3MB를 확인했다. Instapaper MCP 첫 다이어그램은 showcase 9/9·error/warning 0, A-3 엣지 5건 전부 `파일:줄` 근거 있음, `deliver` SHA-256 영수증 및 local Chrome visual-check까지 통과했다.
+- **Archify 배포 상태** — `/Users/eunsol/Project/vibe-ai-config/.git/worktree/chore-archify`의 미커밋 변경으로 `skills/review/archify`를 벤더링하고 개인 설치를 실행했다. 현재 `~/.agents/skills/archify` 및 Claude 스킬 심링크는 이 worktree를 가리킨다. 배포 검증은 `doctor`·`demo`·showcase 9/9·visual-check 통과. 커밋 전에는 worktree를 삭제하거나 다른 설치를 실행하지 않는다.
+- **Jev 개인 전용 분리 — 완료·커밋됨 (2026-09-19 밤, Claude Code 이어받음)** — Codex pane `%11`이 5시간 한도 소진으로 작업 로그 기록 직전 `Failed to apply patch`로 중단됐고(코드 변경 자체는 온전), Claude Code가 재검증 후 완주했다.
+  - 브랜치 `feat/jev-personal` (워크트리 `.git/worktree/jev-personal`, 이전 detached HEAD 에서 분기), 커밋 **`8988aff`** — 4파일 +80. **미푸시** (푸시는 사용자 판단).
+  - 구성: `profiles/personal.conf` 에 기본 비활성 `JEV_ENABLED=0` + Keychain 서비스명만(키 값 없음) · `install.sh` 는 `MODE=personal && JEV_ENABLED=1` 일 때만 `~/.local/bin/vibe-jev` 배포 · 래퍼 `shared/scripts/jev-personal.sh` 는 Keychain 키를 자식 프로세스에만 `TYPESAFE_API_KEY` 로 전달 · 정책 문서 `docs/jev-personal-policy.md`.
+  - 검증: `bash -n install.sh` 통과 · `shellcheck shared/scripts/jev-personal.sh` 경고 0 · 배선 순서(프로필 source L74 → `INSTALL_LINKS` L127 → Jev 분기 L163) · `~/.local/bin/vibe-jev` 미존재로 기본 비활성 실증 · `profiles/work.conf` 무변경.
+  - 워크트리 작업 로그는 `.gitignore` 의 `.claude/*` 로 커밋 대상이 아니다(로컬 기록).
+- **다음 한 걸음** — Archify 개념 설명을 사용자에게 제공한다. 이후 `chore/archify` 워크트리의 미커밋 4건(`skills/review/archify/` 벤더링 포함) 커밋 여부를 판단한다.
 - 🔴 **중단 게이트 2개** — A-3(생성된 모든 엣지를 소스 `파일:줄` 과 대조, 근거 없는 엣지 0건) · C-4(슬랙 멘션 골든셋 30건에서 Jev 가 현행 Opus 보다 정확도 낮으면 편입 안 함).
-- **C-1 은 사용자 단계** — console.typesafe.ai/settings/keys 에서 키 발급 시도(대기자 명단이면 등록만). 발급되면 Keychain `vibe-ai-config.typesafe.api-key` 로 저장. Phase A·B 와 병렬이라 키가 없어도 Archify 는 막히지 않는다.
+- **C-1 은 개인 전용 사용자 단계** — console.typesafe.ai/settings/keys 에서 키 발급 시도(대기자 명단이면 등록만). 발급되면 개인 Keychain `vibe-ai-config.typesafe.api-key` 로 저장하며, 업무 계정·업무 데이터에는 사용하지 않는다.
 - 조사 요약: Archify = 렌더러+검증기(분석은 에이전트가 함) · 런타임 의존성 0 · 외부 통신은 업데이트 확인 1건뿐(`ARCHIFY_UPDATE_CHECK_DISABLED=1` 로 차단) · `visual-check` 는 로컬 Chrome 을 CDP 로 구동. Jev = SDK 실재(PyPI 0.7.0 / npm 0.6.0) · `jev-latest`→`jev-1.13.0` · 64k/요청, state 32k · Choice 255개.
 
 
@@ -35,7 +139,7 @@ Codex 가 오전에 하다 사용량 한도로 멈춘 것을 Claude Code 로 완
 3. 인증 확인 `~/.codex/instapaper-mcp.sh < /dev/null` → `Failed to authenticate` 없으면 통과
 4. `INSTAPAPER_MCP_ENABLED=true ./install.sh personal` → Codex 재시작
 
-**미결**: vibe-ai-config 미커밋 그대로(Phase 1·2·3 + Instapaper 가 한 워킹트리에 섞여 있음 — 커밋·푸시는 사용자 판단). 위임 pane `%10` 열려 있음.
+**미결**: Phase 1·2·3 은 **커밋·푸시 완료**(`master` = `3229576`, `origin/master` 와 동기 — 9/19 Codex 세션). master 워킹트리에 남은 미커밋은 **Instapaper 관련 9건뿐**(`codex/instapaper-mcp.sh`·`codex/instapaper-mcp.toml`·`docs/instapaper-mcp.md`·`install.sh`·`shared/mcp.base.json`·`codex/README.md`·`codex/config-root.toml`·`status/personal.md`·`.codex/`) — 커밋·푸시는 사용자 판단. Instapaper 위임 pane `%10`은 9/19 Codex 세션에서 종료했다.
 
 ---
 
@@ -43,17 +147,30 @@ Codex 가 오전에 하다 사용량 한도로 멈춘 것을 Claude Code 로 완
 
 9/13 카페에서 Claude Code(Opus/Fable)로 작업. 아래 두 갈래가 열려 있다. 이 절이 아래 모든 과거 브리핑보다 우선한다.
 
-### A. vibe-ai-config 배치 개선 — Phase 1·2·3 완료, **전부 미커밋**
+### A. vibe-ai-config 배치 개선 — **Phase 1~6 전부 완료·커밋됨 (미푸시)** ✅
 
 계획 정본 [[01.Projects/개인컴_AI_작업환경_업그레이드/shared-배치-개선계획-20260913]] (근거 감사 4건 · Phase 별 verify 게이트 · 결정 §9).
 
-- **HEAD = `c99a80d` 그대로. 미커밋 47개 파일**(프로필 수정 + Phase 1 + Phase 3 + Phase 2·3-C 누적). 커밋·푸시는 사용자 판단.
+- ~~**HEAD = `c99a80d` 그대로. 미커밋 47개 파일**~~ → **2026-09-19 커밋·푸시 완료** (`3229576` "refactor(shared): 공용 자산을 shared/ 로 재배치 + Codex 호환·가드 정비"). 위 최신 절의 「미결」 참조.
 - 완료: **Phase 1**(mcp.base.json·delegate-pane-guard → shared, 사문 훅 격리, gitignore 키 보호, preamble 로더 디커플링, references → shared) · **Phase 3**(git-guard 출력형식, pane 도구판정, auto-version-bump 안전가드, readonly-allow 모순제거) · **Phase 2**(sops Codex 배포, install-sync-check 코어승격, drift/smoke/test Codex 커버리지, 문서 허위 정정) · **3-C**(analyze 훅 19개→단일 static-checks.js, **처음으로 발화 시작**).
 - 검증 최종: `test.sh` PASS=22 FAIL=0 · `smoke-hooks.sh` 26건 실패 0(rc=127 소멸) · `install.sh personal` ❌0·멱등 · `drift-report` 드리프트 없음 · `codex --profile routine mcp list` exit 0.
-- **남은 것: Phase 5 → 6 → 4** (계획서 §5·§6·§4). 착수 전 §9 결정 잔여 확인.
+- ~~**남은 것: Phase 5 → 6 → 4**~~ → **2026-09-20 00:04 완료** (pane `%12` 위임, 커밋 **`0101c3a`** "fix(hooks): Codex 미발화 훅 복구 + _unused 회수원 정리 + zshrc 빈 줄 누적 수정" — **미푸시**).
+  - **전제 정정**: Phase 4·5·6 의 **본체는 이미 `3229576` 에 들어 있었다**(스크립트 이동 14종·규약/매핑표·회수 가드 2종 전부 실재, 계획서 헤더의 "완료(미커밋)" 표기가 낡았던 것). 실제 잔여는 §6-Z·§7-B 의 🔴 항목이었고 그것을 수행했다.
+  - **Phase 5** — `analyze` PreToolUse matcher 가 `Read|Edit|Write` 라 `php-encoding-check.sh` 가 **Codex 에서 영구 미발화**였다(5-B 규약의 유일한 위반). matcher 에 `apply_patch` 추가 + 스크립트에 `file_path` 폴백(Codex `apply_patch` 필드명 미확정 → `tool_input` 문자열 리프에서 경로 추출)을 **한 쌍으로** 수정하고, 재발 방지를 위해 `test.sh` 에 matcher 린트를 넣어 결정론적으로 승격했다.
+  - **Phase 6** — `_unused/` 회수원 3개 + 빈 매니페스트 1개 삭제, `hooks.json` 사문 참조 4종 제거(대체재 실재를 정적 대조로 확정한 뒤).
+  - **Phase 4** — `~/.zshrc` 빈 줄 누적 버그를 awk 빈 줄 버퍼링 방식으로 교체(무관한 빈 줄은 원문 보존).
+  - **VERIFY**: `test.sh` **PASS=41 FAIL=0**(38→41) · 새 린트 음성 실측(위반 픽스처에서 FAIL=1) · `apply_patch` 페이로드 직접 실측(EUC-KR→deny / UTF-8→통과) · zshrc 멱등성(격리 HOME 3회 후 1회차와 diff 무출력, 구 로직은 5→6→7 누적으로 버그 실재 입증) · `smoke-hooks.sh --run` 30건 실패 0 · `bash -n`·`shellcheck`·`jq` 전부 무출력.
+  - Instapaper 9건은 **손대지 않은 채 그대로**(실측 확인). 작업 로그는 `vibe-ai-config/.claude/work-log/2026-09-19.md` 에 12건 append.
+- 🔴 **사용자 판단 대기 6건** (에이전트 수행 불가)
+  1. **공용경로 심링크가 `chore-archify` 워크트리를 가리킨다** — `readlink -f ~/.local/bin/vibe` = `.git/worktree/chore-archify/shared/scripts/tmux-suite/vibe.sh` (**직접 실측 확인**). 내용은 master 와 동일해 지금은 정상이나, **그 워크트리를 지우면 `vibe`·`pane-*`·`claude-delegate` 가 한꺼번에 dangling** 된다. 복구: master 워킹트리에서 `bash claude/plugins/tmux-suite/install.sh --links-only`. (⚠️ `~/.agents/skills/archify` 는 실물 디렉터리라 이 위험의 대상이 아니다 — 워크트리를 지워도 스킬은 살아 있다)
+  2. 유령 플러그인 3종 제거 — `claude plugin uninstall harness@swkim0128` · `test@swkim0128` · `vibe-admin@swkim0128` (1개씩 실행)
+  3. `_unused/` 잔존 9파일 — 현행 대체재가 없어 거버넌스 후단("대체재도 없고 깨지지도 않았으면 남기고 사용자 판단")에 걸림. `review-mr.md`·`e2e.md`·worktree 훅 2종·`session-end-summary`·`pre-compact-checkpoint`.
+  4. 선행 드리프트 1건 — `~/.claude/settings.json` 에만 있는 `env.ARCHIFY_UPDATE_CHECK_DISABLED`. `./install.sh personal` 로 해소하면 그 키가 사라지고 **승인 대기 Instapaper 변경이 라이브 배포**되므로 실행 보류.
+  5. 푸시·커밋 승인 — `0101c3a` push · vibe-dotfiles 미커밋 13건 · Instapaper MCP 9건.
+  6. Codex TUI `/hooks` 에서 `analyze` 항목 `Active` 재확인 (`hooks.json` 변경됨, 계획서 §8-1).
 
 **🔴 재개 시 먼저 볼 것 2가지**
-1. **Stop 훅이 꺼져 있다.** `vibe-ai-config/.claude/settings.json`·`.codex/hooks.json` 에서 `Stop` 블록 제거 상태(백업 `.phase1-bak` 2개). 9/13 사고(세션 종료마다 자동 커밋·push → 깨진 HEAD 3커밋, `reset --soft` 로 수습) 재발 방지용. **3-D 수정이 끝나 복원 조건은 충족** — Phase 5·6·4 종료 후 백업에서 되살릴 것. 계획서 §7-A.
+1. ~~**Stop 훅이 꺼져 있다.**~~ → **2026-09-19 실측: Stop 훅은 이미 복원돼 활성이다** (`.claude/settings.json`·`.codex/hooks.json` 양쪽 `Stop` 블록 존재, `auto-version-bump.sh` 호출. 백업 `.phase1-bak` 2개는 9/13자로 남아 있음). 9/13 사고(인덱스 전체 동반 커밋) 는 Phase 3 안전가드로 해소됐음을 코드로 확인 — ①자기 pathspec(`claude/plugins/*/.claude-plugin/plugin.json`·`.claude-plugin/marketplace.json`) 밖 staged 변경이 있으면 commit·push 를 **스킵** ②커밋은 `commit --only <자기 pathspec>`. 다만 **자기 버전 bump 는 여전히 자동 push** 하므로, 이 레포에 pane 을 띄울 땐 인덱스를 더럽힌 채 세션을 끝내지 말 것. 계획서 §7-A.
 2. **Codex `/hooks` 재신뢰 미완**(사용량 부족으로 보류). 바뀐 것: `~/.codex/hooks.json`(delegate-pane-guard·install-sync-check 신규 → 인덱스 밀림) · 플러그인 `task-mgmt/hooks.json`. TUI `/hooks` `Active` 열 확인 후 `t`. **추정 복원·자동 승인 금지.**
 
 **주의**: 이 레포에 에이전트 pane 을 띄우면 Stop 훅이 돈다(현재는 꺼둠). 확인은 para cwd 에서 `git -C` 로. 메모리 [[vibe-ai-config-stop-hook-trap]].
@@ -72,7 +189,7 @@ Codex 가 오전에 하다 사용량 한도로 멈춘 것을 Claude Code 로 완
 
 - 볼트 ↔ 노션 동기화 누락: `집 정리`(PRO-129)·`벌크업`(PRO-128) 둘 다 `01.Projects/` 폴더 없음. 규칙(05.프로젝트.md)대로 폴더를 만들지, "노션 단독 관리" 예외를 명문화할지 판단 필요.
 - para 볼트 미커밋: `NEXT-SESSION.md`·`work-log/2026-09-13.md`·계획서·감사노트. `para-work backup` 은 사용자 판단.
-- 열린 pane: `%1`(이 세션 claude)·`%2`·`%3`(zsh). Codex pane `%5`·`%6` 은 종료됨.
+- 열린 pane (2026-09-19 밤 실측): `%7`(para 허브 claude)·`%3`(zsh, vibe-ai-config)·**`%12`(claude, vibe-ai-config — 배치 개선 Phase 5→6→4 위임 중)**. Codex pane `%11` 은 한도 소진으로 종료·`%12` 로 교체했다. 지시서 `…/scratchpad/delegate-brief-vibe-ai-config.md`.
 
 ---
 

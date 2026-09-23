@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev — 정형 판단 모델 개념과 활용</title>
+<style>
+/* 검증 보고서 공통 스타일.
+ * 팔레트·타이포·간격은 검증된 원본 그대로. 선택자만 Artifact 전용 클래스에서
+ * 일반 마크다운 태그로 옮겼다 (md2html.py 는 h1~h4·table·pre·blockquote·ul·ol·hr·p 만 만든다).
+ * 남은 클래스는 .wrap(본문 폭)·.table-scroll(표 가로 스크롤) 둘뿐. */
+
+:root {
+  /* 계측·로그의 세계에서 가져온 팔레트. 중성색은 accent 쪽으로 미세하게 기울인 청회색 */
+  --ground:      #F6F7F9;
+  --surface:     #FFFFFF;
+  --surface-alt: #EEF1F5;
+  --ink:         #171A20;
+  --ink-soft:    #4A5260;
+  --ink-faint:   #7C8595;
+  --rule:        #DCE1E8;
+  --accent:      #1F5F6B;   /* 깊은 청록 — 검증·계측 */
+  --accent-soft: #E3EDEF;
+  --pass:        #1B6E45;
+  --pass-soft:   #E1F0E7;
+  --change:      #9A5B00;   /* 값이 바뀐 자리 */
+  --change-soft: #FBEEDA;
+  --null:        #8A4A63;   /* null 로 비워진 자리 */
+  --null-soft:   #F7E8EE;
+
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", monospace;
+  --sans: system-ui, -apple-system, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #101318;
+    --surface:     #171B22;
+    --surface-alt: #1E232C;
+    --ink:         #E6EAF0;
+    --ink-soft:    #A7B0BE;
+    --ink-faint:   #6F7988;
+    --rule:        #2A303A;
+    --accent:      #6FC2CF;
+    --accent-soft: #16323A;
+    --pass:        #6BC28D;
+    --pass-soft:   #14301F;
+    --change:      #E0A84C;
+    --change-soft: #33260F;
+    --null:        #DE93AF;
+    --null-soft:   #331B25;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:      #101318;
+  --surface:     #171B22;
+  --surface-alt: #1E232C;
+  --ink:         #E6EAF0;
+  --ink-soft:    #A7B0BE;
+  --ink-faint:   #6F7988;
+  --rule:        #2A303A;
+  --accent:      #6FC2CF;
+  --accent-soft: #16323A;
+  --pass:        #6BC28D;
+  --pass-soft:   #14301F;
+  --change:      #E0A84C;
+  --change-soft: #33260F;
+  --null:        #DE93AF;
+  --null-soft:   #331B25;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 0;
+  padding: 0 20px 96px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding-top: 64px; }
+
+/* ---------- 제목 ---------- */
+h1 {
+  font-size: clamp(30px, 4.4vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  font-weight: 640;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+/* ## = 섹션 제목.
+ * 원본 페이지의 h2 는 작은 mono 대문자 '섹션 구분 라벨'이었지만, 마크다운의 ## 는
+ * 큰 섹션 제목이다 — 역할이 다르므로 라벨 스타일을 걷어내고 h1>h2>h3>h4 위계를 세운다.
+ * 하단 구분선은 섹션 경계로 유용하므로 남긴다. */
+h2 {
+  font-size: 25px;
+  font-family: var(--sans);
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 56px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 640;
+}
+h3 { font-size: 18px; letter-spacing: -0.01em; margin: 32px 0 14px; font-weight: 620; }
+h4 {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--accent);
+  margin: 24px 0 10px;
+  font-weight: 620;
+}
+
+/* ---------- 본문 ---------- */
+p {
+  margin: 0 0 16px;
+  max-width: 68ch;
+  white-space: pre-line;   /* 문단 안 줄바꿈 유지 — 보고서의 전/후 대조가 줄로 갈린다 */
+}
+p:last-child { margin-bottom: 0; }
+
+strong { font-weight: 640; color: var(--ink); }
+
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 40px 0;
+}
+
+/* ---------- 코드 ---------- */
+pre, code { font-family: var(--mono); }
+pre {
+  margin: 0 0 16px;
+  background: var(--surface-alt);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  overflow-x: auto;
+  color: var(--ink);
+}
+code {
+  background: var(--surface-alt);
+  border-radius: 2px;
+  padding: 1px 5px;
+  font-size: 13px;
+}
+pre code { background: none; padding: 0; font-size: inherit; white-space: pre; }
+
+/* ---------- 인용구 = 콜아웃 ---------- */
+blockquote {
+  margin: 0 0 16px;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding: 14px 16px;
+  border-radius: 0 3px 3px 0;
+  font-size: 14.5px;
+}
+blockquote p { margin: 0 0 10px; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ---------- 표 ---------- */
+.table-scroll { overflow-x: auto; margin: 0 0 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td {
+  text-align: left;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+th {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 600;
+  border-bottom: 1px solid var(--ink-faint);
+}
+td code { font-size: 12.5px; }
+tbody tr:last-child td { border-bottom: none; }
+
+/* ---------- 리스트 ---------- */
+ul, ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  max-width: 68ch;
+}
+li { margin-bottom: 7px; }
+li:last-child { margin-bottom: 0; }
+li::marker { color: var(--ink-faint); }
+</style>
+</head>
+<body>
+<main class="wrap">
+<h1>Jev — 정형 판단 모델 개념과 활용</h1>
+<p>조사일: 2026-09-19. 공식 문서 재확인 기준이며, 공급자 설명과 로컬 테스트 결과를 구분한다.</p>
+<p>관련 계획: [[archify-jev-도입계획-20260919]]</p>
+<h2>1. 핵심 개념</h2>
+<p>Jev는 TypeSafe의 첫 System One 모델이다. 자연어를 이해하고, 개발자가 지정한 답의 범위 안에서 판단값과 확률을 반환한다. 입력은 자연어 문자열이나 JSON 객체·배열일 수 있으므로, 입력부터 모두 정형 데이터여야 하는 것은 아니다. 응답 작성·코드 생성·판단 근거의 자유서술은 담당하지 않는다. <a href="https://docs.typesafe.ai/concepts/system-one">공식 개념</a></p>
+<p>따라서 “LLM 대신 정형화된 데이터를 구성해 작업한다”는 이해는 다음처럼 구체화하면 정확하다.</p>
+<ul>
+<li>개발자가 판단 대상과 질문·선택 기준을 구성한다.</li>
+<li>Jev가 해당 정보를 평가해 정형 판단값을 반환한다.</li>
+<li>호출한 프로그램이 판단값에 따라 실제 작업을 실행한다.</li>
+</ul>
+<p>Jev가 스스로 터미널 명령을 실행하거나 파일을 수정하는 에이전트라는 의미는 아니다. 공식 예제도 판단 결과를 코드의 조건문과 연결해 작업을 배정한다. <a href="https://docs.typesafe.ai/primitives/choice">판단과 실행의 연결</a></p>
+<h2>2. 모델·API·SDK의 구분</h2>
+<ul>
+<li><strong>Jev</strong>: 판단을 수행하는 원격 AI 모델.</li>
+<li><strong>TypeSafe API</strong>: 모델을 호출하는 서비스 인터페이스.</li>
+<li><strong>typesafe-sdk</strong>: Python 프로그램이 API를 호출하고 응답 객체를 다루게 하는 클라이언트 라이브러리.</li>
+</ul>
+<p>이번에 로컬에 설치한 것은 SDK 0.7.0이다. 모델 가중치를 내려받아 오프라인으로 실행하도록 설치한 것이 아니다. 공식 SDK도 API 키를 설정한 뒤 <code>TypeSafeClient.system_one()</code>을 호출한다. <a href="https://github.com/typesafe-ai/typesafe-sdk-python">공식 Python SDK</a></p>
+<h2>3. 입력과 반환 유형</h2>
+<p>호출에는 <code>state</code>(판단할 정보), <code>model</code>(모델 선택), <code>questions</code>(질문 목록)를 전달한다. 질문에는 <code>instructions</code>와 답의 기준인 <code>criteria</code>를 지정한다. 문서·메시지와 필요한 맥락을 state에 포함하는 방식이다. <a href="https://docs.typesafe.ai/concepts/state">State</a>, <a href="https://docs.typesafe.ai/primitives/choice">Choice 요청 구조</a></p>
+<div class="table-scroll">
+<table>
+<thead><tr>
+<th>유형</th>
+<th>질문 예</th>
+<th>반환 의미</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Choice</td>
+<td>신규 요청·질문·정보 공유 중 무엇인가?</td>
+<td>선택지 하나, 각 선택지의 확률, confidence</td>
+</tr>
+<tr>
+<td>Score</td>
+<td>긴급도가 낮음·보통·높음 중 어디에 가까운가?</td>
+<td>단계 번호의 확률 가중 평균, 단계별 확률, confidence</td>
+</tr>
+<tr>
+<td>Noul</td>
+<td>사용자가 환불을 요청했는가?</td>
+<td>참이라고 판단할 확률 0~1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Choice는 최대 255개 선택지를 받는다. Score는 2~10개 단계의 설명을 받으며 결과가 정수일 필요는 없다. Noul은 별도 confidence 없이 <code>noul</code> 수치를 반환한다. 코드가 필요에 따라 임계값으로 불리언으로 바꾼다. <a href="https://docs.typesafe.ai/primitives/choice">Choice</a>, <a href="https://docs.typesafe.ai/primitives/score">Score</a>, <a href="https://docs.typesafe.ai/primitives/noul">Noul</a></p>
+<h2>4. 예시: 개인 작업 메시지 분류</h2>
+<p>다음은 이해를 위한 자체 설계 예시이며 실제 모델 호출 결과가 아니다.</p>
+<pre><code class="language-text">state: "주말까지 독서 기록 화면을 만들어 줘."
+instructions: "메시지의 의도를 분류하라."
+criteria:
+  new_task: 새 작업을 요청함
+  question: 답변이나 설명을 요청함
+  information: 정보만 공유함
+  other: 위 분류에 해당하지 않음
+
+Jev가 반환할 수 있는 선택값의 예: new_task
+호출 프로그램의 후속 처리 예: 작업 초안 생성</code></pre>
+<p>처리 흐름은 <code>메시지 수집 → 질문 구성 → Jev 판단 → 결과·불확실성 확인 → 프로그램의 작업 실행</code>이다. 모델은 분류를 담당하고, 초안 생성 함수·저장 위치·승인 절차는 프로그램이 정의한다. 이 적용 방식은 공식 문서의 판단 결과를 코드로 연결하는 패턴에서 도출한 설계다. <a href="https://docs.typesafe.ai/concepts/system-one">공식 활용 흐름</a></p>
+<h2>5. LLM과 무엇이 다른가</h2>
+<p>TypeSafe는 사전학습 언어 모델을 정형 판단과 확률 보정에 맞춰 학습하는 RLCD(Reinforcement Learning for Calibrated Decisions)를 설명한다. “AI 모델 없이 JSON 규칙만 실행한다”거나 “언어 모델과 완전히 무관하다”는 해석은 맞지 않는다. 학습 방식에 관한 설명은 공급자 주장으로, 여기서 독립 검증한 것은 아니다. <a href="https://docs.typesafe.ai/introduction/machine-learning-primer">공식 AI primer</a></p>
+<p>일반 LLM에도 정형 출력을 요구할 수 있다. TypeSafe 역시 비교 실험용 LLM 어댑터를 공개한다. 차이는 JSON 사용 여부만이 아니라 정형 판단·확률 반환을 목표로 설계한 모델이라는 점이다. 성능 우위는 개별 업무 데이터로 검증해야 한다. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">공식 출시 글</a></p>
+<p>적용 해석: 메시지 분류·라우팅·우선순위 평가처럼 답의 범위를 미리 정할 수 있는 판단을 Jev에 맡기고, 설명문·코드 생성처럼 개방형 출력이 필요한 부분은 LLM에 맡기는 구성을 고려할 수 있다. 전체 에이전트 교체보다는 특정 판단 단계 교체에 해당한다.</p>
+<h2>6. 확률·confidence·정확성</h2>
+<p><code>probabilities</code>는 후보별 확률이다. Choice와 Score의 <code>confidence</code>는 그 확률 분포가 얼마나 한쪽으로 집중되는지 요약한 수치다. 선택된 답의 확률과 같은 값으로 취급하거나, confidence 0.8을 곧바로 정답률 80%로 읽으면 안 된다. <a href="https://docs.typesafe.ai/confidence">공식 Confidence</a></p>
+<p>확률 보정은 여러 예측을 모았을 때 예측 확률과 관측 결과가 대응하도록 하는 목표다. 개별 답의 정확성을 보증하지 않는다. 출력 타입이 맞아도 분류가 틀릴 수 있다. <a href="https://docs.typesafe.ai/introduction/machine-learning-primer">공식 AI primer</a></p>
+<p>우리 적용에서는 정답 데이터로 정확도·혼동표를 측정하고, 불확실한 결과를 사람 또는 다른 모델에 넘기는 기준을 정해야 한다. 임계값은 미리 보편값으로 확정하지 않는다. <a href="https://docs.typesafe.ai/confidence">공식 임계값 지침</a></p>
+<h2>7. 이번 세션에서 검증한 범위</h2>
+<ul>
+<li>설치: <code>/private/tmp/jev-poc.Y170m1/.venv</code>, typesafe-sdk 0.7.0, 의존성 13개 호환성 검사 통과.</li>
+<li>로컬 테스트 1: 모의 HTTP 전송으로 POST 경로·입력·모델·선택지 직렬화 및 Choice 응답 복원 확인.</li>
+<li>로컬 테스트 2: 모의 HTTP 401이 SDK 예외로 전달되는지 확인.</li>
+<li>결과: 두 테스트 통과. billing·확률·confidence·토큰 수는 직접 작성한 모의 값.</li>
+<li>실제 Jev 추론·한국 지연시간·정확도: 아직 미검증. 지정 Keychain 항목에 API 키가 없었다.</li>
+<li>테스트 코드: <code>/private/tmp/jev-poc.Y170m1/test_sdk.py</code>. 임시 경로이므로 장기 보존을 보장하지 않는다.</li>
+</ul>
+<p>다음 단계는 키 등록 후 합성 입력으로 실제 API 응답을 확인하고 동일 요청 10회의 시간을 측정하는 것이다. 도입 계획의 30건 정확도 비교는 그 이후 별도 수행한다.</p>
+</main>
+</body>
+</html>
