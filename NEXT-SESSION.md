@@ -20,10 +20,12 @@
 - 승인 없는 원격 push 차단 — `auto-version-bump` 가 인자 없는 `git push` 로 브랜치 전체를 올리던 결함. 이 레포 한정 `AUTO_GIT_PUSH=off` + upstream 과 0 앞섬일 때만 push 하는 가드.
 - 사문 SOP 2종 제거 — `rule-usage` 측정으로 29일간 자발 Read 0건 확인. 살릴 것만 소유자(`ctx-save`·`CLAUDE-delegation`)에게 흡수.
 
+**✅ 배포 완료 (2026-09-24 01:40)** — `install.sh personal` 실행됨. 배포 스냅샷 `1e8ac18` 일치, 드리프트 없음, 게이트가 Claude `settings.json`·Codex `hooks.json` **양쪽에 배선**됐고 배포된 훅 파일이 정본과 동일하다. 발화 원장에 `commit-verify-gate no-verify-pass` 기록도 남았다. **이 항목은 다시 하지 말 것.**
+
 **🔴 다음 행동**
-1. **`install.sh personal` 한 번 더** — 게이트 범위를 이슈 키 브랜치로 한정한 `1e8ac18` 이 아직 미배포다. manifest env 키가 `VIBE_HOOK_VERIFY_EXEMPT_REPOS` → `VIBE_HOOK_VERIFY_ISSUE_KEY_RE` 로 바뀌었다. 배포 후 **Codex TUI `/hooks` 의 `Active` 열 확인 → `t`**(codex/hooks.json 을 고치면 조용히 미신뢰로 떨어진다).
+1. **Codex TUI `/hooks` 의 `Active` 열 확인 → `t`** — 사람만 할 수 있다. `codex/hooks.json` 을 고쳤으므로 해당 항목이 조용히 미신뢰로 떨어져 있을 수 있다(`AGENTS.md` 에 기록된 함정). 이걸 확인해야 Codex 쪽 게이트가 실제로 도는지 확정된다.
 2. **업무 레포에서 실효 확인** — 업무컴에서 `git pull` + `install.sh` 후 이슈 키 브랜치에서 커밋해 게이트가 걸리는지. 그 레포 `.gitignore` 에 `/.claude/work-log/` 등록 권장.
-3. **프록시 `effort` 덮어쓰기 결함** — `test-plan` 이 찾아낸 것. 클라이언트가 `model` 없이 `effort` 만 보내면 무조건 덮어쓴다. Phase 7 기준 (나)라 **테스트보다 구현 수정이 먼저**다.
+3. **프록시 `effort` 덮어쓰기 결함** — `test-plan` 이 찾아낸 것. `route-proxy.py` `rewrite()` 가 클라이언트의 `model` 은 존중하면서 `effort` 는 무조건 덮어쓴다(`params["model"], params["effort"] = model, effort`). 기존 테스트 `test_client_supplied_model_is_never_overridden` 이 반대편만 고정해놔서 이 경우는 어느 쪽으로도 정해지지 않았다. Phase 7 기준 (나)라 **재현 테스트(실패 확인) → 구현 수정 → 통과** 순서로 간다.
 
 **게이트가 막지 못하는 것** (알고 쓸 것): 기록의 품질(한 줄이면 통과) · 기록과 변경 파일의 대응 · 이슈 키를 안 쓰는 레포 · `chore/*` 로 브랜치명을 바꾸는 우회 · 커밋 이후 구간(푸시·MR·배포) · GUI/자동 커밋 경로.
 
