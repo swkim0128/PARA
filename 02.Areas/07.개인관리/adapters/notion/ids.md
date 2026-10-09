@@ -17,6 +17,7 @@
 | Projects | `collection://96403fef-b550-4912-bd53-79b9fac19c99` | 프로젝트 목록 — ⚠️ **업무·개인 공용 DB**. 개인관리 도메인 범위는 `개인` 태그 항목뿐이고 `다나와` 태그는 과거 경험정리용 아카이브(수정 금지). 상세 [[05.프로젝트]] | 2026-08-17 실조회 (기존 스킬 `notion-project-manager` references/db-schema.md 에서 이관) |
 | Tasks | `collection://e07d34e3-3534-4ddf-95f8-cbdd2c312e43` | 개별 태스크 DB — `Project` relation 으로 Projects 에 연결 | 위와 동일 |
 | Sprint | `collection://d1c2758f-9d07-439a-b891-172cb1471393` | 스프린트 DB (선택 사용) — 상태 `Current`/`Next`/`Future`/`Last`/`Past` | 위와 동일 |
+| 🔜 개인 작업 현황 (인계) | page `3f4a25196d3481e4b3b9e2266730f59e` (Home 아래) | 개인컴 `NEXT-SESSION.md` 최상단 착수 지점의 노션 사본 — 업무컴에서 개인 작업 현황 확인용. 세션 종료 시 갱신(볼트 AGENTS.md 세션 규칙 5) | 2026-10-09 신설 |
 | 💳 거래내역 | `collection://f6f2513b-0caa-4fb2-b831-ccc5ea8a04d5` | 뱅크샐러드 가계부 원본 DB (2026-08-06 신설) — 거래일·금액·타입·대분류(21종)·소분류(30종)·결제수단·고정/예산외 checkbox·`월 예산` relation(→HL). ⚠️ **`위시리스트` relation 은 실제 스키마에 없다(2026-08-22 실측)**. 중복 키 = 거래일+금액+Name | `db-requirements.md` §2-b |
 
 ## ID 없음 (동적 검색 도메인)
